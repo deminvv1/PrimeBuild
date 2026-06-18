@@ -2,7 +2,12 @@
 const nextConfig = {
   poweredByHeader: false,
   images: {
-    formats: ['image/webp', 'image/avif'],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: process.env.NODE_ENV === 'development' ? 0 : 86400,
+    remotePatterns: [
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'plus.unsplash.com' },
+    ],
   },
   async headers() {
     return [

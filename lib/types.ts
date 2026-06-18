@@ -11,6 +11,7 @@ export interface Project {
   buildTime: string
   priceFrom: number
   images: string[]
+  video?: string
   shortDesc: string
   comfortDesc: string
   businessDesc: string

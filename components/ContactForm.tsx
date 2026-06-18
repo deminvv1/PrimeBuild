@@ -94,7 +94,7 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
         background: '#1a1a1a', border: 'none', cursor: 'pointer',
         fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
         letterSpacing: '0.8px', textTransform: 'uppercase', color: '#fff',
-        padding: '16px 32px', borderRadius: 6,
+        padding: '16px 32px', borderRadius: 999,
         opacity: status === 'loading' ? 0.65 : 1,
         transition: 'background 0.2s',
       }}>

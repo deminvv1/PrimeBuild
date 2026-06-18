@@ -53,7 +53,7 @@ export default function ProjectCard({ project }: { project: Project }) {
           color: '#fff',
           fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 700,
           letterSpacing: '1.2px', textTransform: 'uppercase',
-          padding: '5px 11px', borderRadius: 4,
+          padding: '5px 11px', borderRadius: 999,
         }}>
           {CATEGORY_LABEL[project.category]}
         </div>
@@ -109,7 +109,7 @@ export default function ProjectCard({ project }: { project: Project }) {
                   fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 600,
                   color: 'rgba(255,255,255,0.6)',
                   border: '1px solid rgba(255,255,255,0.2)',
-                  padding: '3px 8px', borderRadius: 3,
+                  padding: '3px 8px', borderRadius: 999,
                 }}>
                   {FINISH_LABEL[f]}
                 </span>

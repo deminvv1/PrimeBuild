@@ -10,7 +10,7 @@ export default function NotFound() {
         marginTop: 8, background: '#C9A96E', color: '#111',
         fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
         letterSpacing: '1px', textTransform: 'uppercase',
-        padding: '14px 32px', borderRadius: 4,
+        padding: '14px 32px', borderRadius: 999,
       }}>
         На главную
       </Link>

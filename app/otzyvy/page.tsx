@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Breadcrumb from '@/components/Breadcrumb'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
@@ -12,7 +13,8 @@ const REVIEWS: { name: string; text: string; date: string; rating: number; photo
 
 export default function OtzyvyPage() {
   return (
-    <main style={{ paddingTop: 72 }}>
+    <main style={{ paddingTop: 56 }}>
+      <Breadcrumb items={[{ label: 'Главная', href: '/' }, { label: 'Отзывы' }]} />
       <section style={{ padding: '80px 0', background: '#242424' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: 12 }}>
@@ -62,7 +64,7 @@ export default function OtzyvyPage() {
                 background: '#1a1a1a', color: '#fff',
                 fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
                 letterSpacing: '1px', textTransform: 'uppercase',
-                padding: '14px 28px', borderRadius: 4,
+                padding: '14px 28px', borderRadius: 999,
               }}>
                 Рассчитать стоимость
               </a>

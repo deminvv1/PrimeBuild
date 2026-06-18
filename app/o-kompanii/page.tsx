@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm'
+import Breadcrumb from '@/components/Breadcrumb'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
@@ -16,14 +17,12 @@ const TEAM = [
 
 export default function OKompaniiPage() {
   return (
-    <main style={{ paddingTop: 72 }}>
+    <main style={{ paddingTop: 56 }}>
+      <Breadcrumb items={[{ label: 'Главная', href: '/' }, { label: 'О компании' }]} />
 
       {/* About */}
       <section style={{ padding: '80px 0', background: '#242424' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 24px' }}>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: 12 }}>
-            О нас
-          </p>
           <h1 style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(28px,4vw,44px)', fontWeight: 800, color: '#1a1a1a', marginBottom: 32 }}>
             PrimeBuild
           </h1>

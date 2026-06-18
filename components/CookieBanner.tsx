@@ -26,7 +26,7 @@ export default function CookieBanner() {
         background: '#1a1a1a', border: 'none', cursor: 'pointer',
         fontFamily: 'var(--font-sans)', fontSize: 12, fontWeight: 700,
         letterSpacing: '0.8px', textTransform: 'uppercase', color: '#fff',
-        padding: '10px 24px', borderRadius: 4, whiteSpace: 'nowrap',
+        padding: '10px 24px', borderRadius: 999, whiteSpace: 'nowrap',
       }}>
         Понятно
       </button>

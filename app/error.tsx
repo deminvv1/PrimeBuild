@@ -7,7 +7,7 @@ export default function Error({ reset }: { error: Error; reset: () => void }) {
       <button onClick={reset} style={{
         background: '#C9A96E', border: 'none', cursor: 'pointer',
         fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
-        color: '#111', padding: '12px 24px', borderRadius: 4,
+        color: '#111', padding: '12px 24px', borderRadius: 999,
       }}>
         Попробовать снова
       </button>

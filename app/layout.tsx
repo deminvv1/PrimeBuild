@@ -1,11 +1,40 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import { Inter, Libre_Caslon_Text, JetBrains_Mono, Hanken_Grotesk } from 'next/font/google'
 import Header from '@/components/Header'
 import CookieBanner from '@/components/CookieBanner'
 import BackToTop from '@/components/BackToTop'
 import { orgJsonLd } from '@/lib/jsonLd'
 import Footer from '@/components/Footer'
 import './globals.css'
+
+const inter = Inter({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+const caslon = Libre_Caslon_Text({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-caslon',
+  display: 'swap',
+})
+
+const mono = JetBrains_Mono({
+  weight: ['400', '500'],
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+})
+
+const grotesk = Hanken_Grotesk({
+  weight: ['300', '400', '500', '600'],
+  subsets: ['latin'],
+  variable: '--font-grotesk',
+  display: 'swap',
+})
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 const GA4_ID   = process.env.GA4_ID ?? ''
@@ -43,11 +72,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ru">
       <head>
-        {/* Google Fonts — Inter */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
         <meta name="format-detection" content="telephone=no" />
         <meta name="theme-color" content="#ffffff" />
 
@@ -56,7 +80,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
       </head>
-      <body style={{ position: 'relative' }}>
+      <body className={`${inter.variable} ${caslon.variable} ${mono.variable} ${grotesk.variable}`} style={{ position: 'relative' }}>
         <Header />
         {children}
         <Footer />

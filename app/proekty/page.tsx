@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import ProjectCard from '@/components/ProjectCard'
+import Breadcrumb from '@/components/Breadcrumb'
 import { projects } from '@/data/projects'
 import { ProjectCategory, ProjectFinish } from '@/lib/types'
 
@@ -18,6 +19,19 @@ const FINISHES: { value: '' | ProjectFinish; label: string }[] = [
   { value: 'business', label: 'Бизнес' },
 ]
 
+const BtnSt = (active: boolean): React.CSSProperties => ({
+  background: active ? '#C9A96E' : 'rgba(255,255,255,0.06)',
+  border: `1px solid ${active ? '#C9A96E' : 'rgba(255,255,255,0.12)'}`,
+  color: active ? '#1a1a1a' : 'rgba(255,255,255,0.65)',
+  fontFamily: 'var(--font-sans)',
+  fontSize: 13,
+  fontWeight: active ? 700 : 400,
+  padding: '7px 18px',
+  borderRadius: 999,
+  cursor: 'pointer',
+  transition: 'all 0.15s',
+})
+
 export default function ProektyPage() {
   const [cat, setCat] = useState<'' | ProjectCategory>('')
   const [fin, setFin] = useState<'' | ProjectFinish>('')
@@ -29,67 +43,57 @@ export default function ProektyPage() {
   }), [cat, fin])
 
   return (
-    <main style={{ paddingTop: 72 }}>
-      <section style={{ padding: '80px 0', background: '#242424' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: '#C9A96E', marginBottom: 12 }}>
-            Портфолио
-          </p>
-          <h1 style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(28px,4vw,44px)', fontWeight: 800, color: '#1a1a1a', marginBottom: 12 }}>
-            Наши проекты
-          </h1>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'rgba(26,26,26,0.52)', marginBottom: 48, lineHeight: 1.6, maxWidth: 600 }}>
-            Современные дома с плоской кровлей и панорамным остеклением. Строительство под ключ в Московской области.
-          </p>
+    <main style={{ paddingTop: 56, background: '#242424', minHeight: '100vh' }}>
+      <Breadcrumb items={[{ label: 'Главная', href: '/' }, { label: 'Проекты' }]} />
 
-          {/* Filters */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, marginBottom: 44 }}>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'rgba(26,26,26,0.4)', textTransform: 'uppercase', letterSpacing: '1px' }}>Размер:</span>
-              {CATEGORIES.map(({ value, label }) => (
-                <button key={label} onClick={() => setCat(value)} style={{
-                  background: cat === value ? '#1a1a1a' : '#fff',
-                  border: `1px solid ${cat === value ? '#1a1a1a' : 'rgba(0,0,0,0.14)'}`,
-                  color: cat === value ? '#fff' : 'rgba(26,26,26,0.7)',
-                  fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: cat === value ? 700 : 400,
-                  padding: '7px 18px', borderRadius: 4, cursor: 'pointer', transition: 'all 0.15s',
-                }}>
-                  {label}
-                </button>
-              ))}
-            </div>
-            <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
-              <span style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'rgba(26,26,26,0.4)', textTransform: 'uppercase', letterSpacing: '1px' }}>Отделка:</span>
-              {FINISHES.map(({ value, label }) => (
-                <button key={label} onClick={() => setFin(value)} style={{
-                  background: fin === value ? '#1a1a1a' : '#fff',
-                  border: `1px solid ${fin === value ? '#1a1a1a' : 'rgba(0,0,0,0.14)'}`,
-                  color: fin === value ? '#fff' : 'rgba(26,26,26,0.7)',
-                  fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: fin === value ? 700 : 400,
-                  padding: '7px 18px', borderRadius: 4, cursor: 'pointer', transition: 'all 0.15s',
-                }}>
-                  {label}
-                </button>
-              ))}
-            </div>
+      {/* ── HERO ── */}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '64px 24px 48px' }}>
+        <h1 style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(28px,4vw,44px)', fontWeight: 800, color: 'rgba(255,255,255,0.92)', marginBottom: 12 }}>
+          Наши проекты
+        </h1>
+        <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'rgba(255,255,255,0.45)', marginBottom: 48, lineHeight: 1.6, maxWidth: 600 }}>
+          Современные дома под ключ в Московской области — Mini, Midi, Maxi.
+        </p>
+
+        {/* Filters */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, justifyContent: "space-between" }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 11, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '1px' }}>Размер</span>
+            {CATEGORIES.map(({ value, label }) => (
+              <button key={label} onClick={() => setCat(value)} style={BtnSt(cat === value)}>
+                {label}
+              </button>
+            ))}
           </div>
-
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 11, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '1px' }}>Отделка</span>
+            {FINISHES.map(({ value, label }) => (
+              <button key={label} onClick={() => setFin(value)} style={BtnSt(fin === value)}>
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
+      </div>
 
+      {/* ── GRID ── */}
+      <div style={{ padding: '0 24px 80px' }}>
         {filtered.length > 0 ? (
-          <div style={{ padding: '0 24px' }}>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-              {filtered.map(p => <ProjectCard key={p.slug} project={p} />)}
-            </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+            {filtered.map(p => <ProjectCard key={p.slug} project={p} />)}
           </div>
         ) : (
-          <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, color: 'rgba(26,26,26,0.4)', padding: '40px 0' }}>
-              Проекты не найдены. Попробуйте изменить фильтры.
-            </p>
-          </div>
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, color: 'rgba(255,255,255,0.35)', paddingTop: 40 }}>
+            Проекты не найдены. Попробуйте изменить фильтры.
+          </p>
         )}
-      </section>
+      </div>
+
+      <style>{`
+        @media (max-width: 700px) {
+          .proekty-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </main>
   )
 }

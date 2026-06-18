@@ -430,7 +430,7 @@ export default function HomePage() {
               },
             ] as const).map(({ name, priceNote, img, isPremium, includes }) => (
               <div key={name}>
-                <div style={{ position: "relative", width: "100%", aspectRatio: "3/2", overflow: "hidden", background: "#2c2c2c", borderRadius: 10 }}>
+                <div style={{ position: "relative", width: "100%", aspectRatio: "4/2", overflow: "hidden", background: "#2c2c2c", borderRadius: 10 }}>
                   <Image src={img} alt={name} fill sizes="(max-width:800px) 100vw, 50vw"
                     style={{ objectFit: "cover" }} />
                 </div>

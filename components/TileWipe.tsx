@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 
 const COLS = 8
 const ROWS = 5
-const STEP = 0.05
-const DURATION = 0.65
+const STEP = 0.03
+const DURATION = 0.5
 
 export type TilePhase = 'hidden' | 'in' | 'covered' | 'out'
 
@@ -18,6 +18,7 @@ export default function TileWipe({ phase, children }: { phase: TilePhase; childr
 
   useEffect(() => {
     if (isHidden) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setEntered(false)
       return
     }

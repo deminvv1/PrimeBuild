@@ -1,9 +1,7 @@
-@import "tailwindcss/theme";
-@import "tailwindcss/utilities";
-
 /* ── CSS Variables ── */
 :root {
   --font-sans: system-ui, -apple-system, Arial, sans-serif;
+  --font-heading: var(--font-sans);
 
   /* Dark theme */
   --color-bg:        #242424;
@@ -31,8 +29,23 @@ body {
   overflow-x: hidden;
 }
 a { text-decoration: none; color: inherit; }
+
+/* Заголовки — Unbounded, независимо от инлайновых fontFamily в компонентах. */
+h1, h2, h3 { font-family: var(--font-heading) !important; }
+
+/* Длинные неразрывные русские слова (напр. «РЕАЛИЗОВАННЫЙ») в заголовках при min-размере
+   clamp() шире узких мобильных экранов и без этого раздувают всю раскладку по горизонтали. */
+h1, h2, h3 { overflow-wrap: break-word; word-break: break-word; }
 img { display: block; max-width: 100%; }
 h1, h2, h3, h4, p { margin: 0; }
+
+/* Заголовки страниц зашиты на 60px боковых отступов (десктоп), а хлебные крошки
+   (Breadcrumb.tsx) используют clamp(44px, 5vw, 60px) — на мобильном это 44px,
+   т.к. это единый мобильный боковой отступ для фото/карточек по всему сайту.
+   Без этого правила заголовок и крошки над ним расходятся по горизонтали. */
+@media (max-width: 600px) {
+  .page-hero-pad { padding-left: 44px !important; padding-right: 44px !important; }
+}
 button { font-family: var(--font-sans); }
 
 /* ── Layout helpers ── */

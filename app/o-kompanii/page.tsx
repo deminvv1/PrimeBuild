@@ -49,7 +49,7 @@ export default function OKompaniiPage() {
       {/* ── HERO ── */}
       <section style={{ position: 'relative' }}>
         <FadeIn>
-          <div style={{ padding: '72px 60px 56px' }}>
+          <div className="page-hero-pad" style={{ padding: '72px 60px 56px' }}>
             <h1 style={{
               fontFamily: 'var(--font-sans)', fontSize: 'clamp(36px, 5vw, 64px)',
               fontWeight: 800, color: 'rgba(255,255,255,0.92)', lineHeight: 1.08,
@@ -141,8 +141,8 @@ export default function OKompaniiPage() {
 
         <div style={{ padding: '0 24px', position: 'relative' }}>
           <AnimatedLine length="100%" delay={100} />
-          <VerticalRevealLine left="33.33%" delay={200} color="rgba(255,255,255,0.12)" />
-          <VerticalRevealLine left="66.66%" delay={250} color="rgba(255,255,255,0.12)" />
+          <VerticalRevealLine left="33.33%" delay={200} color="rgba(255,255,255,0.12)" className="principles-vline" />
+          <VerticalRevealLine left="66.66%" delay={250} color="rgba(255,255,255,0.12)" className="principles-vline" />
         </div>
 
         <div className="principles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', padding: '0 24px' }}>
@@ -203,7 +203,7 @@ export default function OKompaniiPage() {
       <section style={{ position: 'relative' }}>
         <ContactSplit
           source="o-kompanii"
-          photo="/images/projects/alpha-1.jpg"
+          photo="/images/projects/alpha-1.webp"
           quoteText={"Строим дома,\nкоторым доверяют"}
           title="Обсудим ваш проект?"
         />
@@ -211,9 +211,10 @@ export default function OKompaniiPage() {
 
       <style>{`
         @media (max-width: 960px) {
-          .about-grid { grid-template-columns: 1fr !important; gap: 32px !important; padding: 56px 24px !important; }
+          .about-grid { grid-template-columns: 1fr !important; gap: 32px !important; padding: 56px 44px !important; }
           .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .principles-grid { grid-template-columns: 1fr !important; }
+          .principles-vline { display: none !important; }
         }
         @media (max-width: 480px) {
           .stat-cell { padding: 20px 12px !important; }

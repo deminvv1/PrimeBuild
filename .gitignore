@@ -16,6 +16,7 @@ Thumbs.db
 
 # source assets, not used by the site directly
 /constructor/
+/material-dom-postroeno/
 
 # debug
 npm-debug.log*
@@ -23,3 +24,4 @@ npm-debug.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.vercel

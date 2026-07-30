@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useLayoutEffect } from 'react'
+import Link from 'next/link'
 
 interface Props {
   source?: string
@@ -82,7 +83,7 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
 
       <input
         type="text" value={name} onChange={e => setName(e.target.value)}
-        placeholder="Ваше имя"
+        placeholder="Ваше имя" aria-label="Ваше имя" autoComplete="name"
         style={{ ...inputStyle, background: inputBg, border: `1px solid ${inputBorder}`, color: textColor }}
         onFocus={e => (e.target.style.borderColor = inputBorderFocus)}
         onBlur={e => (e.target.style.borderColor = inputBorder)}
@@ -91,8 +92,8 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
       <div>
         <input
           type="tel" value={phone} onChange={e => { setPhone(e.target.value); setPhoneError(false) }}
-          placeholder="+7 (___) ___-__-__"
-          required
+          placeholder="+7 (___) ___-__-__" aria-label="Ваш телефон" autoComplete="tel"
+          aria-invalid={phoneError} required
           style={{ ...inputStyle, background: inputBg, border: `1px solid ${phoneError ? '#e53e3e' : inputBorder}`, color: textColor }}
           onFocus={e => (e.target.style.borderColor = phoneError ? '#e53e3e' : inputBorderFocus)}
           onBlur={e => (e.target.style.borderColor = phoneError ? '#e53e3e' : inputBorder)}
@@ -106,7 +107,7 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
 
       <textarea
         value={comment} onChange={e => setComment(e.target.value)}
-        placeholder="Комментарий (необязательно)"
+        placeholder="Комментарий (необязательно)" aria-label="Комментарий"
         rows={3}
         style={{ ...inputStyle, background: inputBg, border: `1px solid ${inputBorder}`, color: textColor, resize: 'none', lineHeight: '1.5', paddingTop: 12 }}
         onFocus={e => (e.target.style.borderColor = inputBorderFocus)}
@@ -178,7 +179,7 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
 
       <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, color: mutedColor, textAlign: 'center', lineHeight: '1.5' }}>
         Нажимая кнопку, вы соглашаетесь с{' '}
-        <a href="/privacy" style={{ textDecoration: 'underline', color: mutedColor }}>политикой конфиденциальности</a>
+        <Link href="/privacy" style={{ textDecoration: 'underline', color: mutedColor }}>политикой конфиденциальности</Link>
       </p>
 
       {status === 'error' && (

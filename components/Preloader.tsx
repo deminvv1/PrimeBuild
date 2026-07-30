@@ -1,15 +1,31 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import TileWipe, { TilePhase, TILE_WIPE_MS } from './TileWipe'
 
-const DURATION = 1400
+const DURATION = 650
+const SESSION_KEY = 'buildx-preloader-shown'
 
 export default function Preloader() {
   const [progress, setProgress] = useState(0)
   const [phase, setPhase] = useState<TilePhase>('covered')
+  const [skip, setSkip] = useState(false)
+
+  // Показываем анимацию только на первой загрузке за сессию — не мешаем LCP на переходах.
+  useLayoutEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (sessionStorage.getItem(SESSION_KEY) || reducedMotion) {
+      sessionStorage.setItem(SESSION_KEY, '1')
+      // useLayoutEffect специально, чтобы переключить фазу ДО первой отрисовки (без вспышки анимации).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSkip(true)
+      setPhase('hidden')
+    }
+  }, [])
 
   useEffect(() => {
+    if (skip) return
+
     document.body.style.overflow = 'hidden'
     const start = performance.now()
 
@@ -23,6 +39,7 @@ export default function Preloader() {
       } else {
         document.body.style.overflow = ''
         window.dispatchEvent(new CustomEvent('preloader:done'))
+        sessionStorage.setItem(SESSION_KEY, '1')
         setPhase('out')
         setTimeout(() => setPhase('hidden'), TILE_WIPE_MS)
       }
@@ -33,7 +50,7 @@ export default function Preloader() {
       cancelAnimationFrame(raf)
       document.body.style.overflow = ''
     }
-  }, [])
+  }, [skip])
 
   return (
     <TileWipe phase={phase}>

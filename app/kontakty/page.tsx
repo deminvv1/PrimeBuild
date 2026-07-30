@@ -55,7 +55,7 @@ export default function KontaktyPage() {
       {/* ── HERO ── */}
       <section style={{ position: 'relative' }}>
         <FadeIn>
-          <div style={{ padding: '72px 60px 56px' }}>
+          <div className="page-hero-pad" style={{ padding: '72px 60px 56px' }}>
             <h1 style={{
               fontFamily: 'var(--font-sans)', fontSize: 'clamp(36px, 5vw, 64px)',
               fontWeight: 800, color: 'rgba(255,255,255,0.92)', lineHeight: 1.08,
@@ -82,7 +82,7 @@ export default function KontaktyPage() {
         <FadeIn delay={100}>
           <div className="contacts-info" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '0 24px' }}>
             {CONTACTS.map(({ label, value, href, note, size }, i) => (
-              <div key={label} style={{
+              <div key={label} className="contact-cell" style={{
                 padding: '40px 40px',
                 borderRight: i < CONTACTS.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
               }}>
@@ -135,9 +135,12 @@ export default function KontaktyPage() {
       <style>{`
         @media (max-width: 860px) {
           .contacts-info { grid-template-columns: repeat(2, 1fr) !important; }
+          .contact-cell { padding: 40px 20px !important; }
         }
         @media (max-width: 500px) {
           .contacts-info { grid-template-columns: 1fr !important; }
+          .contact-cell { border-right: none !important; }
+          .contact-cell:not(:first-child) { border-top: 1px solid rgba(255,255,255,0.07); }
         }
       `}</style>
     </main>

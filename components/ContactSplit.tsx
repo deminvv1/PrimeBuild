@@ -100,10 +100,10 @@ export default function ContactSplit({
           }
           .csplit-root > div:first-child {
             min-height: 320px;
-            padding: 24px !important;
+            padding: 24px 44px !important;
           }
           .csplit-root > div:last-child {
-            padding: 48px 24px !important;
+            padding: 48px 44px !important;
           }
         }
       `}</style>

@@ -44,9 +44,9 @@ export default async function SeoLandingPage({ params }: Props) {
       {/* ── HERO ── */}
       <section style={{ position: 'relative' }}>
         <FadeIn>
-          <div style={{ padding: '72px 60px 56px' }}>
+          <div className="page-hero-pad" style={{ padding: '72px 60px 56px' }}>
             <h1 style={{
-              fontFamily: 'var(--font-sans)', fontSize: 'clamp(32px, 4.5vw, 56px)',
+              fontFamily: 'var(--font-sans)', fontSize: 'clamp(26px, 4.5vw, 56px)',
               fontWeight: 800, color: 'rgba(255,255,255,0.92)', lineHeight: 1.1,
               margin: '0 0 24px', maxWidth: 760, textTransform: 'uppercase',
             }}>
@@ -125,7 +125,7 @@ export default async function SeoLandingPage({ params }: Props) {
 
       <style>{`
         @media (max-width: 700px) {
-          .seo-masonry { grid-template-columns: 1fr !important; padding-left: 24px !important; padding-right: 24px !important; }
+          .seo-masonry { grid-template-columns: 1fr !important; padding-left: 44px !important; padding-right: 44px !important; }
           .seo-masonry-item { margin-top: 0 !important; }
           .seo-vline { display: none !important; }
         }

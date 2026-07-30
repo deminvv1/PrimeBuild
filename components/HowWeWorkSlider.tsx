@@ -244,6 +244,12 @@ export default function HowWeWorkSlider() {
           .hww-gallery-inner { margin: 0 24px; }
           /* На мобильном показываем только главное фото + один "peek", третье прячем — не помещается. */
           .hww-stage-2 { display: none !important; }
+          /* BASE_BOX.left=0 центрирует раскладку только на десктопе рядом с peek-карточками;
+             на мобильном 60%-ширины фото нужно центрировать вручную: (100% - 60%) / 2 = 20%. */
+          .hww-stage-0 { left: 20% !important; }
+          /* Peek-карточку сдвигаем на ту же величину (20% контейнера = 33.3% её локального бокса),
+             иначе после центрирования главного фото она полностью прячется под ним. */
+          .hww-stage-1 { transform: translate(108%, 3%) scale(0.5, 0.87) !important; }
         }
         @media (max-width: 480px) {
           .hww-gallery { min-height: 280px; }

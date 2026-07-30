@@ -333,9 +333,10 @@ export default function HouseConfigurator({ config, onChange }: Props) {
         .opt-group { margin-left: -36px; margin-right: -60px; padding-left: 36px; padding-right: 60px; }
         @media (max-width: 900px) {
           .konstruktor-grid { grid-template-columns: 1fr !important; }
-          .konstruktor-left { padding: 32px 24px !important; }
-          .konstruktor-right { position: static !important; padding: 0 24px 40px !important; }
-          .opt-group { margin-left: -24px !important; margin-right: -24px !important; padding-left: 24px !important; padding-right: 24px !important; }
+          .konstruktor-vline { display: none !important; }
+          .konstruktor-left { padding: 32px 44px !important; }
+          .konstruktor-right { position: static !important; padding: 0 44px 40px !important; }
+          .opt-group { margin-left: -44px !important; margin-right: -44px !important; padding-left: 44px !important; padding-right: 44px !important; }
         }
       `}</style>
     </div>

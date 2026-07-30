@@ -56,7 +56,7 @@ export default function PrivacyPage() {
 
       <section style={{ position: 'relative' }}>
         <FadeIn>
-          <div style={{ padding: '48px 60px 24px', maxWidth: 760, margin: '0 auto' }}>
+          <div className="page-hero-pad" style={{ padding: '48px 60px 24px', maxWidth: 760, margin: '0 auto' }}>
             <h1 style={{
               fontFamily: 'var(--font-sans)', fontSize: 'clamp(30px, 4vw, 44px)',
               fontWeight: 800, color: 'rgba(255,255,255,0.95)', marginBottom: 16,
@@ -70,7 +70,7 @@ export default function PrivacyPage() {
           </div>
         </FadeIn>
 
-        <div style={{ padding: '0 60px 100px', maxWidth: 760, margin: '0 auto' }}>
+        <div className="page-hero-pad" style={{ padding: '0 60px 100px', maxWidth: 760, margin: '0 auto' }}>
 
             <h2 style={{ ...H2, marginTop: 0 }}>1. Общие положения</h2>
             <p style={P}>

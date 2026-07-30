@@ -46,13 +46,13 @@ export default function PostroenoPage() {
       {/* ── HERO ── */}
       <section style={{ position: 'relative' }}>
         <FadeIn>
-          <div style={{ padding: '72px 60px 56px' }}>
+          <div className="page-hero-pad" style={{ padding: '72px 60px 56px' }}>
             <h1 style={{
               fontFamily: 'var(--font-sans)', fontSize: 'clamp(36px, 5vw, 64px)',
               fontWeight: 800, color: 'rgba(255,255,255,0.92)', lineHeight: 1.08,
               margin: '0 0 20px', textTransform: 'uppercase',
             }}>
-              Реализованный объект
+              Реализованные объекты
             </h1>
             <p style={{
               fontFamily: 'var(--font-sans)', fontSize: 16,
@@ -122,7 +122,7 @@ export default function PostroenoPage() {
           .postroeno-float { animation: none; }
         }
         @media (max-width: 900px) {
-          .postroeno-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .postroeno-grid { grid-template-columns: repeat(2, 1fr) !important; padding-left: 44px !important; padding-right: 44px !important; }
           .postroeno-item { margin-top: 0 !important; }
         }
         @media (max-width: 560px) {

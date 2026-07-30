@@ -37,10 +37,10 @@ export default async function ProjectPage({ params }: Props) {
   const related = projects.filter(p => p.slug !== slug).slice(0, 2)
 
   return (
-    <main style={{ background: '#1a1a1a', paddingTop: 56 }}>
+    <main style={{ background: '#1a1a1a', paddingTop: 56, overflowX: 'hidden' }}>
 
       {/* ══ БЛОК 1: HERO ВИДЕО ══════════════════════════════════════════ */}
-      <section style={{ position: 'relative', height: 'calc(100vh - 72px)', minHeight: 560, overflow: 'hidden' }}>
+      <section className="proj-hero" style={{ position: 'relative', height: 'calc(100vh - 72px)', minHeight: 560, overflow: 'hidden' }}>
 
         <ProjectHeroMedia
           video={project.video}
@@ -48,14 +48,14 @@ export default async function ProjectPage({ params }: Props) {
           alt={project.name}
         />
 
-        {/* Gradient overlay */}
-        <div style={{
-          position: 'absolute', inset: 0,
+        {/* Gradient overlay — pointer-events:none, иначе перехватывает клик по фото (лайтбокс не открывается) */}
+        <div className="proj-hero-gradient" style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
           background: 'linear-gradient(to top, rgba(15,15,15,0.97) 0%, rgba(15,15,15,0.45) 45%, rgba(15,15,15,0.1) 100%)',
         }} />
 
         {/* Breadcrumb — top */}
-        <nav style={{ position: 'absolute', top: 28, left: 60, zIndex: 2, display: 'flex', gap: 8, alignItems: 'center' }}>
+        <nav className="proj-breadcrumb" style={{ position: 'absolute', top: 28, left: 60, right: 60, zIndex: 2, display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}>
           {[
             { label: 'Главная', href: '/' },
             { label: 'Проекты', href: '/proekty' },
@@ -72,8 +72,9 @@ export default async function ProjectPage({ params }: Props) {
         </nav>
 
         {/* Project info — bottom */}
-        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 60px 56px', zIndex: 2 }}>
-          <span style={{
+        {/* Project info — bottom */}
+        <div className="proj-hero-info" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '0 60px 56px', zIndex: 2 }}>
+          <span className="proj-hero-badge" style={{
             display: 'inline-block', marginBottom: 20,
             fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700,
             letterSpacing: '2px', textTransform: 'uppercase',
@@ -99,8 +100,8 @@ export default async function ProjectPage({ params }: Props) {
       </section>
 
       {/* ══ БЛОК 2: STATS + РУМТУР ══════════════════════════════════════ */}
-      <section style={{
-        background: '#0f0f0f',
+      <section className="proj-stats" style={{
+        background: '#242424',
         borderBottom: '1px solid rgba(255,255,255,0.07)',
         padding: '28px 60px',
       }}>
@@ -127,7 +128,7 @@ export default async function ProjectPage({ params }: Props) {
       </section>
 
       {/* ══ БЛОК 3: ИНФОРМАЦИЯ ══════════════════════════════════════════ */}
-      <section style={{ background: '#242424', padding: '80px 60px 100px' }}>
+      <section className="proj-info" style={{ background: '#242424', padding: '80px 60px 100px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 400px', gap: 80, maxWidth: 1200, margin: '0 auto' }} className="proj-grid">
 
           {/* ── LEFT ── */}
@@ -138,7 +139,7 @@ export default async function ProjectPage({ params }: Props) {
 
             {/* Gallery (доп. фото) */}
             {project.images.length > 1 && (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 64 }}>
+              <div className="proj-gallery" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 64 }}>
                 {project.images.slice(1).map((src, i) => (
                   <div key={i} style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', borderRadius: 8, background: '#2c2c2c' }}>
                     <ZoomableImage src={src} alt={`${project.name} ${i + 2}`} sizes="(max-width:900px) 50vw, 30vw" objectFit="cover" />
@@ -225,15 +226,39 @@ export default async function ProjectPage({ params }: Props) {
 
       {/* ══ ПОХОЖИЕ ПРОЕКТЫ ═════════════════════════════════════════════ */}
       {related.length > 0 && (
-        <section style={{ background: '#1a1a1a', padding: '80px 60px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <section className="proj-related" style={{ background: '#1a1a1a', padding: '80px 60px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
           <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 32 }}>
             Другие проекты
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+          <div className="proj-related-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
             {related.map(p => <ProjectCard key={p.slug} project={p} />)}
           </div>
         </section>
       )}
+
+      <style>{`
+        @media (max-width: 600px) {
+          .proj-hero { height: 66vh !important; min-height: 460px !important; }
+          .proj-breadcrumb { top: 20px !important; left: 24px !important; right: 24px !important; }
+          .proj-hero-info { padding: 0 24px 32px !important; }
+          .proj-hero-badge { position: absolute !important; top: -60px !important; margin-bottom: 0 !important; z-index: 3; }
+          .proj-stats { padding: 20px 24px !important; }
+          .proj-stats > div { gap: 28px !important; }
+          .proj-info { padding: 48px 24px 56px !important; }
+          .proj-gallery { gap: 8px !important; margin-bottom: 40px !important; }
+          .proj-related { padding: 48px 24px !important; }
+          .proj-related-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+        }
+        @media (max-width: 420px) {
+          .proj-gallery { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 600px) {
+          /* На мобилке фото contain уже не перекрывается текстом (текст ниже фото на обычном
+             фоне) — тёмный градиент для читаемости не нужен, только делает letterbox чёрным. */
+          .proj-hero-gradient { background: none !important; }
+          .proj-hero { background: #242424 !important; }
+        }
+      `}</style>
 
     </main>
   )

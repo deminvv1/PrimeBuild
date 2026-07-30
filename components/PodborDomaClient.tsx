@@ -31,7 +31,7 @@ export default function PodborDomaClient({ exteriorHeading, children, contactPro
     <>
       <section style={{ position: 'relative' }}>
         <SectionLines delay={200} threshold={0.1} />
-        <VerticalRevealLine left="50%" delay={150} color="rgba(255,255,255,0.18)" threshold={0.1} />
+        <VerticalRevealLine left="50%" delay={150} color="rgba(255,255,255,0.18)" threshold={0.1} className="konstruktor-vline" />
         <HouseConfigurator config={config} onChange={setConfig} />
       </section>
 

@@ -54,7 +54,7 @@ export default function ProektyClient() {
       {/* ── HERO ── */}
       <section style={{ position: 'relative' }}>
         <FadeIn>
-          <div style={{ padding: '64px 60px 40px' }}>
+          <div className="page-hero-pad" style={{ padding: '64px 60px 40px' }}>
             <h1 style={{
               fontFamily: 'var(--font-sans)', fontSize: 'clamp(28px, 4vw, 48px)',
               fontWeight: 800, color: 'rgba(255,255,255,0.92)', marginBottom: 14,

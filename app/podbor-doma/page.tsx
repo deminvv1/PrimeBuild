@@ -42,7 +42,7 @@ export default function PodborDomaPage() {
       <Breadcrumb items={[{ label: 'Главная', href: '/' }, { label: 'Подбор дома' }]} />
 
       {/* ── INTRO ── */}
-      <section style={{ padding: '24px 60px 40px' }}>
+      <section className="page-hero-pad" style={{ padding: '24px 60px 40px' }}>
         <FadeIn>
           <p style={LABEL}>Конструктор комплектации</p>
           <h1 style={{ ...H2, fontSize: 'clamp(30px, 4.5vw, 48px)', maxWidth: 760 }}>
@@ -62,7 +62,7 @@ export default function PodborDomaPage() {
       {/* ── CONFIGURATOR + EXTERIOR + INTERIOR + КОМПЛЕКТАЦИЯ + CONTACT (общее состояние конфигурации) ── */}
       <PodborDomaClient
         exteriorHeading={
-          <div style={{ padding: '64px 60px 32px' }}>
+          <div className="page-hero-pad" style={{ padding: '64px 60px 32px' }}>
             <p style={LABEL}>Устраивает вариант?</p>
             <h2 style={H2}>Экстерьер вашего дома</h2>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 12 }}>
@@ -79,7 +79,7 @@ export default function PodborDomaPage() {
       >
         {/* ── INTERIOR ── */}
         <section style={{ position: 'relative' }}>
-          <div style={{ padding: '64px 60px 32px' }}>
+          <div className="page-hero-pad" style={{ padding: '64px 60px 32px' }}>
             <p style={LABEL}>Внутреннее пространство</p>
             <h2 style={H2}>Интерьер вашего дома</h2>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'rgba(255,255,255,0.4)', marginTop: 12 }}>
@@ -95,7 +95,7 @@ export default function PodborDomaPage() {
           <div style={{ padding: '0 24px' }}>
             <AnimatedLine length="100%" delay={0} />
           </div>
-          <div style={{ padding: '64px 60px' }}>
+          <div className="page-hero-pad" style={{ padding: '64px 60px' }}>
             <p style={LABEL}>Что входит в дом</p>
             <h2 style={{ ...H2, marginBottom: 24 }}>Комплектация под ключ</h2>
             <ExpandableDescription />

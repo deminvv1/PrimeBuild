@@ -325,7 +325,7 @@ export default function HomePage() {
             .pg-grid-2>*:nth-child(2)::before{content:'';position:absolute;top:0;left:-20px;right:-20px;height:1px;background:rgba(255,255,255,0.14);}
             .pg-vline{display:none!important;}
             .mosaic-grid{grid-template-columns:1fr!important;grid-template-rows:auto!important;}
-            .mosaic-photo{grid-row:auto!important;height:260px;}
+            .mosaic-photo{grid-row:auto!important;height:260px;padding:0!important;margin:44px 20px!important;}
             .mosaic-line{display:none!important;}
             .mosaic-text{padding:28px 24px!important;}
           }

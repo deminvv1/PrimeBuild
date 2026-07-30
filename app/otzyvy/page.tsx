@@ -4,7 +4,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
 export const metadata: Metadata = {
-  title: 'Отзывы клиентов — PrimeBuild',
+  title: 'Отзывы клиентов — BuildX',
   description: 'Отзывы о строительстве домов под ключ в Московской области.',
   alternates: { canonical: `${SITE_URL}/otzyvy` },
 }
@@ -59,14 +59,14 @@ export default function OtzyvyPage() {
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, color: 'rgba(26,26,26,0.55)', lineHeight: 1.7, marginBottom: 24 }}>
                 Мы только запускаемся. Станьте одним из первых клиентов — получите приоритетные условия и будем благодарны за отзыв после сдачи.
               </p>
-              <a href="/kalkulyator" style={{
+              <a href="/podbor-doma" style={{
                 display: 'inline-block',
                 background: '#1a1a1a', color: '#fff',
                 fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
                 letterSpacing: '1px', textTransform: 'uppercase',
                 padding: '14px 28px', borderRadius: 999,
               }}>
-                Рассчитать стоимость
+                Подобрать дом
               </a>
             </div>
           )}

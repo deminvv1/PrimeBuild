@@ -35,6 +35,21 @@ const transporter = nodemailer.createTransport({
   },
 })
 
+async function sendTelegramNotification(text: string): Promise<void> {
+  const token = process.env.TELEGRAM_BOT_TOKEN
+  const chatId = process.env.TELEGRAM_CHAT_ID
+  if (!token || !chatId) return
+
+  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML' }),
+  })
+  if (!res.ok) {
+    console.error('Telegram API error:', await res.text())
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const ct = req.headers.get('content-type') ?? ''
@@ -66,9 +81,20 @@ export async function POST(req: NextRequest) {
     const safeSource  = (source ?? 'site').trim().slice(0, 50)
 
     const LEAD_EMAIL = process.env.LEAD_EMAIL ?? process.env.SMTP_USER ?? ''
+    const now = new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })
+
+    await sendTelegramNotification(
+      [
+        `📩 <b>Новая заявка — ${esc(safeSource)}</b>`,
+        `Имя: ${esc(safeName) || '—'}`,
+        `Телефон: ${esc(safePhone)}`,
+        `Комментарий:\n${esc(safeComment) || '—'}`,
+        `Время: ${now} (МСК)`,
+      ].join('\n')
+    ).catch((err) => console.error('Telegram send failed:', err))
 
     await transporter.sendMail({
-      from: `"PrimeBuild сайта" <${process.env.SMTP_USER}>`,
+      from: `"BuildX сайта" <${process.env.SMTP_USER}>`,
       to: LEAD_EMAIL,
       subject: `📩 Новая заявка — ${safeSource}`,
       text: [
@@ -76,7 +102,7 @@ export async function POST(req: NextRequest) {
         `Телефон:    ${safePhone}`,
         `Комментарий: ${safeComment || '—'}`,
         `Источник:   ${safeSource}`,
-        `Время:      ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })} (МСК)`,
+        `Время:      ${now} (МСК)`,
       ].join('\n'),
       html: `
         <div style="font-family:Arial,sans-serif;max-width:480px;padding:24px;border:1px solid #e0e0e0;border-radius:8px">
@@ -96,7 +122,7 @@ export async function POST(req: NextRequest) {
             </tr>
           </table>
           <p style="margin:16px 0 0;font-size:12px;color:#999">
-            ${new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })} (МСК)
+            ${now} (МСК)
           </p>
         </div>
       `,

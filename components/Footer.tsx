@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const NAV = [
   { label: 'Проекты', href: '/proekty' },
-  { label: 'Калькулятор', href: '/kalkulyator' },
+  { label: 'Подбор дома', href: '/podbor-doma' },
   { label: 'О компании', href: '/o-kompanii' },
   { label: 'Отзывы', href: '/otzyvy' },
   { label: 'Контакты', href: '/kontakty' },
@@ -39,7 +39,7 @@ export default function Footer() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 40, marginBottom: 48 }}>
           <div>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: 18, fontWeight: 800, color: '#fff', marginBottom: 12 }}>
-              PrimeBuild
+              BuildX
             </p>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.35)', lineHeight: 1.6, margin: 0 }}>
               Строительство домов под ключ в Московской области
@@ -97,7 +97,7 @@ export default function Footer() {
         </div>
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'rgba(255,255,255,0.2)', margin: 0 }}>
-            © {new Date().getFullYear()} PrimeBuild. Все права защищены.
+            © {new Date().getFullYear()} BuildX. Все права защищены.
           </p>
           <Link href="/privacy" style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>
             Политика конфиденциальности

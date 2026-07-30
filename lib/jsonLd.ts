@@ -4,7 +4,7 @@ export const orgJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   '@id': SITE_URL,
-  name: 'PrimeBuild',
+  name: 'BuildX',
   url: SITE_URL,
   telephone: 'TODO: +7 (XXX) XXX-XX-XX',
   email: 'TODO: info@company.ru',

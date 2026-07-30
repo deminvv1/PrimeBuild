@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import ContactForm from '@/components/ContactForm'
+import ContactSplit from '@/components/ContactSplit'
 import Breadcrumb from '@/components/Breadcrumb'
 import AnimatedLine from '@/components/AnimatedLine'
 import VerticalRevealLine from '@/components/VerticalRevealLine'
@@ -10,8 +10,8 @@ import FadeIn from '@/components/FadeIn'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
 export const metadata: Metadata = {
-  title: 'О компании — PrimeBuild',
-  description: 'PrimeBuild — строительная компания в Московской области. Строим современные дома под ключ с плоской кровлей и панорамным остеклением.',
+  title: 'О компании — BuildX',
+  description: 'BuildX — строительная компания в Московской области. Строим современные дома под ключ с плоской кровлей и панорамным остеклением.',
   alternates: { canonical: `${SITE_URL}/o-kompanii` },
 }
 
@@ -74,7 +74,7 @@ export default function OKompaniiPage() {
         <FadeIn delay={150}>
           <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '0 24px' }}>
             {STATS.map(({ num, label }, i) => (
-              <div key={label} style={{
+              <div key={label} className="stat-cell" style={{
                 padding: '40px 44px',
                 borderRight: i < 3 ? '1px solid rgba(255,255,255,0.07)' : 'none',
               }}>
@@ -108,7 +108,7 @@ export default function OKompaniiPage() {
               <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', borderRadius: 10, overflow: 'hidden' }}>
                 <Image
                   src="/images/quiz/contact.jpg"
-                  alt="О компании PrimeBuild"
+                  alt="О компании BuildX"
                   fill
                   sizes="30vw"
                   style={{ objectFit: 'cover' }}
@@ -152,20 +152,12 @@ export default function OKompaniiPage() {
 
       {/* ── ФОРМА ── */}
       <section style={{ position: 'relative' }}>
-        <FadeIn delay={100}>
-          <div style={{ padding: '80px 24px 96px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <p style={{
-              fontFamily: 'var(--font-sans)', fontSize: 16,
-              color: 'rgba(255,255,255,0.42)', lineHeight: 1.7, margin: '0 0 40px',
-              maxWidth: 560, textAlign: 'center',
-            }}>
-              Расскажите о своём участке и пожеланиях — ответим на вопросы и подберём подходящий проект.
-            </p>
-            <div style={{ width: '100%', maxWidth: 580 }}>
-              <ContactForm source="o-kompanii" dark buttonLabel="Отправить заявку" />
-            </div>
-          </div>
-        </FadeIn>
+        <ContactSplit
+          source="o-kompanii"
+          photo="/images/projects/alpha-1.jpg"
+          quoteText={"Строим дома,\nкоторым доверяют"}
+          title="Обсудим ваш проект?"
+        />
       </section>
 
       <style>{`
@@ -173,6 +165,9 @@ export default function OKompaniiPage() {
           .about-grid { grid-template-columns: 1fr !important; gap: 32px !important; padding: 56px 24px !important; }
           .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .principles-grid { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .stat-cell { padding: 20px 12px !important; }
         }
       `}</style>
     </main>

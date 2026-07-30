@@ -5,7 +5,7 @@ import Breadcrumb from '@/components/Breadcrumb'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
 export const metadata: Metadata = {
-  title: 'Калькулятор стоимости дома — PrimeBuild',
+  title: 'Калькулятор стоимости дома — BuildX',
   description: 'Рассчитайте стоимость дома под ключ в Московской области за 3 минуты.',
   alternates: { canonical: `${SITE_URL}/kalkulyator` },
 }

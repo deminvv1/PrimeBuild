@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { projects as PROJECTS } from "@/data/projects";
+import { homepageProjects as PROJECTS } from "@/data/projects";
 import ProjectCard from "@/components/ProjectCard";
-import ContactForm from "@/components/ContactForm";
+import ContactSplit from "@/components/ContactSplit";
 import AnimatedLine from "@/components/AnimatedLine";
 import VerticalRevealLine from "@/components/VerticalRevealLine";
 import SectionLines from "@/components/SectionLines";
@@ -14,10 +14,21 @@ import HowWeWorkSlider from "@/components/HowWeWorkSlider";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.ru";
 
 export const metadata: Metadata = {
-  title: "PrimeBuild — Строительство домов в Московской области",
+  title: "BuildX — Строительство домов в Московской области",
   description:
     "TODO: Строим дома в МО под ключ за 6 месяцев. Проекты Mini, Midi, Maxi. Отделка Комфорт и Бизнес. Бесплатный расчёт стоимости.",
   alternates: { canonical: SITE_URL },
+};
+
+const GOLD_SHIMMER: React.CSSProperties = {
+  background: "linear-gradient(105deg, #b8924a 0%, #C9A96E 28%, #f5e4aa 50%, #C9A96E 72%, #b8924a 100%)",
+  backgroundSize: "250% 100%",
+  animation: "btn-gold-shimmer 3.5s linear infinite",
+};
+const GLASS_SHIMMER: React.CSSProperties = {
+  background: "linear-gradient(105deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.14) 30%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.14) 70%, rgba(255,255,255,0.05) 100%)",
+  backgroundSize: "250% 100%",
+  animation: "btn-gold-shimmer 3.5s linear infinite",
 };
 
 const C: React.CSSProperties = {
@@ -70,6 +81,18 @@ export default function HomePage() {
         />
         <div
           style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: 220,
+            background: "linear-gradient(to bottom, rgba(0,0,0,0) 0%, #242424 100%)",
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+        />
+        <div
+          style={{
             ...C,
             position: "relative",
             zIndex: 1,
@@ -114,8 +137,9 @@ export default function HomePage() {
             <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
               <Link
                 href="/proekty"
+                className="btn-glow-gold"
                 style={{
-                  background: "#C9A96E",
+                  ...GOLD_SHIMMER,
                   color: "#1a1a1a",
                   fontFamily: "var(--font-sans)",
                   fontSize: 14,
@@ -129,9 +153,10 @@ export default function HomePage() {
                 Смотреть проекты
               </Link>
               <Link
-                href="/kalkulyator"
+                href="/podbor-doma"
+                className="btn-glow-glass"
                 style={{
-                  background: "rgba(255,255,255,0.08)",
+                  ...GLASS_SHIMMER,
                   color: "#fff",
                   border: "1px solid rgba(255,255,255,0.2)",
                   fontFamily: "var(--font-sans)",
@@ -143,7 +168,7 @@ export default function HomePage() {
                   borderRadius: 999,
                 }}
               >
-                Рассчитать стоимость
+                Подобрать дом
               </Link>
             </div>
           </FadeIn>
@@ -219,11 +244,12 @@ export default function HomePage() {
               direction="vertical"
               delay={100}
               color="rgba(255,255,255,0.18)"
+              className="mosaic-line"
             />
             {/* правая: ссылка */}
             <div
               style={{
-                padding: "48px 32px",
+                padding: "48px 20px",
                 display: "flex",
                 alignItems: "flex-end",
               }}
@@ -286,7 +312,19 @@ export default function HomePage() {
         </div>
         <div style={{ height: 64 }} />
 
-        <style>{`@media(max-width:800px){.about-grid{grid-template-columns:1fr!important;} .about-grid>div:last-child{min-height:280px;}}`}</style>
+        <style>{`
+          @media(max-width:800px){
+            .about-grid{grid-template-columns:1fr!important;}
+            .about-grid>div:last-child{min-height:280px;}
+            .about-inner{grid-template-columns:1fr!important;}
+          }
+          @media(max-width:700px){
+            .pg-grid-2{grid-template-columns:1fr!important;}
+            .mosaic-grid{grid-template-columns:1fr!important;grid-template-rows:auto!important;}
+            .mosaic-photo{grid-row:auto!important;height:260px;}
+            .mosaic-line{display:none!important;}
+          }
+        `}</style>
       </section>
 
       {/* ── PROJECTS PREVIEW ──────────────────────────────────────────────── */}
@@ -334,6 +372,7 @@ export default function HomePage() {
           />
           <FadeIn delay={150} threshold={0.1}>
           <div
+            className="pg-grid-2"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
@@ -349,6 +388,7 @@ export default function HomePage() {
           <AnimatedLine length="100%" delay={100} threshold={0.1} />
           <FadeIn delay={200} threshold={0.1}>
           <div
+            className="pg-grid-2"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(2, 1fr)",
@@ -356,7 +396,7 @@ export default function HomePage() {
               padding: 20,
             }}
           >
-            {PROJECTS.slice(2).map((p) => (
+            {PROJECTS.slice(2, 4).map((p) => (
               <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
@@ -398,7 +438,7 @@ export default function HomePage() {
           <AnimatedLine length="100%" delay={0} threshold={0.1} />
           <VerticalRevealLine left="50%" delay={150} color="rgba(255,255,255,0.18)" threshold={0.1} />
           <FadeIn delay={150} threshold={0.1}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", columnGap: 24, padding: 20 }}>
+          <div className="pg-grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", columnGap: 24, padding: 20 }}>
             {([
               {
                 name: "Комфорт",
@@ -420,12 +460,17 @@ export default function HomePage() {
                 img: "/images/quiz/premium.jpg",
                 isPremium: true,
                 includes: [
-                  "Всё из Комфорт",
                   "Премиальные материалы",
                   "Авторский дизайн-проект",
                   "Тёплый пол во всём доме",
                   "Умный дом базовый",
                   "Расширенная гарантия 5 лет",
+                  "Черновая и чистовая отделка",
+                  "Ламинат 33-го класса",
+                  "Натяжные потолки",
+                  "Электрика с автоматикой",
+                  "Сантехника базовая",
+                  "Отопление котёл + радиаторы",
                 ],
               },
             ] as const).map(({ name, priceNote, img, isPremium, includes }) => (
@@ -441,27 +486,31 @@ export default function HomePage() {
                   <p style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: isPremium ? "#C9A96E" : "rgba(255,255,255,0.35)", marginBottom: 24 }}>
                     {priceNote}
                   </p>
-                  {includes.map((item) => (
-                    <div key={item} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 }}>
-                      <span style={{ color: isPremium ? "#C9A96E" : "rgba(255,255,255,0.5)", fontWeight: 700, flexShrink: 0 }}>✓</span>
-                      <span style={{ fontFamily: "var(--font-sans)", fontSize: 14, color: "rgba(255,255,255,0.72)", lineHeight: 1.5 }}>{item}</span>
-                    </div>
-                  ))}
-                  <Link href="/kalkulyator" style={{
-                    display: "inline-block",
-                    marginTop: 32,
-                    background: isPremium ? "#C9A96E" : "rgba(255,255,255,0.08)",
-                    color: isPremium ? "#1a1a1a" : "rgba(255,255,255,0.85)",
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 13,
-                    fontWeight: 700,
-                    letterSpacing: "0.8px",
-                    textTransform: "uppercase" as const,
-                    padding: "15px 32px",
-                    borderRadius: 999,
-                    border: isPremium ? "none" : "1px solid rgba(255,255,255,0.2)",
-                  }}>
-                    Рассчитать стоимость
+                  <div style={isPremium ? { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 16px" } : {}}>
+                    {includes.map((item) => (
+                      <div key={item} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 }}>
+                        <span style={{ color: isPremium ? "#C9A96E" : "rgba(255,255,255,0.5)", fontWeight: 700, flexShrink: 0 }}>✓</span>
+                        <span style={{ fontFamily: "var(--font-sans)", fontSize: 14, color: "rgba(255,255,255,0.72)", lineHeight: 1.5 }}>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Link href="/podbor-doma"
+                    className={isPremium ? "btn-glow-gold" : "btn-glow-glass"}
+                    style={{
+                      ...(isPremium ? GOLD_SHIMMER : GLASS_SHIMMER),
+                      display: "inline-block",
+                      marginTop: 32,
+                      color: isPremium ? "#1a1a1a" : "rgba(255,255,255,0.85)",
+                      fontFamily: "var(--font-sans)",
+                      fontSize: 13,
+                      fontWeight: 700,
+                      letterSpacing: "0.8px",
+                      textTransform: "uppercase" as const,
+                      padding: "15px 32px",
+                      borderRadius: 999,
+                      border: isPremium ? "none" : "1px solid rgba(255,255,255,0.2)",
+                    }}>
+                    Подобрать дом
                   </Link>
                 </div>
               </div>
@@ -489,27 +538,27 @@ export default function HomePage() {
         <FadeIn delay={150}>
         {/* Без вертикального padding — сетка касается верхнего и нижнего AnimatedLine */}
         <div style={{ padding: "0 24px" }}>
-          <div style={{
+          <div className="mosaic-grid" style={{
             display: "grid",
             gridTemplateColumns: "1.15fr 1fr 1.15fr",
             gridTemplateRows: "300px 300px",
             position: "relative",
           }}>
             {/* Вертикальная линия col1|col2 — соединяется с внешними горизонтальными */}
-            <VerticalRevealLine left="34.85%" delay={100} color="rgba(255,255,255,0.18)" />
+            <VerticalRevealLine left="34.85%" delay={100} color="rgba(255,255,255,0.18)" className="mosaic-line" />
             {/* Вертикальная линия col2|col3 */}
-            <VerticalRevealLine left="65.15%" delay={150} color="rgba(255,255,255,0.18)" />
+            <VerticalRevealLine left="65.15%" delay={150} color="rgba(255,255,255,0.18)" className="mosaic-line" />
             {/* Горизонтальная линия между строками (col2+col3) */}
-            <div style={{ position: "absolute", top: 300, left: "34.85%", right: 0, zIndex: 1 }}>
+            <div className="mosaic-line" style={{ position: "absolute", top: 300, left: "34.85%", right: 0, zIndex: 1 }}>
               <AnimatedLine length="100%" delay={200} color="rgba(255,255,255,0.18)" />
             </div>
 
             {/* ── Фото большое слева: padding только справа и сверху/снизу чтобы линии были видны ── */}
-            <div style={{ gridRow: "1 / 3", padding: "20px 20px 20px 20px" }}>
+            <div className="mosaic-photo" style={{ gridRow: "1 / 3", padding: "20px 20px 20px 20px" }}>
               <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", borderRadius: 10 }}>
                 <Image
                   src="/images/projects/gamma-1.jpg"
-                  alt="Почему выбирают PrimeBuild"
+                  alt="Почему выбирают BuildX"
                   fill
                   sizes="30vw"
                   style={{ objectFit: "cover" }}
@@ -566,7 +615,7 @@ export default function HomePage() {
             </div>
 
             {/* ── Фото правый нижний: padding слева и сверху/снизу ── */}
-            <div style={{ padding: "20px 20px 20px 20px" }}>
+            <div className="mosaic-photo" style={{ padding: "20px 20px 20px 20px" }}>
               <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", borderRadius: 10 }}>
                 <Image
                   src="/images/quiz/premium.jpg"
@@ -583,7 +632,7 @@ export default function HomePage() {
         <div style={{ padding: "0 24px" }}>
           <AnimatedLine length="100%" delay={300} />
         </div>
-        <div style={{ height: 64 }} />
+        <div style={{ height: 20 }} />
       </section>
 
       {/* ── REVIEWS ───────────────────────────────────────────────────────── */}
@@ -708,150 +757,16 @@ export default function HomePage() {
       </section> */}
 
       {/* ── CONTACT ───────────────────────────────────────────────────────── */}
-      <section style={{ background: "#242424", position: "relative" }}>
-        <SectionLines delay={200} />
-        <FadeIn>
-          <div style={{ padding: "0 60px 40px" }}>
-            <h2 style={{ ...H2, textAlign: "center" }}>
-              Получите бесплатную консультацию
-            </h2>
-          </div>
-        </FadeIn>
-        <div style={{ padding: "0 24px" }}>
-          <AnimatedLine length="100%" delay={0} />
-        </div>
-        <FadeIn delay={150}>
-        <div style={{ ...C, maxWidth: 640, padding: "48px 24px 64px" }}>
-          <p
-            style={{
-              fontFamily: "var(--font-sans)",
-              fontSize: 15,
-              color: "rgba(255,255,255,0.45)",
-              textAlign: "center",
-              marginBottom: 40,
-              lineHeight: 1.6,
-            }}
-          >
-            Расскажите о своём участке и пожеланиях — ответим на вопросы и
-            подберём подходящий проект.
-          </p>
-          <ContactForm source="main" buttonLabel="Отправить заявку" dark />
-        </div>
-        </FadeIn>
-        <div style={{ padding: "0 24px" }}>
-          <AnimatedLine length="100%" delay={300} />
-        </div>
-        <div style={{ height: 64 }} />
-      </section>
-
-      {/* ── QUIZ CALCULATOR ───────────────────────────────────────────────── */}
       <section style={{ position: "relative" }}>
         <SectionLines delay={200} />
-        <div style={{ padding: "0 24px" }}>
-          <AnimatedLine length="100%" delay={0} />
-        </div>
-
-        <FadeIn delay={100}>
-          <div style={{ padding: "15px 44px" }}>
-          <div style={{ position: "relative", overflow: "hidden", borderRadius: 16 }}>
-            {/* Фоновое фото */}
-            <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-              <Image
-                src="/images/projects/gamma-1.jpg"
-                alt=""
-                fill
-                style={{ objectFit: "cover", objectPosition: "center 30%" }}
-              />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(8,8,8,0.94) 0%, rgba(8,8,8,0.80) 100%)" }} />
-            </div>
-
-            {/* Контент */}
-            <div style={{
-              position: "relative", zIndex: 1,
-              display: "flex", flexDirection: "column", alignItems: "center",
-              textAlign: "center", padding: "100px 24px 92px",
-            }}>
-
-              {/* Надпись-метка */}
-              <p style={{
-                fontFamily: "var(--font-sans)", fontSize: 11, fontWeight: 700,
-                letterSpacing: "3px", textTransform: "uppercase", color: "#C9A96E",
-                margin: "0 0 28px",
-              }}>
-                Бесплатный расчёт
-              </p>
-
-              {/* Заголовок */}
-              <h2 style={{
-                fontFamily: "var(--font-sans)", fontSize: "clamp(36px, 5.5vw, 66px)",
-                fontWeight: 800, color: "rgba(255,255,255,0.95)", lineHeight: 1.08,
-                margin: "0 0 20px", maxWidth: 620,
-              }}>
-                Узнайте стоимость<br />вашего дома
-              </h2>
-
-              {/* Подзаголовок */}
-              <p style={{
-                fontFamily: "var(--font-sans)", fontSize: 16,
-                color: "rgba(255,255,255,0.4)", lineHeight: 1.7,
-                margin: "0 0 60px", maxWidth: 360,
-              }}>
-                4 вопроса — и вы получите развёрнутую смету с ценами на материалы и работы
-              </p>
-
-              {/* Статистика */}
-              <div style={{
-                display: "flex", width: "100%", maxWidth: 460, marginBottom: 52,
-                borderTop: "1px solid rgba(255,255,255,0.08)",
-                borderBottom: "1px solid rgba(255,255,255,0.08)",
-              }}>
-                {[
-                  { num: "4", label: "вопроса" },
-                  { num: "2 ч", label: "ответ" },
-                  { num: "0 ₽", label: "стоимость" },
-                ].map((s, i) => (
-                  <div key={i} style={{
-                    flex: 1, padding: "20px 0", textAlign: "center",
-                    borderRight: i < 2 ? "1px solid rgba(255,255,255,0.08)" : "none",
-                  }}>
-                    <p style={{ fontFamily: "var(--font-sans)", fontSize: 28, fontWeight: 800, color: "rgba(255,255,255,0.92)", lineHeight: 1, margin: "0 0 5px" }}>{s.num}</p>
-                    <p style={{ fontFamily: "var(--font-sans)", fontSize: 11, color: "rgba(255,255,255,0.28)", margin: 0, textTransform: "uppercase", letterSpacing: "1.5px" }}>{s.label}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Кнопка */}
-              <Link href="/kalkulyator" style={{
-                display: "inline-flex", alignItems: "center", gap: 12,
-                background: "#C9A96E", color: "#1a1a1a",
-                fontFamily: "var(--font-sans)", fontSize: 14, fontWeight: 700,
-                letterSpacing: "0.8px", textTransform: "uppercase",
-                padding: "20px 54px", borderRadius: 999,
-                textDecoration: "none",
-              }}>
-                Рассчитать стоимость
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </Link>
-
-              {/* Микро-копи */}
-              <p style={{
-                fontFamily: "var(--font-sans)", fontSize: 12,
-                color: "rgba(255,255,255,0.2)", margin: "20px 0 0",
-              }}>
-                Без обязательств — просто цифры
-              </p>
-            </div>
-          </div>
-          </div>
-        </FadeIn>
-
-        <div style={{ padding: "0 24px" }}>
-          <AnimatedLine length="100%" delay={300} />
-        </div>
-        <div style={{ height: 64 }} />
+        <ContactSplit
+          source="main"
+          photo="/images/projects/gamma-1.jpg"
+          quoteText={"Ваш дом в Московской\nобласти под ключ"}
+          title="Получите бесплатную консультацию"
+        />
       </section>
+
     </main>
   );
 }

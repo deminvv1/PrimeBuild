@@ -28,13 +28,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 24000000,
     "priceMax": 28000000,
     "plans": [
-      "/images/konstruktor/1-2-0-0/plan-1.png"
+      "/images/konstruktor/1-2-0-0/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-2-0-0/photo-1.png",
-      "/images/konstruktor/1-2-0-0/photo-2.png",
-      "/images/konstruktor/1-2-0-0/photo-3.png",
-      "/images/konstruktor/1-2-0-0/photo-4.png"
+      "/images/konstruktor/1-2-0-0/photo-1.webp",
+      "/images/konstruktor/1-2-0-0/photo-2.webp",
+      "/images/konstruktor/1-2-0-0/photo-3.webp",
+      "/images/konstruktor/1-2-0-0/photo-4.webp"
     ]
   },
   {
@@ -47,13 +47,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 36000000,
     "priceMax": 40000000,
     "plans": [
-      "/images/konstruktor/1-2-0-1/plan-1.png"
+      "/images/konstruktor/1-2-0-1/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-2-0-1/photo-1.png",
-      "/images/konstruktor/1-2-0-1/photo-2.png",
-      "/images/konstruktor/1-2-0-1/photo-3.png",
-      "/images/konstruktor/1-2-0-1/photo-4.png"
+      "/images/konstruktor/1-2-0-1/photo-1.webp",
+      "/images/konstruktor/1-2-0-1/photo-2.webp",
+      "/images/konstruktor/1-2-0-1/photo-3.webp",
+      "/images/konstruktor/1-2-0-1/photo-4.webp"
     ]
   },
   {
@@ -66,13 +66,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 25000000,
     "priceMax": 29000000,
     "plans": [
-      "/images/konstruktor/1-2-1-0/plan-1.png"
+      "/images/konstruktor/1-2-1-0/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-2-1-0/photo-1.png",
-      "/images/konstruktor/1-2-1-0/photo-2.png",
-      "/images/konstruktor/1-2-1-0/photo-3.png",
-      "/images/konstruktor/1-2-1-0/photo-4.png"
+      "/images/konstruktor/1-2-1-0/photo-1.webp",
+      "/images/konstruktor/1-2-1-0/photo-2.webp",
+      "/images/konstruktor/1-2-1-0/photo-3.webp",
+      "/images/konstruktor/1-2-1-0/photo-4.webp"
     ]
   },
   {
@@ -85,13 +85,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 37000000,
     "priceMax": 41000000,
     "plans": [
-      "/images/konstruktor/1-2-1-1/plan-1.png"
+      "/images/konstruktor/1-2-1-1/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-2-1-1/photo-1.png",
-      "/images/konstruktor/1-2-1-1/photo-2.png",
-      "/images/konstruktor/1-2-1-1/photo-3.png",
-      "/images/konstruktor/1-2-1-1/photo-4.png"
+      "/images/konstruktor/1-2-1-1/photo-1.webp",
+      "/images/konstruktor/1-2-1-1/photo-2.webp",
+      "/images/konstruktor/1-2-1-1/photo-3.webp",
+      "/images/konstruktor/1-2-1-1/photo-4.webp"
     ]
   },
   {
@@ -104,13 +104,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 25500000,
     "priceMax": 29500000,
     "plans": [
-      "/images/konstruktor/1-3-0-0/plan-1.png"
+      "/images/konstruktor/1-3-0-0/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-3-0-0/photo-1.png",
-      "/images/konstruktor/1-3-0-0/photo-2.png",
-      "/images/konstruktor/1-3-0-0/photo-3.png",
-      "/images/konstruktor/1-3-0-0/photo-4.png"
+      "/images/konstruktor/1-3-0-0/photo-1.webp",
+      "/images/konstruktor/1-3-0-0/photo-2.webp",
+      "/images/konstruktor/1-3-0-0/photo-3.webp",
+      "/images/konstruktor/1-3-0-0/photo-4.webp"
     ]
   },
   {
@@ -123,13 +123,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 37500000,
     "priceMax": 41500000,
     "plans": [
-      "/images/konstruktor/1-3-0-1/plan-1.png"
+      "/images/konstruktor/1-3-0-1/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-3-0-1/photo-1.png",
-      "/images/konstruktor/1-3-0-1/photo-2.png",
-      "/images/konstruktor/1-3-0-1/photo-3.png",
-      "/images/konstruktor/1-3-0-1/photo-4.png"
+      "/images/konstruktor/1-3-0-1/photo-1.webp",
+      "/images/konstruktor/1-3-0-1/photo-2.webp",
+      "/images/konstruktor/1-3-0-1/photo-3.webp",
+      "/images/konstruktor/1-3-0-1/photo-4.webp"
     ]
   },
   {
@@ -142,13 +142,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 27000000,
     "priceMax": 31000000,
     "plans": [
-      "/images/konstruktor/1-3-1-0/plan-1.png"
+      "/images/konstruktor/1-3-1-0/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-3-1-0/photo-1.png",
-      "/images/konstruktor/1-3-1-0/photo-2.png",
-      "/images/konstruktor/1-3-1-0/photo-3.png",
-      "/images/konstruktor/1-3-1-0/photo-4.png"
+      "/images/konstruktor/1-3-1-0/photo-1.webp",
+      "/images/konstruktor/1-3-1-0/photo-2.webp",
+      "/images/konstruktor/1-3-1-0/photo-3.webp",
+      "/images/konstruktor/1-3-1-0/photo-4.webp"
     ]
   },
   {
@@ -161,13 +161,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 39000000,
     "priceMax": 43000000,
     "plans": [
-      "/images/konstruktor/1-3-1-1/plan-1.png"
+      "/images/konstruktor/1-3-1-1/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-3-1-1/photo-1.png",
-      "/images/konstruktor/1-3-1-1/photo-2.png",
-      "/images/konstruktor/1-3-1-1/photo-3.png",
-      "/images/konstruktor/1-3-1-1/photo-4.png"
+      "/images/konstruktor/1-3-1-1/photo-1.webp",
+      "/images/konstruktor/1-3-1-1/photo-2.webp",
+      "/images/konstruktor/1-3-1-1/photo-3.webp",
+      "/images/konstruktor/1-3-1-1/photo-4.webp"
     ]
   },
   {
@@ -180,13 +180,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 28000000,
     "priceMax": 33000000,
     "plans": [
-      "/images/konstruktor/1-4-0-0/plan-1.png"
+      "/images/konstruktor/1-4-0-0/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-4-0-0/photo-1.png",
-      "/images/konstruktor/1-4-0-0/photo-2.png",
-      "/images/konstruktor/1-4-0-0/photo-3.png",
-      "/images/konstruktor/1-4-0-0/photo-4.png"
+      "/images/konstruktor/1-4-0-0/photo-1.webp",
+      "/images/konstruktor/1-4-0-0/photo-2.webp",
+      "/images/konstruktor/1-4-0-0/photo-3.webp",
+      "/images/konstruktor/1-4-0-0/photo-4.webp"
     ]
   },
   {
@@ -199,13 +199,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 40000000,
     "priceMax": 45000000,
     "plans": [
-      "/images/konstruktor/1-4-0-1/plan-1.png"
+      "/images/konstruktor/1-4-0-1/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-4-0-1/photo-1.png",
-      "/images/konstruktor/1-4-0-1/photo-2.png",
-      "/images/konstruktor/1-4-0-1/photo-3.png",
-      "/images/konstruktor/1-4-0-1/photo-4.png"
+      "/images/konstruktor/1-4-0-1/photo-1.webp",
+      "/images/konstruktor/1-4-0-1/photo-2.webp",
+      "/images/konstruktor/1-4-0-1/photo-3.webp",
+      "/images/konstruktor/1-4-0-1/photo-4.webp"
     ]
   },
   {
@@ -218,13 +218,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 30000000,
     "priceMax": 35000000,
     "plans": [
-      "/images/konstruktor/1-4-1-0/plan-1.png"
+      "/images/konstruktor/1-4-1-0/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-4-1-0/photo-1.png",
-      "/images/konstruktor/1-4-1-0/photo-2.png",
-      "/images/konstruktor/1-4-1-0/photo-3.png",
-      "/images/konstruktor/1-4-1-0/photo-4.png"
+      "/images/konstruktor/1-4-1-0/photo-1.webp",
+      "/images/konstruktor/1-4-1-0/photo-2.webp",
+      "/images/konstruktor/1-4-1-0/photo-3.webp",
+      "/images/konstruktor/1-4-1-0/photo-4.webp"
     ]
   },
   {
@@ -237,13 +237,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 41000000,
     "priceMax": 46000000,
     "plans": [
-      "/images/konstruktor/1-4-1-1/plan-1.png"
+      "/images/konstruktor/1-4-1-1/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-4-1-1/photo-1.png",
-      "/images/konstruktor/1-4-1-1/photo-2.png",
-      "/images/konstruktor/1-4-1-1/photo-3.png",
-      "/images/konstruktor/1-4-1-1/photo-4.png"
+      "/images/konstruktor/1-4-1-1/photo-1.webp",
+      "/images/konstruktor/1-4-1-1/photo-2.webp",
+      "/images/konstruktor/1-4-1-1/photo-3.webp",
+      "/images/konstruktor/1-4-1-1/photo-4.webp"
     ]
   },
   {
@@ -256,13 +256,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 30000000,
     "priceMax": 35000000,
     "plans": [
-      "/images/konstruktor/1-5-0-0/plan-1.png"
+      "/images/konstruktor/1-5-0-0/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-5-0-0/photo-1.png",
-      "/images/konstruktor/1-5-0-0/photo-2.png",
-      "/images/konstruktor/1-5-0-0/photo-3.png",
-      "/images/konstruktor/1-5-0-0/photo-4.png"
+      "/images/konstruktor/1-5-0-0/photo-1.webp",
+      "/images/konstruktor/1-5-0-0/photo-2.webp",
+      "/images/konstruktor/1-5-0-0/photo-3.webp",
+      "/images/konstruktor/1-5-0-0/photo-4.webp"
     ]
   },
   {
@@ -275,13 +275,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 42000000,
     "priceMax": 47000000,
     "plans": [
-      "/images/konstruktor/1-5-0-1/plan-1.png"
+      "/images/konstruktor/1-5-0-1/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-5-0-1/photo-1.png",
-      "/images/konstruktor/1-5-0-1/photo-2.png",
-      "/images/konstruktor/1-5-0-1/photo-3.png",
-      "/images/konstruktor/1-5-0-1/photo-4.png"
+      "/images/konstruktor/1-5-0-1/photo-1.webp",
+      "/images/konstruktor/1-5-0-1/photo-2.webp",
+      "/images/konstruktor/1-5-0-1/photo-3.webp",
+      "/images/konstruktor/1-5-0-1/photo-4.webp"
     ]
   },
   {
@@ -294,13 +294,13 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 31000000,
     "priceMax": 36000000,
     "plans": [
-      "/images/konstruktor/1-5-1-0/plan-1.png"
+      "/images/konstruktor/1-5-1-0/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-5-1-0/photo-1.jpg",
-      "/images/konstruktor/1-5-1-0/photo-2.png",
-      "/images/konstruktor/1-5-1-0/photo-3.png",
-      "/images/konstruktor/1-5-1-0/photo-4.png"
+      "/images/konstruktor/1-5-1-0/photo-1.webp",
+      "/images/konstruktor/1-5-1-0/photo-2.webp",
+      "/images/konstruktor/1-5-1-0/photo-3.webp",
+      "/images/konstruktor/1-5-1-0/photo-4.webp"
     ]
   },
   {
@@ -313,14 +313,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 44000000,
     "priceMax": 49000000,
     "plans": [
-      "/images/konstruktor/1-5-1-1/plan-1.png"
+      "/images/konstruktor/1-5-1-1/plan-1.webp"
     ],
     "photos": [
-      "/images/konstruktor/1-5-1-1/photo-1.jpg",
-      "/images/konstruktor/1-5-1-1/photo-2.png",
-      "/images/konstruktor/1-5-1-1/photo-3.png",
-      "/images/konstruktor/1-5-1-1/photo-4.png",
-      "/images/konstruktor/1-5-1-1/photo-5.png"
+      "/images/konstruktor/1-5-1-1/photo-1.webp",
+      "/images/konstruktor/1-5-1-1/photo-2.webp",
+      "/images/konstruktor/1-5-1-1/photo-3.webp",
+      "/images/konstruktor/1-5-1-1/photo-4.webp",
+      "/images/konstruktor/1-5-1-1/photo-5.webp"
     ]
   },
   {
@@ -333,14 +333,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 27000000,
     "priceMax": 31000000,
     "plans": [
-      "/images/konstruktor/2-3-0-0/plan-1.png",
-      "/images/konstruktor/2-3-0-0/plan-2.png"
+      "/images/konstruktor/2-3-0-0/plan-1.webp",
+      "/images/konstruktor/2-3-0-0/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-3-0-0/photo-1.png",
-      "/images/konstruktor/2-3-0-0/photo-2.png",
-      "/images/konstruktor/2-3-0-0/photo-3.png",
-      "/images/konstruktor/2-3-0-0/photo-4.png"
+      "/images/konstruktor/2-3-0-0/photo-1.webp",
+      "/images/konstruktor/2-3-0-0/photo-2.webp",
+      "/images/konstruktor/2-3-0-0/photo-3.webp",
+      "/images/konstruktor/2-3-0-0/photo-4.webp"
     ]
   },
   {
@@ -353,14 +353,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 39000000,
     "priceMax": 43000000,
     "plans": [
-      "/images/konstruktor/2-3-0-1/plan-1.png",
-      "/images/konstruktor/2-3-0-1/plan-2.png"
+      "/images/konstruktor/2-3-0-1/plan-1.webp",
+      "/images/konstruktor/2-3-0-1/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-3-0-1/photo-1.png",
-      "/images/konstruktor/2-3-0-1/photo-2.png",
-      "/images/konstruktor/2-3-0-1/photo-3.png",
-      "/images/konstruktor/2-3-0-1/photo-4.png"
+      "/images/konstruktor/2-3-0-1/photo-1.webp",
+      "/images/konstruktor/2-3-0-1/photo-2.webp",
+      "/images/konstruktor/2-3-0-1/photo-3.webp",
+      "/images/konstruktor/2-3-0-1/photo-4.webp"
     ]
   },
   {
@@ -373,14 +373,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 29000000,
     "priceMax": 33000000,
     "plans": [
-      "/images/konstruktor/2-3-1-0/plan-1.png",
-      "/images/konstruktor/2-3-1-0/plan-2.png"
+      "/images/konstruktor/2-3-1-0/plan-1.webp",
+      "/images/konstruktor/2-3-1-0/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-3-1-0/photo-1.png",
-      "/images/konstruktor/2-3-1-0/photo-2.png",
-      "/images/konstruktor/2-3-1-0/photo-3.png",
-      "/images/konstruktor/2-3-1-0/photo-4.png"
+      "/images/konstruktor/2-3-1-0/photo-1.webp",
+      "/images/konstruktor/2-3-1-0/photo-2.webp",
+      "/images/konstruktor/2-3-1-0/photo-3.webp",
+      "/images/konstruktor/2-3-1-0/photo-4.webp"
     ]
   },
   {
@@ -393,14 +393,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 41000000,
     "priceMax": 45000000,
     "plans": [
-      "/images/konstruktor/2-3-1-1/plan-1.png",
-      "/images/konstruktor/2-3-1-1/plan-2.png"
+      "/images/konstruktor/2-3-1-1/plan-1.webp",
+      "/images/konstruktor/2-3-1-1/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-3-1-1/photo-1.png",
-      "/images/konstruktor/2-3-1-1/photo-2.png",
-      "/images/konstruktor/2-3-1-1/photo-3.png",
-      "/images/konstruktor/2-3-1-1/photo-4.png"
+      "/images/konstruktor/2-3-1-1/photo-1.webp",
+      "/images/konstruktor/2-3-1-1/photo-2.webp",
+      "/images/konstruktor/2-3-1-1/photo-3.webp",
+      "/images/konstruktor/2-3-1-1/photo-4.webp"
     ]
   },
   {
@@ -413,14 +413,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 30000000,
     "priceMax": 35000000,
     "plans": [
-      "/images/konstruktor/2-4-0-0/plan-1.png",
-      "/images/konstruktor/2-4-0-0/plan-2.png"
+      "/images/konstruktor/2-4-0-0/plan-1.webp",
+      "/images/konstruktor/2-4-0-0/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-4-0-0/photo-1.png",
-      "/images/konstruktor/2-4-0-0/photo-2.png",
-      "/images/konstruktor/2-4-0-0/photo-3.png",
-      "/images/konstruktor/2-4-0-0/photo-4.png"
+      "/images/konstruktor/2-4-0-0/photo-1.webp",
+      "/images/konstruktor/2-4-0-0/photo-2.webp",
+      "/images/konstruktor/2-4-0-0/photo-3.webp",
+      "/images/konstruktor/2-4-0-0/photo-4.webp"
     ]
   },
   {
@@ -433,14 +433,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 42000000,
     "priceMax": 47000000,
     "plans": [
-      "/images/konstruktor/2-4-0-1/plan-1.png",
-      "/images/konstruktor/2-4-0-1/plan-2.png"
+      "/images/konstruktor/2-4-0-1/plan-1.webp",
+      "/images/konstruktor/2-4-0-1/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-4-0-1/photo-1.png",
-      "/images/konstruktor/2-4-0-1/photo-2.png",
-      "/images/konstruktor/2-4-0-1/photo-3.png",
-      "/images/konstruktor/2-4-0-1/photo-4.png"
+      "/images/konstruktor/2-4-0-1/photo-1.webp",
+      "/images/konstruktor/2-4-0-1/photo-2.webp",
+      "/images/konstruktor/2-4-0-1/photo-3.webp",
+      "/images/konstruktor/2-4-0-1/photo-4.webp"
     ]
   },
   {
@@ -453,14 +453,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 31000000,
     "priceMax": 36000000,
     "plans": [
-      "/images/konstruktor/2-4-1-0/plan-1.png",
-      "/images/konstruktor/2-4-1-0/plan-2.png"
+      "/images/konstruktor/2-4-1-0/plan-1.webp",
+      "/images/konstruktor/2-4-1-0/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-4-1-0/photo-1.png",
-      "/images/konstruktor/2-4-1-0/photo-2.png",
-      "/images/konstruktor/2-4-1-0/photo-3.png",
-      "/images/konstruktor/2-4-1-0/photo-4.png"
+      "/images/konstruktor/2-4-1-0/photo-1.webp",
+      "/images/konstruktor/2-4-1-0/photo-2.webp",
+      "/images/konstruktor/2-4-1-0/photo-3.webp",
+      "/images/konstruktor/2-4-1-0/photo-4.webp"
     ]
   },
   {
@@ -473,14 +473,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 43000000,
     "priceMax": 48000000,
     "plans": [
-      "/images/konstruktor/2-4-1-1/plan-1.png",
-      "/images/konstruktor/2-4-1-1/plan-2.png"
+      "/images/konstruktor/2-4-1-1/plan-1.webp",
+      "/images/konstruktor/2-4-1-1/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-4-1-1/photo-1.png",
-      "/images/konstruktor/2-4-1-1/photo-2.png",
-      "/images/konstruktor/2-4-1-1/photo-3.png",
-      "/images/konstruktor/2-4-1-1/photo-4.png"
+      "/images/konstruktor/2-4-1-1/photo-1.webp",
+      "/images/konstruktor/2-4-1-1/photo-2.webp",
+      "/images/konstruktor/2-4-1-1/photo-3.webp",
+      "/images/konstruktor/2-4-1-1/photo-4.webp"
     ]
   },
   {
@@ -493,14 +493,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 44000000,
     "priceMax": 49000000,
     "plans": [
-      "/images/konstruktor/2-5-0-1/plan-1.png",
-      "/images/konstruktor/2-5-0-1/plan-2.png"
+      "/images/konstruktor/2-5-0-1/plan-1.webp",
+      "/images/konstruktor/2-5-0-1/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-5-0-1/photo-1.png",
-      "/images/konstruktor/2-5-0-1/photo-2.png",
-      "/images/konstruktor/2-5-0-1/photo-3.png",
-      "/images/konstruktor/2-5-0-1/photo-4.png"
+      "/images/konstruktor/2-5-0-1/photo-1.webp",
+      "/images/konstruktor/2-5-0-1/photo-2.webp",
+      "/images/konstruktor/2-5-0-1/photo-3.webp",
+      "/images/konstruktor/2-5-0-1/photo-4.webp"
     ]
   },
   {
@@ -513,14 +513,14 @@ export const HOUSE_CATALOG: HouseCatalogEntry[] = [
     "priceMin": 45000000,
     "priceMax": 50000000,
     "plans": [
-      "/images/konstruktor/2-5-1-1/plan-1.png",
-      "/images/konstruktor/2-5-1-1/plan-2.png"
+      "/images/konstruktor/2-5-1-1/plan-1.webp",
+      "/images/konstruktor/2-5-1-1/plan-2.webp"
     ],
     "photos": [
-      "/images/konstruktor/2-5-1-1/photo-1.png",
-      "/images/konstruktor/2-5-1-1/photo-2.png",
-      "/images/konstruktor/2-5-1-1/photo-3.png",
-      "/images/konstruktor/2-5-1-1/photo-4.png"
+      "/images/konstruktor/2-5-1-1/photo-1.webp",
+      "/images/konstruktor/2-5-1-1/photo-2.webp",
+      "/images/konstruktor/2-5-1-1/photo-3.webp",
+      "/images/konstruktor/2-5-1-1/photo-4.webp"
     ]
   }
 ]
@@ -536,81 +536,81 @@ export const INTERIOR_SHOWCASE: InteriorShowcaseImage[] = [
   {
     "slug": "balcony",
     "label": "Балкон",
-    "src": "/images/konstruktor/interior-396/balcony.png"
+    "src": "/images/konstruktor/interior-396/balcony.webp"
   },
   {
     "slug": "living-room",
     "label": "Гостиная",
-    "src": "/images/konstruktor/interior-396/living-room.png"
+    "src": "/images/konstruktor/interior-396/living-room.webp"
   },
   {
     "slug": "living-room-2",
     "label": "Гостиная",
-    "src": "/images/konstruktor/interior-396/living-room-2.png"
+    "src": "/images/konstruktor/interior-396/living-room-2.webp"
   },
   {
     "slug": "living-room-3",
     "label": "Гостиная",
-    "src": "/images/konstruktor/interior-396/living-room-3.png"
+    "src": "/images/konstruktor/interior-396/living-room-3.webp"
   },
   {
     "slug": "living-room-4",
     "label": "Гостиная",
-    "src": "/images/konstruktor/interior-396/living-room-4.png"
+    "src": "/images/konstruktor/interior-396/living-room-4.webp"
   },
   {
     "slug": "master-closet",
     "label": "Гардеробная мастер-спальни",
-    "src": "/images/konstruktor/interior-396/master-closet.png"
+    "src": "/images/konstruktor/interior-396/master-closet.webp"
   },
   {
     "slug": "master-closet-2",
     "label": "Гардеробная мастер-спальни",
-    "src": "/images/konstruktor/interior-396/master-closet-2.png"
+    "src": "/images/konstruktor/interior-396/master-closet-2.webp"
   },
   {
     "slug": "master-bedroom",
     "label": "Мастер-спальня",
-    "src": "/images/konstruktor/interior-396/master-bedroom.png"
+    "src": "/images/konstruktor/interior-396/master-bedroom.webp"
   },
   {
     "slug": "master-bathroom-2",
     "label": "Ванная мастер-спальни",
-    "src": "/images/konstruktor/interior-396/master-bathroom-2.png"
+    "src": "/images/konstruktor/interior-396/master-bathroom-2.webp"
   },
   {
     "slug": "sauna",
     "label": "Сауна",
-    "src": "/images/konstruktor/interior-396/sauna.png"
+    "src": "/images/konstruktor/interior-396/sauna.webp"
   },
   {
     "slug": "spa",
     "label": "СПА-зона",
-    "src": "/images/konstruktor/interior-396/spa.png"
+    "src": "/images/konstruktor/interior-396/spa.webp"
   },
   {
     "slug": "spa-2",
     "label": "СПА-зона",
-    "src": "/images/konstruktor/interior-396/spa-2.png"
+    "src": "/images/konstruktor/interior-396/spa-2.webp"
   },
   {
     "slug": "guest-bedroom-3",
     "label": "Гостевая спальня",
-    "src": "/images/konstruktor/interior-396/guest-bedroom-3.png"
+    "src": "/images/konstruktor/interior-396/guest-bedroom-3.webp"
   },
   {
     "slug": "guest-bedroom",
     "label": "Гостевая спальня",
-    "src": "/images/konstruktor/interior-396/guest-bedroom.png"
+    "src": "/images/konstruktor/interior-396/guest-bedroom.webp"
   },
   {
     "slug": "guest-bedroom-2",
     "label": "Гостевая спальня",
-    "src": "/images/konstruktor/interior-396/guest-bedroom-2.png"
+    "src": "/images/konstruktor/interior-396/guest-bedroom-2.webp"
   },
   {
     "slug": "hammam",
     "label": "Хаммам",
-    "src": "/images/konstruktor/interior-396/hammam.png"
+    "src": "/images/konstruktor/interior-396/hammam.webp"
   }
 ]

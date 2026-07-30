@@ -13,6 +13,9 @@ export default function CookieBanner() {
 
   useEffect(() => {
     if (localStorage.getItem(KEY)) return
+    // Рендерим null на сервере и при гидратации, чтобы не было hydration mismatch
+    // (localStorage недоступен на сервере) — баннер сознательно появляется только после монтирования.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setRender(true)
 
     let t: ReturnType<typeof setTimeout>

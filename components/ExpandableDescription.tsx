@@ -1,11 +1,16 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { DETAILED_SECTIONS, SHORT_DESCRIPTION } from '@/data/houseDescription'
 
 export default function ExpandableDescription() {
   const [open, setOpen] = useState(false)
+  const [contentHeight, setContentHeight] = useState(4000)
   const contentRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    if (contentRef.current) setContentHeight(contentRef.current.scrollHeight)
+  }, [])
 
   return (
     <div style={{ maxWidth: 760 }}>
@@ -23,7 +28,7 @@ export default function ExpandableDescription() {
 
       <div
         style={{
-          maxHeight: open ? contentRef.current?.scrollHeight ?? 4000 : 0,
+          maxHeight: open ? contentHeight : 0,
           opacity: open ? 1 : 0,
           overflow: 'hidden',
           transition: 'max-height 0.6s cubic-bezier(0.65,0,0.35,1), opacity 0.5s ease',

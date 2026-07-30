@@ -25,7 +25,6 @@ export default function PageTransition() {
       isTransitioning.current = false
     }, TILE_WIPE_MS)
     return () => clearTimeout(t)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
 
   useEffect(() => {
@@ -33,6 +32,7 @@ export default function PageTransition() {
       if (isTransitioning.current) return
       if (e.defaultPrevented || e.button !== 0) return
       if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
       const anchor = (e.target as HTMLElement)?.closest('a')
       if (!anchor) return

@@ -16,7 +16,6 @@ export default function ProjectCard({ project }: { project: Project }) {
       style={{ display: 'block', textDecoration: 'none' }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      onTouchStart={() => setHovered(v => !v)}
     >
       <div style={{
         position: 'relative',
@@ -56,8 +55,8 @@ export default function ProjectCard({ project }: { project: Project }) {
           {CATEGORY_LABEL[project.category]}
         </div>
 
-        {/* Info overlay — slides up on hover */}
-        <div style={{
+        {/* Info overlay — slides up on hover; на тач-устройствах хавера нет, показываем всегда */}
+        <div className="pc-overlay" style={{
           position: 'absolute', left: 0, right: 0, bottom: 0, zIndex: 2,
           background: 'linear-gradient(to top, rgba(15,14,13,0.95) 0%, rgba(15,14,13,0.7) 70%, transparent 100%)',
           padding: '40px 20px 20px',
@@ -128,6 +127,12 @@ export default function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (hover: none) {
+          .pc-overlay { transform: translateY(0) !important; }
+        }
+      `}</style>
     </Link>
   )
 }

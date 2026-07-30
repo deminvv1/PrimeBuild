@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 interface Props {
   src: string
@@ -59,7 +60,7 @@ export default function ImageLightbox({ src, alt, onClose }: Props) {
     setZoomed(true)
   }
 
-  return (
+  return createPortal(
     <div
       ref={containerRef}
       onClick={onClose}
@@ -100,6 +101,7 @@ export default function ImageLightbox({ src, alt, onClose }: Props) {
         </svg>
       </button>
 
+      {/* eslint-disable-next-line @next/next/no-img-element -- открывается по клику, не влияет на LCP; next/image не поддерживает натуральный размер + zoom до 240% */}
       <img
         ref={imgRef}
         src={src}
@@ -116,6 +118,7 @@ export default function ImageLightbox({ src, alt, onClose }: Props) {
           borderRadius: 4,
         }}
       />
-    </div>
+    </div>,
+    document.body
   )
 }

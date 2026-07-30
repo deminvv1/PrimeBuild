@@ -36,6 +36,8 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Закрываем мобильное меню при смене маршрута (стандартный паттерн Next.js App Router).
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMenuOpen(false) }, [pathname])
 
   return (
@@ -96,7 +98,7 @@ export default function Header() {
             }}>
               {PHONE}
             </a>
-            <Link href="/podbor-doma" className="btn-glow-gold" style={{
+            <Link href="/kontakty" className="btn-glow-gold" style={{
               ...GOLD_SHIMMER,
               color: '#1a1a1a',
               fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
@@ -112,6 +114,7 @@ export default function Header() {
             className="hdr-burger"
             onClick={() => setMenuOpen(v => !v)}
             aria-label="Меню"
+            aria-expanded={menuOpen}
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8, display: 'none' }}
           >
             <span style={{ display: 'block', width: 20, height: 2, background: 'rgba(255,255,255,0.85)', marginBottom: 5, transition: 'transform 0.2s', transform: menuOpen ? 'rotate(45deg) translate(5px,5px)' : 'none' }} />

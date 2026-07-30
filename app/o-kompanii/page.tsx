@@ -203,7 +203,7 @@ export default function OKompaniiPage() {
       <section style={{ position: 'relative' }}>
         <ContactSplit
           source="o-kompanii"
-          photo="/images/projects/alpha-1.jpg"
+          photo="/images/projects/alpha-1.webp"
           quoteText={"Строим дома,\nкоторым доверяют"}
           title="Обсудим ваш проект?"
         />

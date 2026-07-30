@@ -4,13 +4,22 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: process.env.NODE_ENV === 'development' ? 0 : 86400,
-    remotePatterns: [
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'plus.unsplash.com' },
-    ],
   },
   async headers() {
     const isDev = process.env.NODE_ENV === 'development'
+    const csp = [
+      "default-src 'self'",
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://mc.yandex.ru https://www.googletagmanager.com`,
+      "style-src 'self' 'unsafe-inline'",
+      "img-src 'self' data: https://mc.yandex.ru https://www.google-analytics.com",
+      "font-src 'self' data:",
+      `connect-src 'self' https://mc.yandex.ru https://*.google-analytics.com https://*.analytics.google.com${isDev ? ' ws: wss:' : ''}`,
+      "frame-src https://mc.yandex.ru",
+      "object-src 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "frame-ancestors 'none'",
+    ].join('; ')
     const longCache = isDev
       ? []
       : [
@@ -40,6 +49,7 @@ const nextConfig = {
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
           { key: 'Cross-Origin-Resource-Policy', value: 'same-site' },
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
+          { key: 'Content-Security-Policy', value: csp },
         ],
       },
     ]

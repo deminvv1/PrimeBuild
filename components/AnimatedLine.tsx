@@ -39,7 +39,7 @@ export default function AnimatedLine({
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [delay, direction])
+  }, [delay, direction, threshold])
 
   if (direction === 'vertical') {
     return (

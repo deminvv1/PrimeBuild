@@ -35,7 +35,7 @@ export default function VerticalRevealLine({
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [delay])
+  }, [delay, threshold])
 
   return (
     <div

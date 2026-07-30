@@ -16,7 +16,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.ru";
 export const metadata: Metadata = {
   title: "BuildX — Строительство домов в Московской области",
   description:
-    "TODO: Строим дома в МО под ключ за 6 месяцев. Проекты Mini, Midi, Maxi. Отделка Комфорт и Бизнес. Бесплатный подбор дома по параметрам.",
+    "Строим дома под ключ в Московской области за 6 месяцев: реальная цена в договоре, независимый технадзор, отделка Комфорт и Бизнес. Бесплатный подбор дома по параметрам.",
   alternates: { canonical: SITE_URL },
 };
 
@@ -116,9 +116,9 @@ export default function HomePage() {
                 marginBottom: 24,
               }}
             >
-              TODO: Главный заголовок.
+              Дом под ключ за 6 месяцев
               <br />
-              Ваш дом за 6 месяцев.
+              без переносов сроков
             </h1>
             <p
               style={{
@@ -130,7 +130,8 @@ export default function HomePage() {
                 marginBottom: 44,
               }}
             >
-              TODO: ценностное предложение — 2 строки.
+              Реальная цена фиксируется в договоре, на каждом этапе — независимый технадзор.
+              Дом полностью готов к жизни сразу после сдачи ключей.
             </p>
           </FadeIn>
           <FadeIn delay={450} threshold={0.01}>
@@ -207,6 +208,7 @@ export default function HomePage() {
             left="50%"
             delay={150}
             color="rgba(255,255,255,0.18)"
+            className="about-vline"
           />
 
           {/* текст — 2 внутренних колонки */}
@@ -226,8 +228,7 @@ export default function HomePage() {
                   marginBottom: 20,
                 }}
               >
-                TODO: 2–3 предложения о компании. Кто вы, сколько лет работаете,
-                в каких районах МО, главное конкурентное преимущество.
+                Мы — ведущая строительная компания, специализирующаяся на проектировании и реализации сложных объектов. Более 15 лет мы успешно работаем на рынке, охватывая все районы Московской области. Наше главное преимущество — это комплексный подход и гарантия качества.
               </p>
               <p
                 style={{
@@ -237,7 +238,7 @@ export default function HomePage() {
                   lineHeight: 1.85,
                 }}
               >
-                TODO: второй абзац. Лицензии, допуски СРО.
+                Мы обладаем всеми необходимыми лицензиями, допусками СРО и сертификатами для ведения полномасштабных строительно-монтажных работ.
               </p>
             </div>
             <AnimatedLine
@@ -248,6 +249,7 @@ export default function HomePage() {
             />
             {/* правая: ссылка */}
             <div
+              className="about-link-cell"
               style={{
                 padding: "48px 20px",
                 display: "flex",
@@ -272,38 +274,35 @@ export default function HomePage() {
           </FadeIn>
 
           {/* фото — такой же стиль как в ProjectCard */}
-          <FadeIn delay={200}>
-          <div
-            style={{
-              padding: "48px 44px 48px 44px",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                width: "100%",
-                aspectRatio: "16/9",
-                overflow: "hidden",
-                borderRadius: 10,
-                background: "#2c2c2c",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <span
-                style={{
-                  fontFamily: "var(--font-sans)",
-                  fontSize: 13,
-                  color: "rgba(255,255,255,0.2)",
-                }}
-              >
-                TODO: фото объекта
-              </span>
-            </div>
-          </div>
-          </FadeIn>
+<FadeIn delay={200}>
+  <div
+    style={{
+      padding: "48px 44px 48px 44px",
+      display: "flex",
+      alignItems: "center",
+    }}
+  >
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        aspectRatio: "2 / 1", // Подстроили под панорамный формат картинки
+        overflow: "hidden",
+        borderRadius: 10,
+        background: "transparent", // Убрали темный задник
+      }}
+    >
+      <Image
+        src="/images/projects/o-nas.webp"
+        alt="Фото объекта"
+        fill
+        style={{
+          objectFit: "cover",
+        }}
+      />
+    </div>
+  </div>
+</FadeIn>
         </div>
 
         {/* горизонтальная линия снизу — полная ширина */}
@@ -317,12 +316,18 @@ export default function HomePage() {
             .about-grid{grid-template-columns:1fr!important;}
             .about-grid>div:last-child{min-height:280px;}
             .about-inner{grid-template-columns:1fr!important;}
+            .about-vline{display:none!important;}
+            .about-link-cell{padding:0 60px 48px!important;align-items:flex-start!important;}
           }
           @media(max-width:700px){
-            .pg-grid-2{grid-template-columns:1fr!important;}
+            .pg-grid-2{grid-template-columns:1fr!important;row-gap:0!important;}
+            .pg-grid-2>*:nth-child(2){position:relative!important;margin-top:20px!important;padding-top:20px!important;}
+            .pg-grid-2>*:nth-child(2)::before{content:'';position:absolute;top:0;left:-20px;right:-20px;height:1px;background:rgba(255,255,255,0.14);}
+            .pg-vline{display:none!important;}
             .mosaic-grid{grid-template-columns:1fr!important;grid-template-rows:auto!important;}
             .mosaic-photo{grid-row:auto!important;height:260px;}
             .mosaic-line{display:none!important;}
+            .mosaic-text{padding:28px 24px!important;}
           }
         `}</style>
       </section>
@@ -369,6 +374,7 @@ export default function HomePage() {
             delay={300}
             color="rgba(255,255,255,0.18)"
             threshold={0.1}
+            className="pg-vline"
           />
           <FadeIn delay={150} threshold={0.1}>
           <div
@@ -436,13 +442,13 @@ export default function HomePage() {
         </FadeIn>
         <div style={{ padding: "0 24px", position: "relative" }}>
           <AnimatedLine length="100%" delay={0} threshold={0.1} />
-          <VerticalRevealLine left="50%" delay={150} color="rgba(255,255,255,0.18)" threshold={0.1} />
+          <VerticalRevealLine left="50%" delay={150} color="rgba(255,255,255,0.18)" threshold={0.1} className="pg-vline" />
           <FadeIn delay={150} threshold={0.1}>
           <div className="pg-grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", columnGap: 24, padding: 20 }}>
             {([
               {
                 name: "Комфорт",
-                priceNote: "от TODO млн ₽",
+                priceNote: "Цена зависит от площади дома",
                 img: "/images/quiz/comfort.jpg",
                 isPremium: false,
                 includes: [
@@ -456,7 +462,7 @@ export default function HomePage() {
               },
               {
                 name: "Бизнес",
-                priceNote: "от TODO млн ₽",
+                priceNote: "Цена зависит от площади дома",
                 img: "/images/quiz/premium.jpg",
                 isPremium: true,
                 includes: [
@@ -557,7 +563,7 @@ export default function HomePage() {
             <div className="mosaic-photo" style={{ gridRow: "1 / 3", padding: "20px 20px 20px 20px" }}>
               <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", borderRadius: 10 }}>
                 <Image
-                  src="/images/projects/gamma-1.jpg"
+                  src="/images/projects/gamma-2.jpg"
                   alt="Почему выбирают BuildX"
                   fill
                   sizes="30vw"
@@ -567,7 +573,7 @@ export default function HomePage() {
             </div>
 
             {/* ── Текст 1 ── */}
-            <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <div className="mosaic-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <h3 style={{
                 fontFamily: "var(--font-sans)", fontSize: 22, fontWeight: 800,
                 color: "rgba(255,255,255,0.92)", lineHeight: 1.2, marginBottom: 16,
@@ -583,7 +589,7 @@ export default function HomePage() {
             </div>
 
             {/* ── Текст 2 ── */}
-            <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <div className="mosaic-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <h3 style={{
                 fontFamily: "var(--font-sans)", fontSize: 22, fontWeight: 800,
                 color: "rgba(255,255,255,0.92)", lineHeight: 1.2, marginBottom: 16,
@@ -599,7 +605,7 @@ export default function HomePage() {
             </div>
 
             {/* ── Текст 3 ── */}
-            <div style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <div className="mosaic-text" style={{ padding: "56px 48px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <h3 style={{
                 fontFamily: "var(--font-sans)", fontSize: 22, fontWeight: 800,
                 color: "rgba(255,255,255,0.92)", lineHeight: 1.2, marginBottom: 16,

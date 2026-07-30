@@ -1,21 +1,20 @@
 import type { Metadata } from 'next'
-import ContactForm from '@/components/ContactForm'
 import Breadcrumb from '@/components/Breadcrumb'
 import AnimatedLine from '@/components/AnimatedLine'
-import VerticalRevealLine from '@/components/VerticalRevealLine'
 import SectionLines from '@/components/SectionLines'
 import FadeIn from '@/components/FadeIn'
+import ContactSplit from '@/components/ContactSplit'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
-const PHONE = 'TODO: +7 (XXX) XXX-XX-XX'
+const PHONE = '+7 (XXX) XXX-XX-XX'
 const PHONE_HREF = 'tel:+7XXXXXXXXXX'
-const EMAIL = 'TODO: info@primebuild.ru'
+const EMAIL = 'info@primebuild.ru'
 const WORKING_HOURS = 'Пн–Пт 9:00–19:00, Сб 10:00–16:00'
 
 export const metadata: Metadata = {
-  title: 'Контакты — PrimeBuild',
-  description: 'Контакты строительной компании PrimeBuild. Телефон, email, режим работы. Московская область.',
+  title: 'Контакты — BuildX',
+  description: 'Контакты строительной компании BuildX. Телефон, email, режим работы. Московская область.',
   alternates: { canonical: `${SITE_URL}/kontakty` },
 }
 
@@ -24,7 +23,7 @@ const CONTACTS = [
     label: 'Телефон',
     value: PHONE,
     href: PHONE_HREF,
-    size: 28,
+    size: 20,
   },
   {
     label: 'Email',
@@ -68,7 +67,7 @@ export default function KontaktyPage() {
               fontFamily: 'var(--font-sans)', fontSize: 16,
               color: 'rgba(255,255,255,0.38)', lineHeight: 1.7, margin: 0, maxWidth: 460,
             }}>
-              Перезвоним в течение 2 часов в рабочее время и ответим на все вопросы.
+              Перезвоним в течение 15 минут в рабочее время и ответим на все вопросы.
             </p>
           </div>
         </FadeIn>
@@ -78,76 +77,67 @@ export default function KontaktyPage() {
         </div>
       </section>
 
-      {/* ── ОСНОВНОЙ БЛОК ── */}
+      {/* ── КОНТАКТНАЯ ИНФОРМАЦИЯ ── */}
       <section style={{ position: 'relative' }}>
-        <div style={{ padding: '0 24px', position: 'relative' }}>
-          <VerticalRevealLine left="38%" delay={200} color="rgba(255,255,255,0.12)" />
-        </div>
-
         <FadeIn delay={100}>
-          <div className="contacts-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1.6fr', padding: '0 24px' }}>
-
-            {/* ── Левая колонка: контакты ── */}
-            <div style={{ paddingRight: 60 }}>
-              {CONTACTS.map(({ label, value, href, note, size }, i) => (
-                <div key={label}>
-                  <div style={{ padding: '40px 0' }}>
-                    <p style={{
-                      fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600,
-                      letterSpacing: '1.5px', textTransform: 'uppercase',
-                      color: 'rgba(255,255,255,0.28)', margin: '0 0 10px',
-                    }}>
-                      {label}
+          <div className="contacts-info" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '0 24px' }}>
+            {CONTACTS.map(({ label, value, href, note, size }, i) => (
+              <div key={label} style={{
+                padding: '40px 40px',
+                borderRight: i < CONTACTS.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+              }}>
+                <p style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600,
+                  letterSpacing: '1.5px', textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.28)', margin: '0 0 12px',
+                }}>
+                  {label}
+                </p>
+                {href ? (
+                  <a href={href} style={{
+                    fontFamily: 'var(--font-sans)', fontSize: size,
+                    fontWeight: 700, color: 'rgba(255,255,255,0.88)',
+                    textDecoration: 'none', lineHeight: 1.25, display: 'block',
+                  }}>
+                    {value}
+                  </a>
+                ) : (
+                  <>
+                    <p style={{ fontFamily: 'var(--font-sans)', fontSize: size, fontWeight: 600, color: 'rgba(255,255,255,0.88)', margin: 0, lineHeight: 1.4 }}>
+                      {value}
                     </p>
-                    {href ? (
-                      <a href={href} style={{
-                        fontFamily: 'var(--font-sans)', fontSize: size,
-                        fontWeight: 700, color: 'rgba(255,255,255,0.88)',
-                        textDecoration: 'none', lineHeight: 1.2,
-                        display: 'block',
-                        transition: 'color 0.2s',
-                      }}>
-                        {value}
-                      </a>
-                    ) : (
-                      <>
-                        <p style={{ fontFamily: 'var(--font-sans)', fontSize: size, fontWeight: 600, color: 'rgba(255,255,255,0.88)', margin: 0, lineHeight: 1.4 }}>
-                          {value}
-                        </p>
-                        {note && (
-                          <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.32)', margin: '6px 0 0' }}>
-                            {note}
-                          </p>
-                        )}
-                      </>
+                    {note && (
+                      <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.32)', margin: '6px 0 0' }}>
+                        {note}
+                      </p>
                     )}
-                  </div>
-                  {i < CONTACTS.length - 1 && (
-                    <AnimatedLine length="100%" delay={150 + i * 60} color="rgba(255,255,255,0.1)" />
-                  )}
-                </div>
-              ))}
-            </div>
-
-            {/* ── Правая колонка: форма ── */}
-            <div style={{ padding: '56px 0 56px 60px' }}>
-              <ContactForm source="kontakty" dark buttonLabel="Отправить заявку" />
-            </div>
-
+                  </>
+                )}
+              </div>
+            ))}
           </div>
         </FadeIn>
-
         <div style={{ padding: '0 24px' }}>
-          <AnimatedLine length="100%" delay={300} />
+          <AnimatedLine length="100%" delay={200} />
         </div>
-        <div style={{ height: 80 }} />
+      </section>
+
+      {/* ── ФОРМА (split) ── */}
+      <section style={{ position: 'relative' }}>
+        <ContactSplit
+          source="kontakty"
+          photo="/images/projects/gamma-1.jpg"
+          quoteText={"Ваш дом в Московской\nобласти под ключ"}
+          title="Оставить заявку"
+        />
       </section>
 
       <style>{`
         @media (max-width: 860px) {
-          .contacts-grid { grid-template-columns: 1fr !important; }
-          .contacts-grid > div:first-child { padding-right: 0 !important; }
-          .contacts-grid > div:last-child { padding: 40px 0 56px !important; border-top: 1px solid rgba(255,255,255,0.08); }
+          .contacts-info { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+        @media (max-width: 500px) {
+          .contacts-info { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </main>

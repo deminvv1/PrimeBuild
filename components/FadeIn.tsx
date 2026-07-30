@@ -13,7 +13,7 @@ interface Props {
 export default function FadeIn({
   children,
   delay = 0,
-  threshold = 0.15,
+  threshold = 0.01,
   style,
   className,
 }: Props) {

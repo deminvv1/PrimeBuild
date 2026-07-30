@@ -1,59 +1,60 @@
-import { Project } from '@/lib/types'
+import { Project, ProjectCategory } from '@/lib/types'
+import { bedroomsWord } from '@/lib/pluralize'
+import { HOUSE_CATALOG, HouseCatalogEntry } from './houseCatalog'
 
-export const projects: Project[] = [
-  {
-    slug: 'proekt-alpha',
-    name: 'Проект Alpha',
-    category: 'midi',
-    finish: ['comfort', 'business'],
-    area: 180,
-    floors: 2,
-    buildTime: '5 месяцев',
-    priceFrom: 12_000_000,
-    images: ['/images/projects/alpha-1.jpg', '/images/projects/alpha-2.jpg'],
-    shortDesc: 'Двухэтажный дом с плоской кровлей и панорамным остеклением.',
-    comfortDesc: 'Отделка уровня Комфорт: тёплые нейтральные тона, ламинат, кухонный гарнитур.',
-    businessDesc: 'Отделка уровня Бизнес: мрамор, инженерная доска, встроенная техника Bosch.',
-    comfortIncludes: ['Стяжка пола', 'Штукатурка стен', 'Ламинат 33 класс', 'Кухонный гарнитур', 'Сантехника Grohe базовая'],
-    businessIncludes: ['Инженерная доска', 'Штукатурка с покраской', 'Плитка крупного формата', 'Кухня под заказ', 'Сантехника Grohe Essence'],
-    floorPlan: '/images/projects/alpha-plan.jpg',
-  },
-  {
-    slug: 'proekt-beta',
-    name: 'Проект Beta',
-    category: 'mini',
-    finish: ['comfort'],
-    area: 110,
-    floors: 1,
-    buildTime: '3 месяца',
-    priceFrom: 7_500_000,
-    images: ['/images/projects/beta-1.jpg'],
-    shortDesc: 'Компактный одноэтажный дом — максимум функциональности.',
-    comfortDesc: 'Полная чистовая отделка в тёплых тонах, готов к заезду.',
-    businessDesc: '',
-    comfortIncludes: ['Стяжка', 'Обои', 'Ламинат', 'Кухонный гарнитур', 'Сантехника'],
-    businessIncludes: [],
-    floorPlan: '/images/projects/beta-plan.jpg',
-  },
-  {
-    slug: 'proekt-gamma',
-    name: 'Проект Gamma',
-    category: 'maxi',
-    finish: ['comfort', 'business'],
-    area: 280,
-    floors: 2,
-    buildTime: '6 месяцев',
-    priceFrom: 19_000_000,
-    images: ['/images/projects/gamma-1.jpg', '/images/projects/gamma-2.jpg'],
-    shortDesc: 'Просторный дом для большой семьи с террасой и гаражом.',
-    comfortDesc: 'Двухуровневая планировка, тёплый пол в санузлах, панорамные окна.',
-    businessDesc: 'Камин, умный дом базовый, отделка натуральным камнем.',
-    comfortIncludes: ['Тёплый пол в с/у', 'Ламинат', 'Кухня', 'Сантехника Hansgrohe'],
-    businessIncludes: ['Умный дом базовый', 'Инженерная доска дуб', 'Натуральный камень', 'Камин'],
-    floorPlan: '/images/projects/gamma-plan.jpg',
-  },
-]
+/**
+ * Пороги площади — округлые абсолютные значения (как принято у строительных
+ * компаний: "до 200", "200-300", "от 300"), а не деление на равные по
+ * количеству группы. Из-за этого группы получаются разного размера — это
+ * нормально, зато сама категория интуитивно понятна: дом 214 м² не должен
+ * восприниматься как "mini".
+ */
+function categoryOf(area: number): ProjectCategory {
+  if (area < 200) return 'mini'
+  if (area <= 300) return 'midi'
+  return 'maxi'
+}
+
+function nameOf(area: number, bedrooms: number): string {
+  return `Дом ${area} м² · ${bedrooms} ${bedroomsWord(bedrooms)}`
+}
+
+function shortDescOf(entry: HouseCatalogEntry): string {
+  const parts = [`${entry.floors === 1 ? 'Одноэтажный' : 'Двухэтажный'} дом на ${entry.bedrooms} ${bedroomsWord(entry.bedrooms)}, ${entry.area} м²`]
+  if (entry.garage) parts.push('закрытый гараж')
+  if (entry.spa) parts.push('СПА-зона с сауной и хаммамом')
+  return parts.join(', ') + '.'
+}
+
+export const projects: Project[] = HOUSE_CATALOG.map((entry) => ({
+  slug: `dom-${entry.key}`,
+  name: nameOf(entry.area, entry.bedrooms),
+  category: categoryOf(entry.area),
+  area: entry.area,
+  floors: entry.floors,
+  bedrooms: entry.bedrooms,
+  garage: entry.garage,
+  spa: entry.spa,
+  buildTime: entry.floors === 1 ? '4–5 месяцев' : '5–6 месяцев',
+  priceFrom: entry.priceMin,
+  images: entry.photos,
+  shortDesc: shortDescOf(entry),
+  floorPlan: entry.plans[0],
+}))
 
 export function getProject(slug: string): Project | undefined {
-  return projects.find(p => p.slug === slug)
+  return projects.find((p) => p.slug === slug)
 }
+
+/**
+ * Подборка для главной страницы: по 2 проекта на каждую этажность
+ * (самый компактный и самый большой в группе — чтобы показать разброс).
+ */
+export const homepageProjects: Project[] = (() => {
+  const pick = (floors: 1 | 2) => {
+    const group = projects.filter((p) => p.floors === floors).sort((a, b) => a.area - b.area)
+    if (group.length === 0) return []
+    return [group[0], group[group.length - 1]]
+  }
+  return [...pick(1), ...pick(2)]
+})()

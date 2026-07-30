@@ -11,7 +11,7 @@ export async function GET() {
   const staticPages = [
     { path: '',              changeFreq: 'weekly' },
     { path: '/proekty',     changeFreq: 'weekly' },
-    { path: '/kalkulyator', changeFreq: 'monthly' },
+    { path: '/podbor-doma', changeFreq: 'monthly' },
     { path: '/o-kompanii',  changeFreq: 'monthly' },
     { path: '/otzyvy',      changeFreq: 'weekly' },
     { path: '/kontakty',    changeFreq: 'monthly' },

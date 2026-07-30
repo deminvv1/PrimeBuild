@@ -6,7 +6,6 @@ import Image from 'next/image'
 import { Project } from '@/lib/types'
 
 const CATEGORY_LABEL: Record<string, string> = { mini: 'Mini', midi: 'Midi', maxi: 'Maxi' }
-const FINISH_LABEL: Record<string, string> = { comfort: 'Комфорт', business: 'Бизнес' }
 
 export default function ProjectCard({ project }: { project: Project }) {
   const [hovered, setHovered] = useState(false)
@@ -82,8 +81,8 @@ export default function ProjectCard({ project }: { project: Project }) {
           <div style={{ display: 'flex', gap: 20, marginBottom: 12 }}>
             {[
               { label: 'Площадь', value: `${project.area} м²` },
+              { label: 'Спальни', value: String(project.bedrooms) },
               { label: 'Этажей', value: String(project.floors) },
-              { label: 'Срок', value: project.buildTime },
             ].map(({ label, value }) => (
               <div key={label}>
                 <div style={{ fontFamily: 'var(--font-sans)', fontSize: 10, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
@@ -103,18 +102,30 @@ export default function ProjectCard({ project }: { project: Project }) {
                 {(project.priceFrom / 1_000_000).toFixed(1)} млн ₽
               </span>
             </div>
-            <div style={{ display: 'flex', gap: 5 }}>
-              {project.finish.map(f => (
-                <span key={f} style={{
-                  fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 600,
-                  color: 'rgba(255,255,255,0.6)',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                  padding: '3px 8px', borderRadius: 999,
-                }}>
-                  {FINISH_LABEL[f]}
-                </span>
-              ))}
-            </div>
+            {(project.garage || project.spa) && (
+              <div style={{ display: 'flex', gap: 5 }}>
+                {project.garage && (
+                  <span style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 600,
+                    color: 'rgba(255,255,255,0.6)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    padding: '3px 8px', borderRadius: 999,
+                  }}>
+                    Гараж
+                  </span>
+                )}
+                {project.spa && (
+                  <span style={{
+                    fontFamily: 'var(--font-sans)', fontSize: 10, fontWeight: 600,
+                    color: 'rgba(255,255,255,0.6)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    padding: '3px 8px', borderRadius: 999,
+                  }}>
+                    СПА
+                  </span>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

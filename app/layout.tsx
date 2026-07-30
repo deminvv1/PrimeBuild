@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { Inter, Libre_Caslon_Text, JetBrains_Mono, Hanken_Grotesk } from 'next/font/google'
 import Header from '@/components/Header'
+import Preloader from '@/components/Preloader'
+import PageTransition from '@/components/PageTransition'
 import CookieBanner from '@/components/CookieBanner'
 import BackToTop from '@/components/BackToTop'
 import { orgJsonLd } from '@/lib/jsonLd'
@@ -41,16 +43,16 @@ const GA4_ID   = process.env.GA4_ID ?? ''
 const YM_ID    = process.env.YANDEX_METRIKA_ID ?? ''
 
 // TODO: заполнить реальными данными
-const SITE_TITLE = 'PrimeBuild — Строительство домов в Московской области'
+const SITE_TITLE = 'BuildX — Строительство домов в Московской области'
 const SITE_DESC  = 'TODO: Строительство домов под ключ в Московской области. Срок 6 месяцев. Отделка Комфорт и Бизнес. Честная цена.'
 const OG_IMAGE   = '/images/og.jpg'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: { default: SITE_TITLE, template: `%s | PrimeBuild` },
+  title: { default: SITE_TITLE, template: `%s | BuildX` },
   description: SITE_DESC,
   keywords: ['строительство домов', 'дома под ключ', 'московская область', 'дом с отделкой'],
-  authors: [{ name: 'PrimeBuild' }],
+  authors: [{ name: 'BuildX' }],
   robots: {
     index: true, follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
@@ -58,9 +60,9 @@ export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },
   openGraph: {
     type: 'website', locale: 'ru_RU',
-    url: SITE_URL, siteName: 'PrimeBuild',
+    url: SITE_URL, siteName: 'BuildX',
     title: SITE_TITLE, description: SITE_DESC,
-    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: 'PrimeBuild' }],
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: 'BuildX' }],
   },
   icons: {
     icon: [{ url: '/images/favicon.svg', type: 'image/svg+xml' }],
@@ -81,6 +83,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className={`${inter.variable} ${caslon.variable} ${mono.variable} ${grotesk.variable}`} style={{ position: 'relative' }}>
+        <Preloader />
+        <PageTransition />
         <Header />
         {children}
         <Footer />

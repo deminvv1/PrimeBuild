@@ -14,6 +14,9 @@
 *.pem
 Thumbs.db
 
+# source assets, not used by the site directly
+/constructor/
+
 # debug
 npm-debug.log*
 

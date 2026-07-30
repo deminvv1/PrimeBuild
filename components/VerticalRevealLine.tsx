@@ -7,13 +7,15 @@ interface Props {
   delay?: number
   color?: string
   threshold?: number
+  className?: string
 }
 
 export default function VerticalRevealLine({
   left,
   delay = 0,
   color = 'rgba(255,255,255,0.18)',
-  threshold = 0.4,
+  threshold = 0.01,
+  className,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -38,6 +40,7 @@ export default function VerticalRevealLine({
   return (
     <div
       ref={ref}
+      className={className}
       style={{
         position: 'absolute',
         top: 0,

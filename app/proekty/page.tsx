@@ -4,7 +4,7 @@ import { useState, useMemo } from 'react'
 import ProjectCard from '@/components/ProjectCard'
 import Breadcrumb from '@/components/Breadcrumb'
 import { projects } from '@/data/projects'
-import { ProjectCategory, ProjectFinish } from '@/lib/types'
+import { ProjectCategory } from '@/lib/types'
 import AnimatedLine from '@/components/AnimatedLine'
 import VerticalRevealLine from '@/components/VerticalRevealLine'
 import SectionLines from '@/components/SectionLines'
@@ -12,15 +12,15 @@ import FadeIn from '@/components/FadeIn'
 
 const CATEGORIES: { value: '' | ProjectCategory; label: string }[] = [
   { value: '', label: 'Все' },
-  { value: 'mini', label: 'Mini' },
-  { value: 'midi', label: 'Midi' },
-  { value: 'maxi', label: 'Maxi' },
+  { value: 'mini', label: 'до 200м²' },
+  { value: 'midi', label: '200-300м²' },
+  { value: 'maxi', label: 'от 300м²' },
 ]
 
-const FINISHES: { value: '' | ProjectFinish; label: string }[] = [
+const FLOORS: { value: '' | 1 | 2; label: string }[] = [
   { value: '', label: 'Все' },
-  { value: 'comfort', label: 'Комфорт' },
-  { value: 'business', label: 'Бизнес' },
+  { value: 1, label: '1 этаж' },
+  { value: 2, label: '2 этажа' },
 ]
 
 const BtnSt = (active: boolean): React.CSSProperties => ({
@@ -38,13 +38,13 @@ const BtnSt = (active: boolean): React.CSSProperties => ({
 
 export default function ProektyPage() {
   const [cat, setCat] = useState<'' | ProjectCategory>('')
-  const [fin, setFin] = useState<'' | ProjectFinish>('')
+  const [floors, setFloors] = useState<'' | 1 | 2>('')
 
   const filtered = useMemo(() => projects.filter(p => {
     if (cat && p.category !== cat) return false
-    if (fin && !p.finish.includes(fin)) return false
+    if (floors && p.floors !== floors) return false
     return true
-  }), [cat, fin])
+  }), [cat, floors])
 
   return (
     <main style={{ paddingTop: 56, minHeight: '100vh', position: 'relative' }}>
@@ -85,7 +85,7 @@ export default function ProektyPage() {
               <span style={{
                 fontFamily: 'var(--font-sans)', fontSize: 11,
                 color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', letterSpacing: '1px',
-              }}>Размер</span>
+              }}>Площадь</span>
               {CATEGORIES.map(({ value, label }) => (
                 <button key={label} onClick={() => setCat(value)} style={BtnSt(cat === value)}>
                   {label}
@@ -96,9 +96,9 @@ export default function ProektyPage() {
               <span style={{
                 fontFamily: 'var(--font-sans)', fontSize: 11,
                 color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', letterSpacing: '1px',
-              }}>Отделка</span>
-              {FINISHES.map(({ value, label }) => (
-                <button key={label} onClick={() => setFin(value)} style={BtnSt(fin === value)}>
+              }}>Этажность</span>
+              {FLOORS.map(({ value, label }) => (
+                <button key={label} onClick={() => setFloors(value)} style={BtnSt(floors === value)}>
                   {label}
                 </button>
               ))}

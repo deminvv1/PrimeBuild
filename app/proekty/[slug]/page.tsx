@@ -3,9 +3,11 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { projects, getProject } from '@/data/projects'
+import { bedroomsWord } from '@/lib/pluralize'
 import ContactForm from '@/components/ContactForm'
 import ProjectCard from '@/components/ProjectCard'
 import ProjectHeroMedia from '@/components/ProjectHeroMedia'
+import ZoomableImage from '@/components/ZoomableImage'
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -19,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return {}
   const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
   return {
-    title: `${project.name} — ${project.area} м², ${project.floors} эт. | PrimeBuild`,
+    title: `${project.name} — ${project.area} м², ${project.floors} эт. | BuildX`,
     description: project.shortDesc,
     alternates: { canonical: `${SITE_URL}/proekty/${slug}` },
   }
@@ -156,42 +158,63 @@ export default async function ProjectPage({ params }: Props) {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 64 }}>
                 {project.images.slice(1).map((src, i) => (
                   <div key={i} style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', borderRadius: 8, background: '#2c2c2c' }}>
-                    <Image src={src} alt={`${project.name} ${i + 2}`} fill
-                      sizes="(max-width:900px) 50vw, 30vw"
-                      style={{ objectFit: 'cover' }} />
+                    <ZoomableImage src={src} alt={`${project.name} ${i + 2}`} sizes="(max-width:900px) 50vw, 30vw" objectFit="cover" />
                   </div>
                 ))}
               </div>
             )}
 
-            {/* Варианты отделки */}
-            {project.finish.length > 0 && (
+            {/* Планировка */}
+            {project.floorPlan && (
               <div style={{ marginBottom: 56 }}>
                 <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 28 }}>
-                  Варианты отделки
+                  Планировка
                 </h2>
-                <div style={{ display: 'grid', gridTemplateColumns: project.finish.length > 1 ? '1fr 1fr' : '1fr', gap: 16 }}>
-                  {project.finish.map(f => (
-                    <div key={f} style={{ background: '#2c2c2c', borderRadius: 10, padding: '28px 24px', border: '1px solid rgba(255,255,255,0.06)' }}>
-                      <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 20, fontWeight: 700, color: f === 'business' ? '#C9A96E' : 'rgba(255,255,255,0.92)', marginBottom: 8 }}>
-                        {f === 'comfort' ? 'Комфорт' : 'Бизнес'}
-                      </h3>
-                      <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.4)', lineHeight: 1.6, marginBottom: 20 }}>
-                        {f === 'comfort' ? project.comfortDesc : project.businessDesc}
-                      </p>
-                      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 9 }}>
-                        {(f === 'comfort' ? project.comfortIncludes : project.businessIncludes).map(item => (
-                          <li key={item} style={{ display: 'flex', gap: 10, fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.7)' }}>
-                            <span style={{ color: '#C9A96E', flexShrink: 0, marginTop: 1 }}>✓</span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
+                <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', borderRadius: 10, overflow: 'hidden', background: '#2c2c2c' }}>
+                  <ZoomableImage src={project.floorPlan} alt={`Планировка ${project.name}`} sizes="(max-width:900px) 100vw, 60vw" />
                 </div>
               </div>
             )}
+
+            {/* Параметры дома */}
+            <div style={{ marginBottom: 56 }}>
+              <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 28 }}>
+                Параметры
+              </h2>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                {[
+                  `${project.area} м² общей площади`,
+                  `${project.floors === 1 ? 'Один этаж' : 'Два этажа'}`,
+                  `${project.bedrooms} ${bedroomsWord(project.bedrooms)}`,
+                  project.garage ? 'Закрытый гараж на 1–2 машины' : 'Без гаража',
+                  project.spa ? 'СПА-зона с сауной и хаммамом' : null,
+                  `Срок строительства — ${project.buildTime}`,
+                ].filter((x): x is string => Boolean(x)).map(item => (
+                  <li key={item} style={{ display: 'flex', gap: 10, fontFamily: 'var(--font-sans)', fontSize: 14, color: 'rgba(255,255,255,0.7)' }}>
+                    <span style={{ color: '#C9A96E', flexShrink: 0, marginTop: 1 }}>✓</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* CTA в конструктор */}
+            <div style={{ marginBottom: 56, background: '#2c2c2c', borderRadius: 10, padding: '28px 24px', border: '1px solid rgba(255,255,255,0.06)' }}>
+              <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 17, fontWeight: 700, color: 'rgba(255,255,255,0.92)', marginBottom: 8 }}>
+                Хотите изменить комплектацию?
+              </h3>
+              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.4)', lineHeight: 1.6, marginBottom: 20 }}>
+                Добавьте или уберите спальни, СПА-зону, гараж — соберите свой вариант в конструкторе.
+              </p>
+              <Link href="/podbor-doma" style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
+                letterSpacing: '0.5px', color: '#C9A96E',
+                borderBottom: '1px solid rgba(201,169,110,0.4)', paddingBottom: 2,
+              }}>
+                Открыть конструктор →
+              </Link>
+            </div>
 
             {/* Back link */}
             <Link href="/proekty" style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.35)', borderBottom: '1px solid rgba(255,255,255,0.15)', paddingBottom: 2 }}>

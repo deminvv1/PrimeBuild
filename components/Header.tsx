@@ -8,10 +8,16 @@ import { usePathname } from 'next/navigation'
 const PHONE = '+7 (XXX) XXX-XX-XX'
 const PHONE_HREF = 'tel:+7XXXXXXXXXX'
 
+const GOLD_SHIMMER: React.CSSProperties = {
+  background: 'linear-gradient(105deg, #b8924a 0%, #C9A96E 28%, #f5e4aa 50%, #C9A96E 72%, #b8924a 100%)',
+  backgroundSize: '250% 100%',
+  animation: 'btn-gold-shimmer 3.5s linear infinite',
+}
+
 const NAV = [
   { label: 'Проекты', href: '/proekty' },
   { label: 'Построено', href: '/postroeno' },
-  { label: 'Калькулятор', href: '/kalkulyator' },
+  { label: 'Подбор дома', href: '/podbor-doma' },
   { label: 'О компании', href: '/o-kompanii' },
   // { label: 'Отзывы', href: '/otzyvy' },
   { label: 'Контакты', href: '/kontakty' },
@@ -64,7 +70,7 @@ export default function Header() {
 
           {/* Logo */}
           <Link href="/" style={{ flexShrink: 0, display: 'flex', alignItems: 'center' }}>
-            <Image src="/images/logo.svg" alt="PrimeBuild" height={30} width={132}
+            <Image src="/images/logo.svg" alt="BuildX" height={36} width={158}
               style={{ objectFit: 'contain', objectPosition: 'left' }} priority />
           </Link>
 
@@ -73,7 +79,7 @@ export default function Header() {
             {NAV.map(({ label, href }) => (
               <Link key={href} href={href} style={{
                 fontFamily: 'var(--font-sans)',
-                fontSize: 13, fontWeight: 500,
+                fontSize: 15, fontWeight: 500,
                 color: pathname === href ? '#C9A96E' : 'rgba(255,255,255,0.65)',
                 transition: 'color 0.2s',
               }}>
@@ -85,19 +91,19 @@ export default function Header() {
           {/* Phone + CTA */}
           <div className="hdr-right" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <a href={PHONE_HREF} style={{
-              fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 500,
+              fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 500,
               color: 'rgba(255,255,255,0.70)', whiteSpace: 'nowrap',
             }}>
               {PHONE}
             </a>
-            <Link href="/kalkulyator" style={{
-              background: '#C9A96E', color: '#1a1a1a',
-              fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700,
+            <Link href="/podbor-doma" className="btn-glow-gold" style={{
+              ...GOLD_SHIMMER,
+              color: '#1a1a1a',
+              fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
               letterSpacing: '0.8px', textTransform: 'uppercase',
               padding: '9px 20px', borderRadius: 999, whiteSpace: 'nowrap',
-              transition: 'background 0.2s',
             }}>
-              Рассчитать
+              Заказать звонок
             </Link>
           </div>
 

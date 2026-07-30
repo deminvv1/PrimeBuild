@@ -88,8 +88,8 @@ export default function Footer() {
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 16 }}>
               Контакты
             </p>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, fontWeight: 600, color: '#fff', marginBottom: 6 }}>+7 (XXX) XXX-XX-XX</p>
-            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>email@example.ru</p>
+            <a href="tel:+79859330121" style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: 16, fontWeight: 600, color: '#fff', marginBottom: 6, textDecoration: 'none' }}>+7 (985) 933-01-21</a>
+            <a href="mailto:Mail@vvsamohin.ru" style={{ display: 'block', fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.35)', marginBottom: 6, textDecoration: 'none' }}>Mail@vvsamohin.ru</a>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.35)', margin: 0, lineHeight: 1.5 }}>
               Пн – Пт: 9:00 – 20:00<br />Сб: 10:00 – 18:00
             </p>

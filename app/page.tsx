@@ -16,7 +16,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.ru";
 export const metadata: Metadata = {
   title: "BuildX — Строительство домов в Московской области",
   description:
-    "TODO: Строим дома в МО под ключ за 6 месяцев. Проекты Mini, Midi, Maxi. Отделка Комфорт и Бизнес. Бесплатный расчёт стоимости.",
+    "TODO: Строим дома в МО под ключ за 6 месяцев. Проекты Mini, Midi, Maxi. Отделка Комфорт и Бизнес. Бесплатный подбор дома по параметрам.",
   alternates: { canonical: SITE_URL },
 };
 
@@ -464,7 +464,7 @@ export default function HomePage() {
                   "Авторский дизайн-проект",
                   "Тёплый пол во всём доме",
                   "Умный дом базовый",
-                  "Расширенная гарантия 5 лет",
+                  "Гарантия на строительство 6 месяцев",
                   "Черновая и чистовая отделка",
                   "Ламинат 33-го класса",
                   "Натяжные потолки",
@@ -572,13 +572,13 @@ export default function HomePage() {
                 fontFamily: "var(--font-sans)", fontSize: 22, fontWeight: 800,
                 color: "rgba(255,255,255,0.92)", lineHeight: 1.2, marginBottom: 16,
               }}>
-                Собственное производство
+                Гарантия 6 месяцев
               </h3>
               <p style={{
                 fontFamily: "var(--font-sans)", fontSize: 14,
                 color: "rgba(255,255,255,0.45)", lineHeight: 1.8, margin: 0,
               }}>
-                TODO: опишите, почему нет накрутки посредников.
+                Строим точно в срок и даём гарантию на все выполненные работы — без переносов и задержек.
               </p>
             </div>
 
@@ -588,13 +588,13 @@ export default function HomePage() {
                 fontFamily: "var(--font-sans)", fontSize: 22, fontWeight: 800,
                 color: "rgba(255,255,255,0.92)", lineHeight: 1.2, marginBottom: 16,
               }}>
-                Прозрачная смета
+                Технадзор на каждом этапе
               </h3>
               <p style={{
                 fontFamily: "var(--font-sans)", fontSize: 14,
                 color: "rgba(255,255,255,0.45)", lineHeight: 1.8, margin: 0,
               }}>
-                TODO: фиксируем стоимость в договоре. Никаких доп. платежей по ходу стройки.
+                Независимый технический надзор контролирует качество работ и соблюдение технологий на всех этапах стройки.
               </p>
             </div>
 
@@ -604,13 +604,13 @@ export default function HomePage() {
                 fontFamily: "var(--font-sans)", fontSize: 22, fontWeight: 800,
                 color: "rgba(255,255,255,0.92)", lineHeight: 1.2, marginBottom: 16,
               }}>
-                Строим сами
+                Честная цена
               </h3>
               <p style={{
                 fontFamily: "var(--font-sans)", fontSize: 14,
                 color: "rgba(255,255,255,0.45)", lineHeight: 1.8, margin: 0,
               }}>
-                TODO: все работы выполняем собственной бригадой, не перепродаём субподрядчикам.
+                Фиксируем реальную стоимость в договоре — без заниженных цен и доплат по ходу строительства.
               </p>
             </div>
 

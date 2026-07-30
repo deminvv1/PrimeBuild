@@ -25,8 +25,8 @@ const STATS = [
 const PRINCIPLES = [
   {
     n: '01',
-    title: 'Собственная бригада',
-    desc: 'Не перепродаём подрядчикам. Все работы выполняет наша постоянная команда — с контролем качества на каждом этапе.',
+    title: 'Технадзор на объекте',
+    desc: 'Независимый технический надзор контролирует соблюдение технологий строительства на каждом этапе — от фундамента до отделки.',
   },
   {
     n: '02',
@@ -125,8 +125,8 @@ export default function OKompaniiPage() {
                 и панорамным остеклением. Работаем только по Московской области.
               </p>
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'rgba(255,255,255,0.55)', lineHeight: 1.8, margin: 0 }}>
-                TODO: Цена ниже рынка — не маркетинговый ход. Это результат отлаженных процессов
-                и собственной бригады без посредников.
+                TODO: Указываем реальную стоимость без занижений. Срок строительства — 6 месяцев,
+                и мы его соблюдаем: на каждом объекте работает независимый технадзор.
               </p>
             </div>
           </div>
@@ -145,8 +145,57 @@ export default function OKompaniiPage() {
           <VerticalRevealLine left="66.66%" delay={250} color="rgba(255,255,255,0.12)" />
         </div>
 
+        <div className="principles-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', padding: '0 24px' }}>
+          {PRINCIPLES.map(({ n, title, desc }) => (
+            <div key={n} style={{ padding: '48px 40px' }}>
+              <div style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700, color: '#C9A96E', marginBottom: 16 }}>
+                {n}
+              </div>
+              <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 20, fontWeight: 800, color: 'rgba(255,255,255,0.92)', margin: '0 0 12px', lineHeight: 1.25 }}>
+                {title}
+              </h3>
+              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, margin: 0 }}>
+                {desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
         <div style={{ padding: '0 24px' }}>
           <AnimatedLine length="100%" delay={200} />
+        </div>
+      </section>
+
+      {/* ── ДОКУМЕНТЫ И ГАРАНТИИ ── */}
+      <section style={{ position: 'relative' }}>
+        <FadeIn>
+          <div style={{ padding: '56px 60px' }}>
+            <h2 style={{
+              fontFamily: 'var(--font-sans)', fontSize: 'clamp(26px, 3vw, 40px)',
+              fontWeight: 800, color: 'rgba(255,255,255,0.92)', lineHeight: 1.15,
+              margin: '0 0 16px', textTransform: 'uppercase',
+            }}>
+              Документы и гарантии
+            </h2>
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, maxWidth: 620, margin: '0 0 32px' }}>
+              Работаем по договору строительного подряда с фиксированной ценой и гарантией 6 месяцев
+              на все выполненные работы. Учредительные документы и сертификаты — по запросу.
+            </p>
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              {['Договор подряда', 'Гарантия 6 месяцев', 'Технадзор'].map((label) => (
+                <span key={label} style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
+                  color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.16)',
+                  padding: '10px 18px', borderRadius: 999,
+                }}>
+                  {label}
+                </span>
+              ))}
+            </div>
+          </div>
+        </FadeIn>
+        <div style={{ padding: '0 24px' }}>
+          <AnimatedLine length="100%" delay={100} />
         </div>
       </section>
 

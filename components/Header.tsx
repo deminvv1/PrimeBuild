@@ -5,8 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
-const PHONE = '+7 (XXX) XXX-XX-XX'
-const PHONE_HREF = 'tel:+7XXXXXXXXXX'
+const PHONE = '+7 (985) 933-01-21'
+const PHONE_HREF = 'tel:+79859330121'
 
 const GOLD_SHIMMER: React.CSSProperties = {
   background: 'linear-gradient(105deg, #b8924a 0%, #C9A96E 28%, #f5e4aa 50%, #C9A96E 72%, #b8924a 100%)',

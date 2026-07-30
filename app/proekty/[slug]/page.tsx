@@ -123,23 +123,6 @@ export default async function ProjectPage({ params }: Props) {
               </div>
             ))}
           </div>
-
-          {/* Room tour button */}
-          <Link href={`/proekty/${slug}/tour`} style={{
-            display: 'inline-flex', alignItems: 'center', gap: 12,
-            fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 600,
-            letterSpacing: '0.5px', color: '#fff',
-            border: '1px solid rgba(255,255,255,0.22)',
-            padding: '13px 28px', borderRadius: 999,
-            transition: 'border-color 0.2s',
-          }}>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-              <path d="M2 12h20" />
-            </svg>
-            Продолжить румтур
-          </Link>
         </div>
       </section>
 

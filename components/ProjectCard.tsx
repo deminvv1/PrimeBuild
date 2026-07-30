@@ -22,11 +22,10 @@ export default function ProjectCard({ project }: { project: Project }) {
         position: 'relative',
         aspectRatio: '16/9',
         overflow: 'hidden',
-        borderRadius: 10,
+        borderRadius: 16,
         background: '#ededea',
         cursor: 'pointer',
       }}>
-        {/* Image */}
         {project.images[0] ? (
           <Image
             src={project.images[0]} alt={project.name} fill

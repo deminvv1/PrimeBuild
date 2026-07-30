@@ -7,9 +7,9 @@ import ContactSplit from '@/components/ContactSplit'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
-const PHONE = '+7 (XXX) XXX-XX-XX'
-const PHONE_HREF = 'tel:+7XXXXXXXXXX'
-const EMAIL = 'info@primebuild.ru'
+const PHONE = '+7 (985) 933-01-21'
+const PHONE_HREF = 'tel:+79859330121'
+const EMAIL = 'Mail@vvsamohin.ru'
 const WORKING_HOURS = 'Пн–Пт 9:00–19:00, Сб 10:00–16:00'
 
 export const metadata: Metadata = {

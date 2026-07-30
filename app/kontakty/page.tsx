@@ -1,84 +1,148 @@
 import type { Metadata } from 'next'
-import ContactForm from '@/components/ContactForm'
 import Breadcrumb from '@/components/Breadcrumb'
+import AnimatedLine from '@/components/AnimatedLine'
+import SectionLines from '@/components/SectionLines'
+import FadeIn from '@/components/FadeIn'
+import ContactSplit from '@/components/ContactSplit'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
-const PHONE = 'TODO: +7 (XXX) XXX-XX-XX'
-const PHONE_HREF = 'tel:+7XXXXXXXXXX'
-const EMAIL = 'TODO: info@company.ru'
+const PHONE = '+7 (985) 933-01-21'
+const PHONE_HREF = 'tel:+79859330121'
+const EMAIL = 'Mail@vvsamohin.ru'
 const WORKING_HOURS = 'Пн–Пт 9:00–19:00, Сб 10:00–16:00'
 
 export const metadata: Metadata = {
-  title: 'Контакты — PrimeBuild',
-  description: 'Контакты строительной компании. Телефон, email, режим работы. Московская область.',
+  title: 'Контакты — BuildX',
+  description: 'Контакты строительной компании BuildX. Телефон, email, режим работы. Московская область.',
   alternates: { canonical: `${SITE_URL}/kontakty` },
 }
 
+const CONTACTS = [
+  {
+    label: 'Телефон',
+    value: PHONE,
+    href: PHONE_HREF,
+    size: 20,
+  },
+  {
+    label: 'Email',
+    value: EMAIL,
+    href: `mailto:${EMAIL}`,
+    size: 18,
+  },
+  {
+    label: 'Режим работы',
+    value: WORKING_HOURS,
+    href: null,
+    size: 16,
+  },
+  {
+    label: 'Регион',
+    value: 'Московская область',
+    note: 'Встречи по договорённости',
+    href: null,
+    size: 16,
+  },
+]
+
 export default function KontaktyPage() {
   return (
-    <main style={{ paddingTop: 56 }}>
+    <main style={{ paddingTop: 56, position: 'relative' }}>
+      <SectionLines />
       <Breadcrumb items={[{ label: 'Главная', href: '/' }, { label: 'Контакты' }]} />
-      <section style={{ padding: '80px 0', background: '#242424' }}>
-        <div style={{
-          maxWidth: 1200, margin: '0 auto', padding: '0 24px',
-          display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 64,
-        }}>
-          {/* Info */}
-          <div>
-            <h1 style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(28px,4vw,44px)', fontWeight: 800, color: '#1a1a1a', marginBottom: 40 }}>
+
+      {/* ── HERO ── */}
+      <section style={{ position: 'relative' }}>
+        <FadeIn>
+          <div className="page-hero-pad" style={{ padding: '72px 60px 56px' }}>
+            <h1 style={{
+              fontFamily: 'var(--font-sans)', fontSize: 'clamp(36px, 5vw, 64px)',
+              fontWeight: 800, color: 'rgba(255,255,255,0.92)', lineHeight: 1.08,
+              margin: '0 0 20px', textTransform: 'uppercase',
+            }}>
               Свяжитесь с нами
             </h1>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-              <div>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(26,26,26,0.35)', marginBottom: 6 }}>
-                  Телефон
-                </p>
-                <a href={PHONE_HREF} style={{ fontFamily: 'var(--font-sans)', fontSize: 24, fontWeight: 700, color: '#1a1a1a' }}>
-                  {PHONE}
-                </a>
-              </div>
-              <div>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(26,26,26,0.35)', marginBottom: 6 }}>
-                  Email
-                </p>
-                <a href={`mailto:${EMAIL}`} style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: '#1a1a1a' }}>
-                  {EMAIL}
-                </a>
-              </div>
-              <div>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(26,26,26,0.35)', marginBottom: 6 }}>
-                  Режим работы
-                </p>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, color: '#1a1a1a', margin: 0 }}>{WORKING_HOURS}</p>
-              </div>
-              <div>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', color: 'rgba(26,26,26,0.35)', marginBottom: 6 }}>
-                  Регион работы
-                </p>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, color: '#1a1a1a', margin: '0 0 4px' }}>Московская область</p>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(26,26,26,0.45)', margin: 0 }}>
-                  Встречи по договорённости
-                </p>
-              </div>
-              <div style={{ background: '#242424', borderRadius: 8, height: 220, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(0,0,0,0.06)' }}>
-                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(26,26,26,0.3)' }}>
-                  TODO: Яндекс.Карты embed
-                </p>
-              </div>
-            </div>
+            <p style={{
+              fontFamily: 'var(--font-sans)', fontSize: 16,
+              color: 'rgba(255,255,255,0.38)', lineHeight: 1.7, margin: 0, maxWidth: 460,
+            }}>
+              Перезвоним в течение 15 минут в рабочее время и ответим на все вопросы.
+            </p>
           </div>
+        </FadeIn>
 
-          {/* Form */}
-          <div>
-            <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 24, fontWeight: 700, color: '#1a1a1a', marginBottom: 32 }}>
-              Оставить заявку
-            </h2>
-            <ContactForm source="kontakty" />
-          </div>
+        <div style={{ padding: '0 24px' }}>
+          <AnimatedLine length="100%" delay={100} />
         </div>
       </section>
+
+      {/* ── КОНТАКТНАЯ ИНФОРМАЦИЯ ── */}
+      <section style={{ position: 'relative' }}>
+        <FadeIn delay={100}>
+          <div className="contacts-info" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '0 24px' }}>
+            {CONTACTS.map(({ label, value, href, note, size }, i) => (
+              <div key={label} className="contact-cell" style={{
+                padding: '40px 40px',
+                borderRight: i < CONTACTS.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+              }}>
+                <p style={{
+                  fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600,
+                  letterSpacing: '1.5px', textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.28)', margin: '0 0 12px',
+                }}>
+                  {label}
+                </p>
+                {href ? (
+                  <a href={href} style={{
+                    fontFamily: 'var(--font-sans)', fontSize: size,
+                    fontWeight: 700, color: 'rgba(255,255,255,0.88)',
+                    textDecoration: 'none', lineHeight: 1.25, display: 'block',
+                  }}>
+                    {value}
+                  </a>
+                ) : (
+                  <>
+                    <p style={{ fontFamily: 'var(--font-sans)', fontSize: size, fontWeight: 600, color: 'rgba(255,255,255,0.88)', margin: 0, lineHeight: 1.4 }}>
+                      {value}
+                    </p>
+                    {note && (
+                      <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.32)', margin: '6px 0 0' }}>
+                        {note}
+                      </p>
+                    )}
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </FadeIn>
+        <div style={{ padding: '0 24px' }}>
+          <AnimatedLine length="100%" delay={200} />
+        </div>
+      </section>
+
+      {/* ── ФОРМА (split) ── */}
+      <section style={{ position: 'relative' }}>
+        <ContactSplit
+          source="kontakty"
+          photo="/images/projects/gamma-1.jpg"
+          quoteText={"Ваш дом в Московской\nобласти под ключ"}
+          title="Оставить заявку"
+        />
+      </section>
+
+      <style>{`
+        @media (max-width: 860px) {
+          .contacts-info { grid-template-columns: repeat(2, 1fr) !important; }
+          .contact-cell { padding: 40px 20px !important; }
+        }
+        @media (max-width: 500px) {
+          .contacts-info { grid-template-columns: 1fr !important; }
+          .contact-cell { border-right: none !important; }
+          .contact-cell:not(:first-child) { border-top: 1px solid rgba(255,255,255,0.07); }
+        }
+      `}</style>
     </main>
   )
 }

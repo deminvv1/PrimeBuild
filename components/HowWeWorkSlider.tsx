@@ -9,20 +9,20 @@ const STEPS = [
   {
     n: '01',
     title: 'Заявка и расчёт',
-    desc: 'Оставляете заявку — перезваниваем в течение 2 часов, обсуждаем задачу и считаем предварительную смету.',
-    img: '/images/quiz/contact.jpg',
+    desc: 'Оставляете заявку — перезваниваем в течение 15 минут, обсуждаем задачу и считаем предварительную смету.',
+    img: '/images/projects/midi.webp',
   },
   {
     n: '02',
     title: 'Договор',
     desc: 'Фиксируем цену, сроки и технические характеристики в договоре. Никаких скрытых платежей.',
-    img: '/images/projects/alpha-2.jpg',
+    img: '/images/projects/alpha-3.webp',
   },
   {
     n: '03',
     title: 'Фундамент и коробка',
     desc: 'Заливаем фундамент, возводим стены и кровлю. Присылаем фото-отчёт раз в неделю.',
-    img: '/images/projects/alpha-1.jpg',
+    img: '/images/projects/alpha-1.webp',
   },
   {
     n: '04',
@@ -33,18 +33,23 @@ const STEPS = [
   {
     n: '05',
     title: 'Сдача ключей',
-    desc: 'Подписываем акт приёма-передачи и вручаем ключи. Гарантия на дом — 5 лет.',
-    img: '/images/projects/gamma-1.jpg',
+    desc: 'Подписываем акт приёма-передачи и вручаем ключи. Гарантия на дом — 6 месяцев.',
+    img: '/images/projects/mini.webp',
   },
 ]
 
-const PEEK = [
-  // main — полная высота, левые 60%
-  { left: '0%',  top: '15px',  width: '60%', bottom: '15px',  zIndex: 5, opacity: 1,   radius: 10  },
-  // peek 1 — заходит под main на половину своей ширины (left=45% → 15% скрыто под main)
-  { left: '45%', top: '5%',  width: '30%', bottom: '8%',  zIndex: 4, opacity: 1,   radius: 10 },
-  // peek 2 — заходит под peek 1 на половину (left=63% → 12% скрыто под peek 1)
-  { left: '63%', top: '14%', width: '24%', bottom: '16%', zIndex: 3, opacity: 0.9, radius: 10 },
+// Базовый бокс (геометрия "main") — одинаковый для всех слотов, никогда не меняется.
+// Разное положение каждой стадии задаётся исключительно через transform (GPU, без reflow),
+// поэтому объект в фокусе никогда не пересчитывает object-fit: cover на лету.
+const BASE_BOX = { top: '15px', left: 0, width: '60%', bottom: '15px' }
+
+// Стадии: 0 — главное фото, 1/2 — «peek»-карточки, 3/4 — скрыты за кадром (ждут своей очереди).
+const STAGES = [
+  { x: '0%',   y: '0%',   sx: 1,    sy: 1,    zIndex: 5, opacity: 1,   radius: 10 },
+  { x: '75%',  y: '3%',   sx: 0.5,  sy: 0.87, zIndex: 4, opacity: 1,   radius: 10 },
+  { x: '105%', y: '12%',  sx: 0.4,  sy: 0.72, zIndex: 3, opacity: 0.9, radius: 10 },
+  { x: '130%', y: '18%',  sx: 0.35, sy: 0.6,  zIndex: 2, opacity: 0,   radius: 10 },
+  { x: '150%', y: '24%',  sx: 0.3,  sy: 0.5,  zIndex: 1, opacity: 0,   radius: 10 },
 ]
 
 export default function HowWeWorkSlider() {
@@ -59,7 +64,7 @@ export default function HowWeWorkSlider() {
   useEffect(() => {
     const id = setTimeout(() => go(active + 1), DELAY)
     return () => clearTimeout(id)
-  }, [active]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [active])
 
   return (
     <>
@@ -159,22 +164,30 @@ export default function HowWeWorkSlider() {
         </div>
 
         {/* ── Right: stacked gallery ── */}
-        <div style={{ position: 'relative', overflow: 'hidden' }}>
+        <div className="hww-gallery" style={{ position: 'relative', overflow: 'hidden' }}>
+          {/* Отдельный контейнер-обёртка: абсолютные дети считают проценты от НЕГО,
+              а не от .hww-gallery — реальный margin здесь реально подожмёт стек внутрь на мобильном
+              (в отличие от padding на родителе, который position:absolute дети просто игнорируют). */}
+          <div className="hww-gallery-inner" style={{ position: 'relative', height: '100%' }}>
           {STEPS.map((s, i) => {
             const offset = (i - active + STEPS.length) % STEPS.length
-            if (offset >= PEEK.length) return null
-            const p = PEEK[offset]
+            const stage = STAGES[offset]
+            const isPeek = offset > 0 && offset < 3
             return (
               <div
                 key={s.img}
-                onClick={offset > 0 ? () => go(i) : undefined}
+                className={`hww-stage-${offset}`}
+                onClick={isPeek ? () => go(i) : undefined}
                 style={{
                   position: 'absolute',
-                  top: p.top, left: p.left, width: p.width, bottom: p.bottom,
-                  zIndex: p.zIndex, borderRadius: p.radius,
-                  overflow: 'hidden', opacity: p.opacity,
-                  cursor: offset > 0 ? 'pointer' : 'default',
-                  transition: 'top 0.7s cubic-bezier(0.25,0.46,0.45,0.94), left 0.7s cubic-bezier(0.25,0.46,0.45,0.94), width 0.7s cubic-bezier(0.25,0.46,0.45,0.94), bottom 0.7s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.7s ease, border-radius 0.7s ease',
+                  ...BASE_BOX,
+                  zIndex: stage.zIndex, borderRadius: stage.radius,
+                  overflow: 'hidden', opacity: stage.opacity,
+                  cursor: isPeek ? 'pointer' : 'default',
+                  pointerEvents: offset >= 3 ? 'none' : 'auto',
+                  transformOrigin: '0 0',
+                  transform: `translate(${stage.x}, ${stage.y}) scale(${stage.sx}, ${stage.sy})`,
+                  transition: 'transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.7s ease',
                   boxShadow: offset === 0 ? 'none' : '0 8px 32px rgba(0,0,0,0.45)',
                 }}
               >
@@ -183,7 +196,7 @@ export default function HowWeWorkSlider() {
                   style={{ objectFit: 'cover', display: 'block' }}
                   priority={i === 0}
                 />
-                {offset > 0 && (
+                {isPeek && (
                   <>
                     <div style={{
                       position: 'absolute', top: 10, right: 10,
@@ -201,7 +214,7 @@ export default function HowWeWorkSlider() {
               </div>
             )
           })}
-
+          </div>
 
           {/* Bottom gradient */}
           {/* <div style={{
@@ -224,6 +237,22 @@ export default function HowWeWorkSlider() {
         }
         @media (max-width: 860px) {
           .hww-root { grid-template-columns: 1fr !important; }
+          /* В 1-колоночной раскладке грид больше не задаёт высоту этой ячейке —
+             все фото внутри position:absolute и без явной высоты контейнер схлопывается. */
+          .hww-gallery { min-height: 360px; }
+          /* Реальный margin (не padding — абсолютные дети его игнорируют) поджимает весь стек внутрь. */
+          .hww-gallery-inner { margin: 0 24px; }
+          /* На мобильном показываем только главное фото + один "peek", третье прячем — не помещается. */
+          .hww-stage-2 { display: none !important; }
+          /* BASE_BOX.left=0 центрирует раскладку только на десктопе рядом с peek-карточками;
+             на мобильном 60%-ширины фото нужно центрировать вручную: (100% - 60%) / 2 = 20%. */
+          .hww-stage-0 { left: 20% !important; }
+          /* Peek-карточку сдвигаем на ту же величину (20% контейнера = 33.3% её локального бокса),
+             иначе после центрирования главного фото она полностью прячется под ним. */
+          .hww-stage-1 { transform: translate(108%, 3%) scale(0.5, 0.87) !important; }
+        }
+        @media (max-width: 480px) {
+          .hww-gallery { min-height: 280px; }
         }
       `}</style>
     </>

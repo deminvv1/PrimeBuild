@@ -4,11 +4,11 @@ export const orgJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   '@id': SITE_URL,
-  name: 'PrimeBuild',
+  name: 'BuildX',
   url: SITE_URL,
-  telephone: 'TODO: +7 (XXX) XXX-XX-XX',
-  email: 'TODO: info@company.ru',
-  description: 'TODO: Описание компании',
+  telephone: '+7-985-933-01-21',
+  email: 'Mail@vvsamohin.ru',
+  description: 'Строительная компания в Московской области. Строим дома под ключ за 6 месяцев с фиксированной ценой в договоре и независимым технадзором.',
   areaServed: {
     '@type': 'AdministrativeArea',
     name: 'Московская область',
@@ -21,7 +21,7 @@ export const orgJsonLd = {
   priceRange: '₽₽₽',
 }
 
-export function breadcrumbJsonLd(items: { name: string; href: string }[]) {
+export function breadcrumbJsonLd(items: { name: string; href?: string }[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -29,7 +29,7 @@ export function breadcrumbJsonLd(items: { name: string; href: string }[]) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.name,
-      item: `${SITE_URL}${item.href}`,
+      ...(item.href ? { item: `${SITE_URL}${item.href}` } : {}),
     })),
   }
 }

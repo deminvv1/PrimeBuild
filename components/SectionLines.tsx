@@ -13,7 +13,7 @@ export default function SectionLines({
   color = 'rgba(255,255,255,0.18)',
   delay = 0,
   offset = 24,
-  threshold = 0.4,
+  threshold = 0.01,
 }: Props) {
   const leftRef = useRef<HTMLDivElement>(null)
   const rightRef = useRef<HTMLDivElement>(null)

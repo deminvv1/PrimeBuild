@@ -9,6 +9,7 @@ interface Props {
   delay?: number
   thickness?: number
   threshold?: number
+  className?: string
 }
 
 export default function AnimatedLine({
@@ -17,7 +18,8 @@ export default function AnimatedLine({
   color = 'rgba(255,255,255,0.12)',
   delay = 0,
   thickness = 1,
-  threshold = 0.4,
+  threshold = 0.01,
+  className,
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -37,12 +39,13 @@ export default function AnimatedLine({
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [delay, direction])
+  }, [delay, direction, threshold])
 
   if (direction === 'vertical') {
     return (
       <div
         ref={ref}
+        className={className}
         style={{
           width: thickness,
           height: typeof length === 'number' ? length : length,
@@ -60,6 +63,7 @@ export default function AnimatedLine({
   return (
     <div
       ref={ref}
+      className={className}
       style={{
         width: typeof length === 'number' ? length : length,
         height: thickness,

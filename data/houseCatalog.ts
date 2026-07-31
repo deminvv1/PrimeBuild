@@ -529,6 +529,8 @@ export interface InteriorShowcaseImage {
   slug: string
   label: string
   src: string
+  /** Портретные (вертикальные) кадры — в широкой галерее рендерятся вписанными, без агрессивной обрезки cover. */
+  portrait?: boolean
 }
 
 // Интерьеры показаны только для самой полной комплектации (396 м²) — как пример
@@ -561,12 +563,14 @@ export const INTERIOR_SHOWCASE: InteriorShowcaseImage[] = [
   {
     "slug": "master-closet",
     "label": "Гардеробная мастер-спальни",
-    "src": "/images/konstruktor/interior-396/master-closet.webp"
+    "src": "/images/konstruktor/interior-396/master-closet.webp",
+    "portrait": true
   },
   {
     "slug": "master-closet-2",
     "label": "Гардеробная мастер-спальни",
-    "src": "/images/konstruktor/interior-396/master-closet-2.webp"
+    "src": "/images/konstruktor/interior-396/master-closet-2.webp",
+    "portrait": true
   },
   {
     "slug": "master-bedroom",

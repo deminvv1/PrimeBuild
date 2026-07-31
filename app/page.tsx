@@ -387,7 +387,7 @@ export default function HomePage() {
             }}
           >
             {PROJECTS.slice(0, 2).map((p) => (
-              <ProjectCard key={p.slug} project={p} />
+              <ProjectCard key={p.slug} project={p} toConfigurator />
             ))}
           </div>
           </FadeIn>
@@ -403,7 +403,7 @@ export default function HomePage() {
             }}
           >
             {PROJECTS.slice(2, 4).map((p) => (
-              <ProjectCard key={p.slug} project={p} />
+              <ProjectCard key={p.slug} project={p} toConfigurator />
             ))}
           </div>
           </FadeIn>

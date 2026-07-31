@@ -127,6 +127,7 @@ export function describeConfig(config: HouseConfig): string {
 export interface GalleryImage {
   src: string | null
   label: string
+  portrait?: boolean
 }
 
 export function getPlanImages(config: HouseConfig): GalleryImage[] {
@@ -144,4 +145,4 @@ export function getExteriorGallery(config: HouseConfig): GalleryImage[] {
 
 // Интерьеры показаны как пример по самой полной комплектации (396 м²) — единый
 // набор для всех конфигураций, не привязан к выбору в конструкторе.
-export const INTERIOR_GALLERY: GalleryImage[] = INTERIOR_SHOWCASE.map((img) => ({ src: img.src, label: img.label }))
+export const INTERIOR_GALLERY: GalleryImage[] = INTERIOR_SHOWCASE.map((img) => ({ src: img.src, label: img.label, portrait: img.portrait }))

@@ -16,20 +16,41 @@ interface Props {
 }
 
 const ZOOM = 2.4
+const MAX_SCALE = 4
 const SWIPE_COMMIT_RATIO = 0.22
 const SPRING_TRANSITION = 'transform 320ms cubic-bezier(0.22, 1, 0.36, 1)'
 
 export default function ImageLightbox({ images, index, onClose, onIndexChange }: Props) {
-  const [zoomed, setZoomed] = useState(false)
+  const [scale, setScale] = useState(1)
+  const [pos, setPos] = useState({ x: 0, y: 0 })
+  const zoomed = scale > 1.01
   const [offset, setOffset] = useState(0)
   const [transitionOn, setTransitionOn] = useState(false)
+  const [prevIndex, setPrevIndex] = useState(index)
+  if (prevIndex !== index) {
+    setPrevIndex(index)
+    setScale(1)
+    setPos({ x: 0, y: 0 })
+  }
   const containerRef = useRef<HTMLDivElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
-  const clickFraction = useRef({ x: 0.5, y: 0.5 })
 
   const dragRef = useRef<{ x: number; y: number; width: number; locked: 'x' | 'y' | null } | null>(null)
+  const pinchRef = useRef<{ startDist: number; startScale: number; anchor: { x: number; y: number } } | null>(null)
+  const panRef = useRef<{ x: number; y: number; posX: number; posY: number } | null>(null)
   const animatingRef = useRef(false)
   const commitDirRef = useRef(0)
+
+  const getCenter = () => {
+    const rect = containerRef.current!.getBoundingClientRect()
+    return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }
+  }
+  const touchDist = (touches: React.TouchList) =>
+    Math.max(1, Math.hypot(touches[1].clientX - touches[0].clientX, touches[1].clientY - touches[0].clientY))
+  const touchMid = (touches: React.TouchList) => ({
+    x: (touches[0].clientX + touches[1].clientX) / 2,
+    y: (touches[0].clientY + touches[1].clientY) / 2,
+  })
 
   const { src, alt } = images[index]
   const hasPrev = index > 0
@@ -48,7 +69,14 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
     animatingRef.current = true
     commitDirRef.current = dir
     setTransitionOn(true)
-    setOffset(target)
+    // Двойной rAF: даём браузеру отрисовать кадр с уже включённым transition,
+    // прежде чем менять offset — иначе при переходе из состояния покоя
+    // (transition: none) transform может примениться мгновенно, без анимации.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        setOffset(target)
+      })
+    })
   }
 
   const goPrev = () => {
@@ -90,40 +118,43 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClose, index, images.length, zoomed])
 
-  // После включения зума — скроллим так, чтобы точка клика оказалась там же, где был курсор
-  useEffect(() => {
-    if (!zoomed) return
-    const container = containerRef.current
-    const img = imgRef.current
-    if (!container || !img) return
-    const { x: fx, y: fy } = clickFraction.current
-    // ждём применения нового размера картинки
-    requestAnimationFrame(() => {
-      const targetX = img.offsetWidth * fx - container.clientWidth / 2
-      const targetY = img.offsetHeight * fy - container.clientHeight / 2
-      container.scrollLeft = Math.max(0, targetX)
-      container.scrollTop = Math.max(0, targetY)
-    })
-  }, [zoomed])
-
   const handleImageClick = (e: React.MouseEvent<HTMLImageElement>) => {
     e.stopPropagation()
+    setTransitionOn(true)
     if (zoomed) {
-      setZoomed(false)
+      setScale(1)
+      setPos({ x: 0, y: 0 })
       return
     }
-    const rect = e.currentTarget.getBoundingClientRect()
-    clickFraction.current = {
-      x: (e.clientX - rect.left) / rect.width,
-      y: (e.clientY - rect.top) / rect.height,
-    }
-    setZoomed(true)
+    const C = getCenter()
+    const anchorX = e.clientX - C.x
+    const anchorY = e.clientY - C.y
+    setScale(ZOOM)
+    setPos({ x: anchorX * (1 - ZOOM), y: anchorY * (1 - ZOOM) })
   }
 
-  // Свайп для перехода между фото — только когда изображение не увеличено
-  // (в увеличенном состоянии тем же жестом скроллим по картинке).
+  // Свайп для перехода между фото — только когда изображение не увеличено.
+  // Два пальца — pinch-to-zoom; один палец на увеличенном фото — панорамирование.
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (zoomed || animatingRef.current) return
+    if (e.touches.length === 2) {
+      dragRef.current = null
+      const C = getCenter()
+      const mid = touchMid(e.touches)
+      pinchRef.current = {
+        startDist: touchDist(e.touches),
+        startScale: scale,
+        anchor: { x: (mid.x - C.x - pos.x) / scale, y: (mid.y - C.y - pos.y) / scale },
+      }
+      setTransitionOn(false)
+      return
+    }
+    if (zoomed) {
+      const t = e.touches[0]
+      panRef.current = { x: t.clientX, y: t.clientY, posX: pos.x, posY: pos.y }
+      setTransitionOn(false)
+      return
+    }
+    if (animatingRef.current) return
     const t = e.touches[0]
     dragRef.current = {
       x: t.clientX, y: t.clientY,
@@ -133,6 +164,20 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
   }
 
   const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length === 2 && pinchRef.current) {
+      const { startDist, startScale, anchor } = pinchRef.current
+      const newScale = Math.min(MAX_SCALE, Math.max(1, startScale * (touchDist(e.touches) / startDist)))
+      const C = getCenter()
+      const mid = touchMid(e.touches)
+      setScale(newScale)
+      setPos({ x: mid.x - C.x - anchor.x * newScale, y: mid.y - C.y - anchor.y * newScale })
+      return
+    }
+    if (panRef.current) {
+      const t = e.touches[0]
+      setPos({ x: panRef.current.posX + (t.clientX - panRef.current.x), y: panRef.current.posY + (t.clientY - panRef.current.y) })
+      return
+    }
     const drag = dragRef.current
     if (!drag || zoomed) return
     const t = e.touches[0]
@@ -152,7 +197,23 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
     setOffset(next)
   }
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (pinchRef.current) {
+      pinchRef.current = null
+      if (e.touches.length === 1) {
+        const t = e.touches[0]
+        panRef.current = { x: t.clientX, y: t.clientY, posX: pos.x, posY: pos.y }
+      } else if (scale < 1.05) {
+        setTransitionOn(true)
+        setScale(1)
+        setPos({ x: 0, y: 0 })
+      }
+      return
+    }
+    if (panRef.current) {
+      panRef.current = null
+      return
+    }
     const drag = dragRef.current
     dragRef.current = null
     if (!drag || zoomed || drag.locked !== 'x') {
@@ -179,12 +240,11 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
         zIndex: 21000,
         background: '#101010',
         display: 'flex',
-        alignItems: zoomed ? 'flex-start' : 'center',
-        justifyContent: zoomed ? 'flex-start' : 'center',
-        overflow: zoomed ? 'auto' : 'hidden',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
         overscrollBehavior: 'contain',
-        WebkitOverflowScrolling: 'touch',
-        touchAction: zoomed ? 'pan-x pan-y' : 'pan-y',
+        touchAction: 'none',
         cursor: zoomed ? 'zoom-out' : 'zoom-in',
       }}
     >
@@ -256,57 +316,39 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
         </div>
       )}
 
-      {!zoomed ? (
-        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-          {/* eslint-disable-next-line @next/next/no-img-element -- открывается по клику, не влияет на LCP */}
-          <img
-            ref={imgRef}
-            src={src}
-            alt={alt}
-            onClick={handleImageClick}
-            onTransitionEnd={handleTrackTransitionEnd}
-            style={{
-              position: 'absolute', inset: 0, margin: 'auto',
-              maxWidth: '92vw', maxHeight: '92vh', width: 'auto',
-              transform: `translateX(${offset}px)`,
-              transition: transitionOn ? SPRING_TRANSITION : 'none',
-              background: '#f5f3ef', borderRadius: 4,
-            }}
-          />
-          {neighbor && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={neighbor.src}
-              alt={neighbor.alt}
-              style={{
-                position: 'absolute', inset: 0, margin: 'auto',
-                maxWidth: '92vw', maxHeight: '92vh', width: 'auto',
-                transform: `translateX(${offset + swipeDir * (dragRef.current?.width || containerRef.current?.clientWidth || window.innerWidth)}px)`,
-                transition: transitionOn ? SPRING_TRANSITION : 'none',
-                background: '#f5f3ef', borderRadius: 4,
-                pointerEvents: 'none',
-              }}
-            />
-          )}
-        </div>
-      ) : (
-        // eslint-disable-next-line @next/next/no-img-element -- открывается по клику, не влияет на LCP; next/image не поддерживает натуральный размер + zoom до 240%
+      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        {/* eslint-disable-next-line @next/next/no-img-element -- открывается по клику, не влияет на LCP; next/image не поддерживает pinch-zoom до 4x */}
         <img
           ref={imgRef}
           src={src}
           alt={alt}
           onClick={handleImageClick}
+          onTransitionEnd={handleTrackTransitionEnd}
           style={{
-            flexShrink: 0,
-            maxWidth: 'none',
-            maxHeight: 'none',
-            width: `${ZOOM * 100}%`,
-            margin: 0,
-            background: '#f5f3ef',
-            borderRadius: 4,
+            position: 'absolute', inset: 0, margin: 'auto',
+            maxWidth: '92vw', maxHeight: '92vh', width: 'auto',
+            transform: `translate(${offset + pos.x}px, ${pos.y}px) scale(${scale})`,
+            transformOrigin: 'center center',
+            transition: transitionOn ? SPRING_TRANSITION : 'none',
+            background: '#f5f3ef', borderRadius: 4,
           }}
         />
-      )}
+        {neighbor && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={neighbor.src}
+            alt={neighbor.alt}
+            style={{
+              position: 'absolute', inset: 0, margin: 'auto',
+              maxWidth: '92vw', maxHeight: '92vh', width: 'auto',
+              transform: `translateX(${offset + swipeDir * (dragRef.current?.width || containerRef.current?.clientWidth || window.innerWidth)}px)`,
+              transition: transitionOn ? SPRING_TRANSITION : 'none',
+              background: '#f5f3ef', borderRadius: 4,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
+      </div>
 
       <style>{`
         .lightbox-nav-btn {

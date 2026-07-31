@@ -17,14 +17,13 @@ interface Props {
 
 const ZOOM = 2.4
 const MAX_SCALE = 4
-const SWIPE_COMMIT_RATIO = 0.22
+const SWIPE_THRESHOLD = 40
 const SPRING_TRANSITION = 'transform 320ms cubic-bezier(0.22, 1, 0.36, 1)'
 
 export default function ImageLightbox({ images, index, onClose, onIndexChange }: Props) {
   const [scale, setScale] = useState(1)
   const [pos, setPos] = useState({ x: 0, y: 0 })
   const zoomed = scale > 1.01
-  const [offset, setOffset] = useState(0)
   const [transitionOn, setTransitionOn] = useState(false)
   const [prevIndex, setPrevIndex] = useState(index)
   if (prevIndex !== index) {
@@ -33,13 +32,10 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
     setPos({ x: 0, y: 0 })
   }
   const containerRef = useRef<HTMLDivElement>(null)
-  const imgRef = useRef<HTMLImageElement>(null)
 
-  const dragRef = useRef<{ x: number; y: number; width: number; locked: 'x' | 'y' | null } | null>(null)
+  const dragRef = useRef<{ x: number; y: number; locked: 'x' | 'y' | null } | null>(null)
   const pinchRef = useRef<{ startDist: number; startScale: number; anchor: { x: number; y: number } } | null>(null)
   const panRef = useRef<{ x: number; y: number; posX: number; posY: number } | null>(null)
-  const animatingRef = useRef(false)
-  const commitDirRef = useRef(0)
 
   const getCenter = () => {
     const rect = containerRef.current!.getBoundingClientRect()
@@ -52,53 +48,11 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
     y: (touches[0].clientY + touches[1].clientY) / 2,
   })
 
-  const { src, alt } = images[index]
   const hasPrev = index > 0
   const hasNext = index < images.length - 1
-  const swipeDir = offset < 0 ? 1 : offset > 0 ? -1 : 0 // 1 = к следующему, -1 = к предыдущему
-  const neighborIndex = swipeDir === 1 ? index + 1 : swipeDir === -1 ? index - 1 : -1
-  const neighbor = neighborIndex >= 0 && neighborIndex < images.length ? images[neighborIndex] : null
 
-  const animateTo = (target: number, dir: number) => {
-    if (offset === target) {
-      // уже там (например, отпустили ровно на пороге) — коммитим сразу, transitionend не наступит
-      onIndexChange(index + dir)
-      setOffset(0)
-      return
-    }
-    animatingRef.current = true
-    commitDirRef.current = dir
-    setTransitionOn(true)
-    // Двойной rAF: даём браузеру отрисовать кадр с уже включённым transition,
-    // прежде чем менять offset — иначе при переходе из состояния покоя
-    // (transition: none) transform может примениться мгновенно, без анимации.
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setOffset(target)
-      })
-    })
-  }
-
-  const goPrev = () => {
-    if (!hasPrev || animatingRef.current || zoomed) return
-    animateTo(dragRef.current?.width || containerRef.current?.clientWidth || window.innerWidth, -1)
-  }
-  const goNext = () => {
-    if (!hasNext || animatingRef.current || zoomed) return
-    animateTo(-(dragRef.current?.width || containerRef.current?.clientWidth || window.innerWidth), 1)
-  }
-
-  const handleTrackTransitionEnd = () => {
-    if (!transitionOn) return
-    const dir = commitDirRef.current
-    setTransitionOn(false)
-    if (dir !== 0) {
-      onIndexChange(index + dir)
-    }
-    setOffset(0)
-    commitDirRef.current = 0
-    animatingRef.current = false
-  }
+  const goPrev = () => { if (hasPrev && !zoomed) onIndexChange(index - 1) }
+  const goNext = () => { if (hasNext && !zoomed) onIndexChange(index + 1) }
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -133,8 +87,8 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
     setPos({ x: anchorX * (1 - ZOOM), y: anchorY * (1 - ZOOM) })
   }
 
-  // Свайп для перехода между фото — только когда изображение не увеличено.
-  // Два пальца — pinch-to-zoom; один палец на увеличенном фото — панорамирование.
+  // Два пальца — pinch-to-zoom; один палец на увеличенном фото — панорамирование;
+  // один палец на обычном фото — свайп для перехода (без слежения, просто по порогу).
   const handleTouchStart = (e: React.TouchEvent) => {
     if (e.touches.length === 2) {
       dragRef.current = null
@@ -154,13 +108,8 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
       setTransitionOn(false)
       return
     }
-    if (animatingRef.current) return
     const t = e.touches[0]
-    dragRef.current = {
-      x: t.clientX, y: t.clientY,
-      width: containerRef.current?.clientWidth || window.innerWidth,
-      locked: null,
-    }
+    dragRef.current = { x: t.clientX, y: t.clientY, locked: null }
   }
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -179,22 +128,12 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
       return
     }
     const drag = dragRef.current
-    if (!drag || zoomed) return
+    if (!drag || drag.locked || zoomed) return
     const t = e.touches[0]
     const dx = t.clientX - drag.x
     const dy = t.clientY - drag.y
-
-    if (!drag.locked) {
-      if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return
-      drag.locked = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'
-    }
-    if (drag.locked !== 'x') return
-
-    let next = dx
-    // упругое сопротивление на краях галереи, если дальше листать некуда
-    if ((next < 0 && !hasNext) || (next > 0 && !hasPrev)) next *= 0.35
-    setTransitionOn(false)
-    setOffset(next)
+    if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return
+    drag.locked = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y'
   }
 
   const handleTouchEnd = (e: React.TouchEvent) => {
@@ -216,15 +155,10 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
     }
     const drag = dragRef.current
     dragRef.current = null
-    if (!drag || zoomed || drag.locked !== 'x') {
-      if (offset !== 0) { setTransitionOn(true); setOffset(0) }
-      return
-    }
-    const width = drag.width
-    const passed = Math.abs(offset) > width * SWIPE_COMMIT_RATIO
-    if (passed && offset < 0 && hasNext) animateTo(-width, 1)
-    else if (passed && offset > 0 && hasPrev) animateTo(width, -1)
-    else { setTransitionOn(true); setOffset(0) }
+    if (!drag || drag.locked !== 'x' || zoomed) return
+    const dx = e.changedTouches[0].clientX - drag.x
+    if (dx <= -SWIPE_THRESHOLD) goNext()
+    else if (dx >= SWIPE_THRESHOLD) goPrev()
   }
 
   return createPortal(
@@ -317,37 +251,34 @@ export default function ImageLightbox({ images, index, onClose, onIndexChange }:
       )}
 
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-        {/* eslint-disable-next-line @next/next/no-img-element -- открывается по клику, не влияет на LCP; next/image не поддерживает pinch-zoom до 4x */}
-        <img
-          ref={imgRef}
-          src={src}
-          alt={alt}
-          onClick={handleImageClick}
-          onTransitionEnd={handleTrackTransitionEnd}
-          style={{
-            position: 'absolute', inset: 0, margin: 'auto',
-            maxWidth: '92vw', maxHeight: '92vh', width: 'auto',
-            transform: `translate(${offset + pos.x}px, ${pos.y}px) scale(${scale})`,
-            transformOrigin: 'center center',
-            transition: transitionOn ? SPRING_TRANSITION : 'none',
-            background: '#f5f3ef', borderRadius: 4,
-          }}
-        />
-        {neighbor && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={neighbor.src}
-            alt={neighbor.alt}
+        {images.map((img, i) => (
+          <div
+            key={i}
             style={{
-              position: 'absolute', inset: 0, margin: 'auto',
-              maxWidth: '92vw', maxHeight: '92vh', width: 'auto',
-              transform: `translateX(${offset + swipeDir * (dragRef.current?.width || containerRef.current?.clientWidth || window.innerWidth)}px)`,
-              transition: transitionOn ? SPRING_TRANSITION : 'none',
-              background: '#f5f3ef', borderRadius: 4,
-              pointerEvents: 'none',
+              position: 'absolute',
+              inset: 0,
+              opacity: i === index ? 1 : 0,
+              transition: 'opacity 0.6s ease',
+              pointerEvents: i === index ? 'auto' : 'none',
             }}
-          />
-        )}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element -- открывается по клику, не влияет на LCP; next/image не поддерживает pinch-zoom до 4x */}
+            <img
+              src={img.src}
+              alt={img.alt}
+              loading={i === index ? 'eager' : 'lazy'}
+              onClick={i === index ? handleImageClick : undefined}
+              style={{
+                position: 'absolute', inset: 0, margin: 'auto',
+                maxWidth: '92vw', maxHeight: '92vh', width: 'auto',
+                transform: i === index ? `translate(${pos.x}px, ${pos.y}px) scale(${scale})` : 'none',
+                transformOrigin: 'center center',
+                transition: i === index && transitionOn ? SPRING_TRANSITION : 'none',
+                background: '#f5f3ef', borderRadius: 4,
+              }}
+            />
+          </div>
+        ))}
       </div>
 
       <style>{`

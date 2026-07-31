@@ -35,6 +35,7 @@ export default async function ProjectPage({ params }: Props) {
   if (!project) notFound()
 
   const related = projects.filter(p => p.slug !== slug).slice(0, 2)
+  const galleryItems = project.images.map((src, i) => ({ src, alt: i === 0 ? project.name : `${project.name} ${i + 1}` }))
 
   return (
     <main style={{ background: '#1a1a1a', paddingTop: 56, overflowX: 'hidden' }}>
@@ -46,6 +47,7 @@ export default async function ProjectPage({ params }: Props) {
           video={project.video}
           image={project.images[0]}
           alt={project.name}
+          gallery={galleryItems}
         />
 
         {/* Gradient overlay — pointer-events:none, иначе перехватывает клик по фото (лайтбокс не открывается) */}
@@ -142,7 +144,11 @@ export default async function ProjectPage({ params }: Props) {
               <div className="proj-gallery" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 12, marginBottom: 64 }}>
                 {project.images.slice(1).map((src, i) => (
                   <div key={i} style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden', borderRadius: 8, background: '#2c2c2c' }}>
-                    <ZoomableImage src={src} alt={`${project.name} ${i + 2}`} sizes="(max-width:900px) 50vw, 30vw" objectFit="cover" />
+                    <ZoomableImage
+                      src={src} alt={`${project.name} ${i + 2}`}
+                      sizes="(max-width:900px) 50vw, 30vw" objectFit="cover"
+                      gallery={galleryItems} galleryIndex={i + 1}
+                    />
                   </div>
                 ))}
               </div>

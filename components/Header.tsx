@@ -12,11 +12,6 @@ const PHONE_HREF = 'tel:+79859330121'
 const TELEGRAM_HREF = '#'
 const MAX_HREF = '#'
 
-const CONTACT_LINKS = [
-  { label: 'Telegram', href: TELEGRAM_HREF },
-  { label: 'MAX', href: MAX_HREF },
-]
-
 const GOLD_SHIMMER: React.CSSProperties = {
   background: 'linear-gradient(105deg, #b8924a 0%, #C9A96E 28%, #f5e4aa 50%, #C9A96E 72%, #b8924a 100%)',
   backgroundSize: '250% 100%',
@@ -31,6 +26,27 @@ const NAV = [
   // { label: 'Отзывы', href: '/otzyvy' },
   { label: 'Контакты', href: '/kontakty' },
 ]
+
+function TelegramIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+    </svg>
+  )
+}
+
+/** Мессенджер MAX: толстое кольцо-пузырь с хвостиком снизу слева. */
+function MaxIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M22 11.5C22 16.75 17.75 21 12.5 21c-1.03 0-2.03-.16-2.96-.47-.9 1.02-2.1 1.93-3.9 2.4-.5.13-1.2.2-1.62.13-.4-.07-.5-.5-.22-.78.9-.9 1.42-1.94 1.36-3.4A9.47 9.47 0 0 1 3 11.5C3 6.25 7.25 2 12.5 2S22 6.25 22 11.5Zm-9.5 4.9a4.9 4.9 0 1 0 0-9.8 4.9 4.9 0 0 0 0 9.8Z"
+      />
+    </svg>
+  )
+}
 
 const T = '1s cubic-bezier(0.16, 1, 0.3, 1)'
 
@@ -102,23 +118,15 @@ export default function Header() {
           {/* Phone + CTA */}
           <div className="hdr-right" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <a href={TELEGRAM_HREF} target="_blank" rel="noopener noreferrer" aria-label="Telegram" style={{
+              <a href={TELEGRAM_HREF} target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="hdr-social-link hdr-social-link--tg" style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                width: 32, height: 32, borderRadius: '50%',
-                border: '1px solid rgba(255,255,255,0.14)', color: 'rgba(255,255,255,0.65)',
               }}>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M21.9 4.3 2.6 11.9c-1.2.5-1.2 1.2-.2 1.5l4.9 1.5 1.9 5.8c.2.6.4.8.9.8.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.5.2 1.8-.9L23.9 5.6c.3-1.4-.5-2-1.9-1.3zM8.5 14.9l-1.3-4.3L18 6.5c.5-.3.9 0 .6.4L8.5 14.9zm0 0" />
-                </svg>
+                <TelegramIcon className="hdr-social-icon" />
               </a>
-              <a href={MAX_HREF} target="_blank" rel="noopener noreferrer" aria-label="MAX" style={{
+              <a href={MAX_HREF} target="_blank" rel="noopener noreferrer" aria-label="MAX" className="hdr-social-link hdr-social-link--max" style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                width: 32, height: 32, borderRadius: '50%',
-                border: '1px solid rgba(255,255,255,0.14)',
-                fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 800,
-                color: 'rgba(255,255,255,0.65)',
               }}>
-                MAX
+                <MaxIcon className="hdr-social-icon" />
               </a>
             </div>
             <a href={PHONE_HREF} style={{
@@ -136,6 +144,27 @@ export default function Header() {
             }}>
               Заказать звонок
             </Link>
+          </div>
+
+          {/* Mobile quick actions */}
+          <div className="hdr-mobile-actions" style={{ display: 'none', alignItems: 'center', gap: 14 }}>
+            <a href={TELEGRAM_HREF} target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="hdr-social-link hdr-social-link--tg" style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <TelegramIcon className="hdr-social-icon" />
+            </a>
+            <a href={MAX_HREF} target="_blank" rel="noopener noreferrer" aria-label="MAX" className="hdr-social-link hdr-social-link--max" style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <MaxIcon className="hdr-social-icon" />
+            </a>
+            <a href={PHONE_HREF} aria-label="Позвонить" className="hdr-social-link hdr-social-link--phone" style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <svg className="hdr-social-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2z" />
+              </svg>
+            </a>
           </div>
 
           {/* Mobile burger */}
@@ -184,24 +213,38 @@ export default function Header() {
           }}>
             {PHONE}
           </a>
-          <div style={{ display: 'flex', gap: 10, marginTop: 16 }}>
-            {CONTACT_LINKS.map(({ label, href }) => (
-              <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{
-                flex: 1, textAlign: 'center', padding: '10px 0', borderRadius: 999,
-                border: '1px solid rgba(255,255,255,0.14)',
-                fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
-                color: 'rgba(255,255,255,0.85)',
-              }}>
-                {label}
-              </a>
-            ))}
-          </div>
         </div>
       )}
 
       <style>{`
+        .hdr-social-link { color: rgba(255,255,255,0.65); transition: color 0.2s, opacity 0.2s; }
+        .hdr-social-link:hover { color: #C9A96E; }
+        .hdr-social-icon { width: 32px; height: 32px; }
+        .hdr-social-link--tg { color: #fff; background: #29A9EA; border-radius: 50%; width: 34px; height: 34px; }
+        .hdr-social-link--tg:hover { color: #fff; opacity: 0.85; }
+        .hdr-social-link--tg .hdr-social-icon { width: 20px; height: 20px; }
+        .hdr-social-link--max { color: #7C5CFC; }
+        .hdr-social-link--max:hover { color: #7C5CFC; opacity: 0.8; }
+
+        .hdr-social-link--tg, .hdr-social-link--max, .hdr-social-link--phone {
+          animation: hdr-social-jiggle 6s ease-in-out infinite;
+        }
+        .hdr-social-link--max { animation-delay: 0.25s; }
+        .hdr-social-link--phone { animation-delay: 0.5s; }
+        @keyframes hdr-social-jiggle {
+          0%, 90%, 100% { transform: rotate(0deg) scale(1); }
+          91% { transform: rotate(-16deg) scale(1.22); }
+          92.5% { transform: rotate(14deg) scale(1.22); }
+          94% { transform: rotate(-11deg) scale(1.15); }
+          95.5% { transform: rotate(8deg) scale(1.1); }
+          97% { transform: rotate(-4deg) scale(1.03); }
+          98.5% { transform: rotate(0deg) scale(1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hdr-social-link--tg, .hdr-social-link--max, .hdr-social-link--phone { animation: none; }
+        }
         @media (max-width: 960px) { .hdr-nav { display: none !important; } }
-        @media (max-width: 640px) { .hdr-right { display: none !important; } .hdr-burger { display: block !important; } }
+        @media (max-width: 640px) { .hdr-right { display: none !important; } .hdr-burger { display: block !important; } .hdr-mobile-actions { display: flex !important; } }
       `}</style>
     </>
   )

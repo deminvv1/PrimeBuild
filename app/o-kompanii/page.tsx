@@ -16,8 +16,7 @@ export const metadata: Metadata = {
 }
 
 const STATS = [
-  { num: 'TODO+', label: 'домов построено' },
-  { num: 'TODO', label: 'лет на рынке' },
+  { num: '10+', label: 'домов построено' },
   { num: '6 мес', label: 'средний срок' },
   { num: '100%', label: 'сданы в срок' },
 ]
@@ -61,7 +60,7 @@ export default function OKompaniiPage() {
               fontFamily: 'var(--font-sans)', fontSize: 16,
               color: 'rgba(255,255,255,0.42)', lineHeight: 1.7, margin: 0, maxWidth: 520,
             }}>
-              TODO: Строительная компания в Московской области. Специализируемся на современных домах
+              Строительная компания в Московской области. Специализируемся на современных домах
               с плоской кровлей, монолитным каркасом и панорамным остеклением.
             </p>
           </div>
@@ -72,11 +71,11 @@ export default function OKompaniiPage() {
           <AnimatedLine length="100%" delay={100} />
         </div>
         <FadeIn delay={150}>
-          <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', padding: '0 24px' }}>
+          <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', padding: '0 24px' }}>
             {STATS.map(({ num, label }, i) => (
               <div key={label} className="stat-cell" style={{
                 padding: '40px 44px',
-                borderRight: i < 3 ? '1px solid rgba(255,255,255,0.07)' : 'none',
+                borderRight: i < STATS.length - 1 ? '1px solid rgba(255,255,255,0.07)' : 'none',
               }}>
                 <div style={{ fontFamily: 'var(--font-sans)', fontSize: 38, fontWeight: 900, color: '#C9A96E', lineHeight: 1, marginBottom: 10 }}>
                   {num}
@@ -117,15 +116,15 @@ export default function OKompaniiPage() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 22, paddingTop: 70 }}>
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'rgba(255,255,255,0.55)', lineHeight: 1.8, margin: 0 }}>
-                TODO: Мы основали компанию с одной целью — строить качественные современные дома
-                по честной цене. За это время построили TODO объектов в Московской области.
+                Мы основали компанию с одной целью — строить качественные современные дома
+                по честной цене. За это время построили 10+ объектов в Московской области.
               </p>
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'rgba(255,255,255,0.55)', lineHeight: 1.8, margin: 0 }}>
-                TODO: Наша команда специализируется на домах с плоской кровлей, монолитным каркасом
+                Наша команда специализируется на домах с плоской кровлей, монолитным каркасом
                 и панорамным остеклением. Работаем только по Московской области.
               </p>
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'rgba(255,255,255,0.55)', lineHeight: 1.8, margin: 0 }}>
-                TODO: Указываем реальную стоимость без занижений. Срок строительства — 6 месяцев,
+                Указываем реальную стоимость без занижений. Срок строительства — 6 месяцев,
                 и мы его соблюдаем: на каждом объекте работает независимый технадзор.
               </p>
             </div>
@@ -213,6 +212,7 @@ export default function OKompaniiPage() {
         @media (max-width: 960px) {
           .about-grid { grid-template-columns: 1fr !important; gap: 32px !important; padding: 56px 44px !important; }
           .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .stat-cell:nth-child(1), .stat-cell:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,0.07); }
           .principles-grid { grid-template-columns: 1fr !important; }
           .principles-vline { display: none !important; }
         }

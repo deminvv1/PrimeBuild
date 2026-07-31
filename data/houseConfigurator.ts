@@ -1,25 +1,54 @@
 import { HOUSE_CATALOG, INTERIOR_SHOWCASE, HouseCatalogEntry } from './houseCatalog'
 
-export type GuestBedroom = 'none' | 'with-closet' | 'without-closet'
-
 export interface HouseConfig {
   floors: 1 | 2
   bedrooms: number
-  masterBedroom: boolean
-  guestBedroom: GuestBedroom
   spa: boolean
   garage: boolean
-  terraceCanopy: boolean
+  /** Комплектация мебелью — по умолчанию включена (см. calculatePrice: без мебели дешевле на 5 млн ₽). */
+  furniture: boolean
 }
 
 export const DEFAULT_CONFIG: HouseConfig = {
   floors: 1,
   bedrooms: 2,
-  masterBedroom: false,
-  guestBedroom: 'none',
   spa: false,
   garage: false,
-  terraceCanopy: false,
+  furniture: true,
+}
+
+/**
+ * Собирает query-параметры для ссылки на конструктор с предзаполненной
+ * конфигурацией конкретного проекта — например, из карточки в /proekty.
+ * Булевы опции добавляются в URL только когда отличаются от значения по
+ * умолчанию, чтобы не засорять ссылку лишним "=0"/"=1"
+ * (/podbor-doma?floors=1&bedrooms=3&garage=1).
+ */
+export function configToQuery(config: Pick<HouseConfig, 'floors' | 'bedrooms' | 'spa' | 'garage'> & Partial<Pick<HouseConfig, 'furniture'>>): string {
+  const params = new URLSearchParams()
+  params.set('floors', String(config.floors))
+  params.set('bedrooms', String(config.bedrooms))
+  if (config.spa) params.set('spa', '1')
+  if (config.garage) params.set('garage', '1')
+  if (config.furniture === false) params.set('furniture', '0')
+  return params.toString()
+}
+
+/** Обратное преобразование — читает те же query-параметры на странице конструктора. */
+export function configFromSearchParams(sp: Record<string, string | string[] | undefined>): Partial<HouseConfig> {
+  const floorsRaw = Array.isArray(sp.floors) ? sp.floors[0] : sp.floors
+  const bedroomsRaw = Array.isArray(sp.bedrooms) ? sp.bedrooms[0] : sp.bedrooms
+  const spaRaw = Array.isArray(sp.spa) ? sp.spa[0] : sp.spa
+  const garageRaw = Array.isArray(sp.garage) ? sp.garage[0] : sp.garage
+  const furnitureRaw = Array.isArray(sp.furniture) ? sp.furniture[0] : sp.furniture
+
+  const config: Partial<HouseConfig> = {}
+  if (floorsRaw === '1' || floorsRaw === '2') config.floors = Number(floorsRaw) as 1 | 2
+  if (bedroomsRaw && !Number.isNaN(Number(bedroomsRaw))) config.bedrooms = Number(bedroomsRaw)
+  if (spaRaw === '1') config.spa = true
+  if (garageRaw === '1') config.garage = true
+  if (furnitureRaw === '0') config.furniture = false
+  return config
 }
 
 /**
@@ -63,34 +92,17 @@ export function getCatalogEntry(config: HouseConfig): HouseCatalogEntry {
  * Наценки за опции, которых нет в реальном каталоге рендеров (не влияют на
  * картинку — только на итоговую цену). Гараж и СПА-зона в наценки не входят:
  * они меняют саму базовую цену через выбор нужной записи каталога.
- * TODO: ориентировочные наценки — уточнить точную смету с заказчиком.
+ * Базовая цена каталога (priceMin) уже включает мебель — без неё дешевле.
  */
-const PRICE_MASTER_BEDROOM = 450_000
-const PRICE_GUEST_BEDROOM: Record<GuestBedroom, number> = {
-  none: 0,
-  'without-closet': 150_000,
-  'with-closet': 280_000,
-}
-const PRICE_TERRACE_CANOPY = 220_000
+const PRICE_WITHOUT_FURNITURE_DISCOUNT = 5_000_000
 
 export function calculatePrice(config: HouseConfig): number {
   const entry = getCatalogEntry(config)
-  return (
-    entry.priceMin +
-    (config.masterBedroom ? PRICE_MASTER_BEDROOM : 0) +
-    PRICE_GUEST_BEDROOM[config.guestBedroom] +
-    (config.terraceCanopy ? PRICE_TERRACE_CANOPY : 0)
-  )
+  return entry.priceMin - (config.furniture ? 0 : PRICE_WITHOUT_FURNITURE_DISCOUNT)
 }
 
 export function formatPrice(value: number): string {
   return value.toLocaleString('ru-RU').replace(/,/g, ' ')
-}
-
-const GUEST_BEDROOM_LABEL: Record<GuestBedroom, string> = {
-  none: 'нет',
-  'without-closet': 'без гардеробной',
-  'with-closet': 'с гардеробной',
 }
 
 /**
@@ -104,11 +116,9 @@ export function describeConfig(config: HouseConfig): string {
   return [
     `Этажность: ${config.floors}`,
     `Спальни: ${config.bedrooms}`,
-    `Мастер-спальня: ${config.masterBedroom ? 'да' : 'нет'}`,
-    `Гостевая спальня: ${GUEST_BEDROOM_LABEL[config.guestBedroom]}`,
     `Гараж: ${config.garage ? 'да' : 'нет'}`,
     `СПА-зона: ${config.spa ? 'да' : 'нет'}`,
-    `Навес над террасой: ${config.terraceCanopy ? 'да' : 'нет'}`,
+    `Комплектация мебелью: ${config.furniture ? 'с мебелью' : 'без мебели'}`,
     `Площадь: ${entry.area} м²`,
     `Ориентировочная цена: ${formatPrice(price)} ₽`,
   ].join('\n')

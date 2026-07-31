@@ -196,7 +196,7 @@ export default async function ProjectPage({ params }: Props) {
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.4)', lineHeight: 1.6, marginBottom: 20 }}>
                 Добавьте или уберите спальни, СПА-зону, гараж — соберите свой вариант в конструкторе.
               </p>
-              <Link href="/podbor-doma" style={{
+              <Link href="/proekty/podbor-doma" style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,
                 letterSpacing: '0.5px', color: '#C9A96E',

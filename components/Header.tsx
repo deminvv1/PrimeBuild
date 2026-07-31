@@ -21,7 +21,7 @@ const GOLD_SHIMMER: React.CSSProperties = {
 const NAV = [
   { label: 'Проекты', href: '/proekty' },
   { label: 'Построено', href: '/postroeno' },
-  { label: 'Подбор дома', href: '/podbor-doma' },
+  { label: 'Подбор дома', href: '/proekty/podbor-doma' },
   { label: 'О компании', href: '/o-kompanii' },
   // { label: 'Отзывы', href: '/otzyvy' },
   { label: 'Контакты', href: '/kontakty' },

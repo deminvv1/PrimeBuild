@@ -5,6 +5,11 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: process.env.NODE_ENV === 'development' ? 0 : 86400,
   },
+  async redirects() {
+    return [
+      { source: '/podbor-doma', destination: '/proekty/podbor-doma', permanent: true },
+    ]
+  },
   async headers() {
     const isDev = process.env.NODE_ENV === 'development'
     const csp = [

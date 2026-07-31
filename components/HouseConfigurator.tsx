@@ -265,7 +265,7 @@ export default function HouseConfigurator({ config, onChange }: Props) {
         </div>
 
         {lightboxOpen && activePlan?.src && (
-          <ImageLightbox src={activePlan.src} alt={activePlan.label} onClose={() => setLightboxOpen(false)} />
+          <ImageLightbox images={[{ src: activePlan.src, alt: activePlan.label }]} index={0} onIndexChange={() => {}} onClose={() => setLightboxOpen(false)} />
         )}
 
         {plans.length > 1 && (

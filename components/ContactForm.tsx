@@ -16,8 +16,10 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
   const [phone, setPhone] = useState('')
   const [comment, setComment] = useState('')
   const [honey, setHoney] = useState('')
+  const [agree, setAgree] = useState(false)
   const [status, setStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle')
   const [phoneError, setPhoneError] = useState(false)
+  const [agreeError, setAgreeError] = useState(false)
   const [size, setSize] = useState({ w: 0, h: 0 })
   const [hovered, setHovered] = useState(false)
   const wrapRef = useRef<HTMLDivElement>(null)
@@ -39,6 +41,8 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
     e.preventDefault()
     if (phone.replace(/\D/g, '').length < 10) { setPhoneError(true); return }
     setPhoneError(false)
+    if (!agree) { setAgreeError(true); return }
+    setAgreeError(false)
     setStatus('loading')
     const fullComment = [comment.trim(), configSummary].filter(Boolean).join('\n\n')
     try {
@@ -177,10 +181,24 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
         }
       `}</style>
 
-      <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, color: mutedColor, textAlign: 'center', lineHeight: '1.5' }}>
-        Нажимая кнопку, вы соглашаетесь с{' '}
-        <Link href="/privacy" style={{ textDecoration: 'underline', color: mutedColor }}>политикой конфиденциальности</Link>
-      </p>
+      <label style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
+        <input
+          type="checkbox"
+          checked={agree}
+          onChange={e => { setAgree(e.target.checked); if (e.target.checked) setAgreeError(false) }}
+          aria-invalid={agreeError}
+          style={{
+            width: 16, height: 16, flexShrink: 0, cursor: 'pointer',
+            accentColor: dark ? '#C9A96E' : '#1a1a1a',
+            outline: agreeError ? '2px solid #e53e3e' : 'none',
+            outlineOffset: 2,
+          }}
+        />
+        <span style={{ fontFamily: 'var(--font-sans)', fontSize: 11, color: agreeError ? '#e53e3e' : mutedColor, lineHeight: '1.5' }}>
+          Согласен на обработку персональных данных в соответствии с{' '}
+          <Link href="/privacy" style={{ textDecoration: 'underline', color: agreeError ? '#e53e3e' : mutedColor }}>политикой конфиденциальности</Link>
+        </span>
+      </label>
 
       {status === 'error' && (
         <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: '#e53e3e', textAlign: 'center' }}>

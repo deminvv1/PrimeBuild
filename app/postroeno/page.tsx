@@ -48,11 +48,11 @@ export default function PostroenoPage() {
         <FadeIn>
           <div className="page-hero-pad" style={{ padding: '72px 60px 56px' }}>
             <h1 style={{
-              fontFamily: 'var(--font-sans)', fontSize: 'clamp(36px, 5vw, 64px)',
+              fontFamily: 'var(--font-sans)', fontSize: 'clamp(24px, 6vw, 64px)',
               fontWeight: 800, color: 'rgba(255,255,255,0.92)', lineHeight: 1.08,
               margin: '0 0 20px', textTransform: 'uppercase',
             }}>
-              Реализованные объекты
+              Реализованные<br />объекты
             </h1>
             <p style={{
               fontFamily: 'var(--font-sans)', fontSize: 16,
@@ -90,7 +90,11 @@ export default function PostroenoPage() {
                     animationDelay: `${(i * 0.45) % 3.6}s`,
                   }}
                 >
-                  <ZoomableImage src={photo.src} alt={photo.alt} sizes="(max-width: 900px) 100vw, 33vw" objectFit="cover" />
+                  <ZoomableImage
+                    src={photo.src} alt={photo.alt}
+                    sizes="(max-width: 900px) 100vw, 33vw" objectFit="cover"
+                    gallery={GALLERY} galleryIndex={i}
+                  />
                 </div>
               </div>
             ))}

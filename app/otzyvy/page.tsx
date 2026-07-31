@@ -61,7 +61,7 @@ export default function OtzyvyPage() {
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 15, color: 'rgba(26,26,26,0.55)', lineHeight: 1.7, marginBottom: 24 }}>
                 Мы только запускаемся. Станьте одним из первых клиентов — получите приоритетные условия и будем благодарны за отзыв после сдачи.
               </p>
-              <Link href="/podbor-doma" style={{
+              <Link href="/proekty/podbor-doma" style={{
                 display: 'inline-block',
                 background: '#1a1a1a', color: '#fff',
                 fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700,

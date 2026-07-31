@@ -4,7 +4,6 @@ import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import ImageLightbox from './ImageLightbox'
 import {
-  GuestBedroom,
   HouseConfig,
   calculatePrice,
   formatPrice,
@@ -124,12 +123,6 @@ function ToggleRow({
   )
 }
 
-const GUEST_OPTIONS: { value: GuestBedroom; label: string }[] = [
-  { value: 'none', label: 'Нет' },
-  { value: 'without-closet', label: 'Без гардеробной' },
-  { value: 'with-closet', label: 'С гардеробной' },
-]
-
 interface Props {
   config: HouseConfig
   onChange: (config: HouseConfig) => void
@@ -197,13 +190,14 @@ export default function HouseConfigurator({ config, onChange }: Props) {
           </div>
         </OptionGroup>
 
+        <OptionGroup label="Комплектация">
+          <div style={{ display: 'flex', gap: 12 }}>
+            <PillButton active={config.furniture} onClick={() => set('furniture', true)}>С мебелью</PillButton>
+            <PillButton active={!config.furniture} onClick={() => set('furniture', false)}>Без мебели</PillButton>
+          </div>
+        </OptionGroup>
+
         <OptionGroup label="Дополнительные комплектации">
-          <ToggleRow
-            title="Мастер-бедрум"
-            desc="Спальня с собственной ванной и гардеробной"
-            value={config.masterBedroom}
-            onChange={(v) => set('masterBedroom', v)}
-          />
           <ToggleRow
             title="СПА-зона"
             desc="Бассейн, сауна или хаммам на отдельной площади"
@@ -216,23 +210,22 @@ export default function HouseConfigurator({ config, onChange }: Props) {
             value={config.garage}
             onChange={(v) => set('garage', v)}
           />
-          <ToggleRow
-            title="Навес над террасой"
-            desc="Крытая зона отдыха, примыкающая к дому"
-            value={config.terraceCanopy}
-            onChange={(v) => set('terraceCanopy', v)}
-          />
         </OptionGroup>
 
         <div>
-          <span style={LABEL}>Гостевая спальня</span>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-            {GUEST_OPTIONS.map((opt) => (
-              <PillButton key={opt.value} active={config.guestBedroom === opt.value} onClick={() => set('guestBedroom', opt.value)}>
-                {opt.label}
-              </PillButton>
+          <span style={LABEL}>Уже включено в планировку</span>
+          <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {[
+              'Мастер-спальня с собственной ванной и гардеробной',
+              'Гостевые спальни с гардеробной',
+              'Навес над террасой',
+            ].map((item) => (
+              <li key={item} style={{ display: 'flex', gap: 10, fontFamily: 'var(--font-sans)', fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>
+                <span style={{ color: '#C9A96E', flexShrink: 0, marginTop: 1 }}>✓</span>
+                {item}
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
 

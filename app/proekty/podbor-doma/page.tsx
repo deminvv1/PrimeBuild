@@ -2,18 +2,16 @@ import type { Metadata } from 'next'
 import Breadcrumb from '@/components/Breadcrumb'
 import PodborDomaClient from '@/components/PodborDomaClient'
 import FullscreenGallery from '@/components/FullscreenGallery'
-import ExpandableDescription from '@/components/ExpandableDescription'
 import FadeIn from '@/components/FadeIn'
 import AnimatedLine from '@/components/AnimatedLine'
-import SectionLines from '@/components/SectionLines'
-import { INTERIOR_GALLERY } from '@/data/houseConfigurator'
+import { INTERIOR_GALLERY, configFromSearchParams } from '@/data/houseConfigurator'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
 export const metadata: Metadata = {
   title: 'Подбор дома — BuildX',
   description: 'Соберите свою планировку дома: этажность, спальни, мастер-бедрум, СПА-зона, гараж — и узнайте ориентировочную стоимость.',
-  alternates: { canonical: `${SITE_URL}/podbor-doma` },
+  alternates: { canonical: `${SITE_URL}/proekty/podbor-doma` },
 }
 
 const LABEL: React.CSSProperties = {
@@ -36,10 +34,16 @@ const H2: React.CSSProperties = {
   textTransform: 'uppercase',
 }
 
-export default function PodborDomaPage() {
+interface Props {
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}
+
+export default async function PodborDomaPage({ searchParams }: Props) {
+  const sp = await searchParams
+  const initialConfig = configFromSearchParams(sp)
   return (
     <main style={{ paddingTop: 56 }}>
-      <Breadcrumb items={[{ label: 'Главная', href: '/' }, { label: 'Подбор дома' }]} />
+      <Breadcrumb items={[{ label: 'Главная', href: '/' }, { label: 'Проекты', href: '/proekty' }, { label: 'Подбор дома' }]} />
 
       {/* ── INTRO ── */}
       <section className="page-hero-pad" style={{ padding: '24px 60px 40px' }}>
@@ -61,6 +65,7 @@ export default function PodborDomaPage() {
 
       {/* ── CONFIGURATOR + EXTERIOR + INTERIOR + КОМПЛЕКТАЦИЯ + CONTACT (общее состояние конфигурации) ── */}
       <PodborDomaClient
+        initialConfig={initialConfig}
         exteriorHeading={
           <div className="page-hero-pad" style={{ padding: '64px 60px 32px' }}>
             <p style={LABEL}>Устраивает вариант?</p>
@@ -87,22 +92,6 @@ export default function PodborDomaPage() {
             </p>
           </div>
           <FullscreenGallery images={INTERIOR_GALLERY} />
-        </section>
-
-        {/* ── DESCRIPTION ── */}
-        <section style={{ position: 'relative' }}>
-          <SectionLines delay={200} threshold={0.05} />
-          <div style={{ padding: '0 24px' }}>
-            <AnimatedLine length="100%" delay={0} />
-          </div>
-          <div className="page-hero-pad" style={{ padding: '64px 60px' }}>
-            <p style={LABEL}>Что входит в дом</p>
-            <h2 style={{ ...H2, marginBottom: 24 }}>Комплектация под ключ</h2>
-            <ExpandableDescription />
-          </div>
-          <div style={{ padding: '0 24px' }}>
-            <AnimatedLine length="100%" delay={200} />
-          </div>
         </section>
       </PodborDomaClient>
     </main>

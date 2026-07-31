@@ -5,7 +5,7 @@ import FadeIn from '@/components/FadeIn'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 const SITE_DOMAIN = 'build-x.pro'
-const CONTACT_EMAIL = 'info@build-x.pro'
+const CONTACT_EMAIL = 'Mail@vvsamohin.ru'
 
 export const metadata: Metadata = {
   title: 'Политика обработки персональных данных — BuildX',
@@ -65,7 +65,7 @@ export default function PrivacyPage() {
               Политика обработки персональных данных
             </h1>
             <p style={{ ...P, color: 'rgba(255,255,255,0.35)', fontSize: 13 }}>
-              Оператор: TODO — указать ИП/ООО, ФИО, ОГРНИП/ИНН
+              Оператор: ИП Самохин Владимир Валерьевич, ОГРНИП 322784700357558
             </p>
           </div>
         </FadeIn>

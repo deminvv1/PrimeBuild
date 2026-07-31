@@ -4,11 +4,21 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Project } from '@/lib/types'
+import { configToQuery } from '@/data/houseConfigurator'
 
 const CATEGORY_LABEL: Record<string, string> = { mini: 'Mini', midi: 'Midi', maxi: 'Maxi' }
 
-export default function ProjectCard({ project }: { project: Project }) {
+interface Props {
+  project: Project
+  /** Вместо страницы проекта — сразу в конструктор с его параметрами (этажи/спальни/гараж/спа). */
+  toConfigurator?: boolean
+}
+
+export default function ProjectCard({ project, toConfigurator }: Props) {
   const [hovered, setHovered] = useState(false)
+  const href = toConfigurator
+    ? `/proekty/podbor-doma?${configToQuery(project)}`
+    : `/proekty/${project.slug}`
 
   const specs = (
     <div style={{ display: 'flex', gap: 20, marginBottom: 12 }}>
@@ -66,7 +76,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
   return (
     <Link
-      href={`/proekty/${project.slug}`}
+      href={href}
       style={{ display: 'block', textDecoration: 'none' }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}

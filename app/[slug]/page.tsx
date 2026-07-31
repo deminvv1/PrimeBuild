@@ -8,6 +8,8 @@ import SectionLines from '@/components/SectionLines'
 import FadeIn from '@/components/FadeIn'
 import ContactSplit from '@/components/ContactSplit'
 import { ALL_SEO_PAGES, getSeoPage, SEO_IMAGE_META } from '@/data/seoPages'
+import { DETAILED_SECTIONS } from '@/data/houseDescription'
+import SpecsAccordion from '@/components/SpecsAccordion'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
@@ -113,6 +115,32 @@ export default async function SeoLandingPage({ params }: Props) {
           <AnimatedLine length="100%" delay={200} />
         </div>
       </section>
+
+      {/* ── ПОЛНАЯ КОМПЛЕКТАЦИЯ (только на странице "дом под ключ с мебелью") ── */}
+      {page.slug === 'dom-pod-klyuch-s-mebeliyu' && (
+        <section style={{ position: 'relative' }}>
+          <div className="page-hero-pad" style={{ padding: '64px 60px' }}>
+            <p style={{
+              fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 700,
+              letterSpacing: '2px', textTransform: 'uppercase', color: '#C9A96E',
+              margin: '0 0 12px',
+            }}>
+              Что входит в дом
+            </p>
+            <h2 style={{
+              fontFamily: 'var(--font-sans)', fontSize: 'clamp(24px, 3vw, 34px)',
+              fontWeight: 800, color: 'rgba(255,255,255,0.92)', lineHeight: 1.15,
+              margin: '0 0 24px', textTransform: 'uppercase',
+            }}>
+              Комплектация под ключ
+            </h2>
+            <SpecsAccordion sections={DETAILED_SECTIONS} />
+          </div>
+          <div style={{ padding: '0 24px' }}>
+            <AnimatedLine length="100%" delay={100} />
+          </div>
+        </section>
+      )}
 
       {/* ── ФОРМА ── */}
       <section style={{ position: 'relative' }}>

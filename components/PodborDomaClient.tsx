@@ -20,10 +20,11 @@ interface Props {
   exteriorHeading?: React.ReactNode
   children?: React.ReactNode
   contactProps: ContactProps
+  initialConfig?: Partial<HouseConfig>
 }
 
-export default function PodborDomaClient({ exteriorHeading, children, contactProps }: Props) {
-  const [config, setConfig] = useState<HouseConfig>(DEFAULT_CONFIG)
+export default function PodborDomaClient({ exteriorHeading, children, contactProps, initialConfig }: Props) {
+  const [config, setConfig] = useState<HouseConfig>({ ...DEFAULT_CONFIG, ...initialConfig })
   const exteriorGallery = useMemo(() => getExteriorGallery(config), [config])
   const configSummary = useMemo(() => describeConfig(config), [config])
 
@@ -43,6 +44,11 @@ export default function PodborDomaClient({ exteriorHeading, children, contactPro
       <FullscreenGallery images={exteriorGallery} />
 
       {children}
+
+      <div style={{ height: 64 }} />
+      <div style={{ padding: '0 24px' }}>
+        <AnimatedLine length="100%" delay={0} />
+      </div>
 
       <section id="podbor-contact" style={{ position: 'relative', scrollMarginTop: 80 }}>
         <SectionLines delay={200} threshold={0.1} />

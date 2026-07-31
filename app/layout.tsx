@@ -36,7 +36,7 @@ const GA4_ID   = process.env.GA4_ID ?? ''
 const YM_ID    = process.env.YANDEX_METRIKA_ID ?? ''
 
 const SITE_TITLE = 'BuildX — Строительство домов в Московской области'
-const SITE_DESC  = 'Строительство домов под ключ в Московской области. Срок 6 месяцев. Отделка Комфорт и Бизнес. Честная цена, независимый технадзор.'
+const SITE_DESC  = 'Строительство домов под ключ в Московской области. Срок 6 месяцев. Чистовая отделка под ключ. Честная цена, независимый технадзор.'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

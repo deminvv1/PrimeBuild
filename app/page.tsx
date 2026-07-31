@@ -16,7 +16,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.ru";
 export const metadata: Metadata = {
   title: "BuildX — Строительство домов в Московской области",
   description:
-    "Строим дома под ключ в Московской области за 6 месяцев: реальная цена в договоре, независимый технадзор, отделка Комфорт и Бизнес. Бесплатный подбор дома по параметрам.",
+    "Строим дома под ключ в Московской области за 6 месяцев: реальная цена в договоре, независимый технадзор, чистовая отделка под ключ. Бесплатный подбор дома по параметрам.",
   alternates: { canonical: SITE_URL },
 };
 
@@ -154,7 +154,7 @@ export default function HomePage() {
                 Смотреть проекты
               </Link>
               <Link
-                href="/podbor-doma"
+                href="/proekty/podbor-doma"
                 className="btn-glow-glass"
                 style={{
                   ...GLASS_SHIMMER,
@@ -228,7 +228,7 @@ export default function HomePage() {
                   marginBottom: 20,
                 }}
               >
-                Мы — ведущая строительная компания, специализирующаяся на проектировании и реализации сложных объектов. Более 15 лет мы успешно работаем на рынке, охватывая все районы Московской области. Наше главное преимущество — это комплексный подход и гарантия качества.
+                Мы — строительная компания, специализирующаяся на проектировании и реализации сложных объектов, охватывая все районы Московской области. Наше главное преимущество — это комплексный подход и гарантия качества.
               </p>
               <p
                 style={{
@@ -447,7 +447,7 @@ export default function HomePage() {
           <div className="pg-grid-2" style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", columnGap: 24, padding: 20 }}>
             {([
               {
-                name: "Комфорт",
+                name: "Отделка под ключ",
                 priceNote: "Цена зависит от площади дома",
                 img: "/images/quiz/comfort.jpg",
                 isPremium: false,
@@ -461,7 +461,7 @@ export default function HomePage() {
                 ],
               },
               {
-                name: "Бизнес",
+                name: "Отделка с дизайн-проектом",
                 priceNote: "Цена зависит от площади дома",
                 img: "/images/quiz/premium.jpg",
                 isPremium: true,
@@ -500,7 +500,7 @@ export default function HomePage() {
                       </div>
                     ))}
                   </div>
-                  <Link href="/podbor-doma"
+                  <Link href="/proekty/podbor-doma"
                     className={isPremium ? "btn-glow-gold" : "btn-glow-glass"}
                     style={{
                       ...(isPremium ? GOLD_SHIMMER : GLASS_SHIMMER),
@@ -640,127 +640,6 @@ export default function HomePage() {
         </div>
         <div style={{ height: 20 }} />
       </section>
-
-      {/* ── REVIEWS ───────────────────────────────────────────────────────── */}
-      {/* <section style={{ background: "#242424", position: "relative" }}>
-        <SectionLines delay={200} threshold={0.2} />
-        <FadeIn>
-          <div style={{ padding: "0 60px 40px" }}>
-            <h2 style={H2}>Что говорят наши клиенты</h2>
-          </div>
-        </FadeIn>
-        <div style={{ padding: "0 24px" }}>
-          <AnimatedLine length="100%" delay={0} threshold={0.2} />
-        </div>
-        <FadeIn delay={150} threshold={0.1}>
-        <div style={{ ...C, padding: "48px 24px 64px" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-              gap: 28,
-            }}
-          >
-            {[
-              {
-                name: "TODO: Иван С.",
-                date: "TODO: 2024",
-                text: "TODO: текст реального отзыва. Перезвонили сразу, смету прислали в тот же день. Дом сдали в срок.",
-                rating: 5,
-              },
-              {
-                name: "TODO: Мария К.",
-                date: "TODO: 2024",
-                text: "TODO: текст реального отзыва. Очень понравилось качество отделки Бизнес.",
-                rating: 5,
-              },
-              {
-                name: "TODO: Александр Н.",
-                date: "TODO: 2024",
-                text: "TODO: текст реального отзыва. Цена оказалась точно такой, как в договоре.",
-                rating: 5,
-              },
-            ].map(({ name, date, text, rating }) => (
-              <div
-                key={name}
-                style={{
-                  background: "#2c2c2c",
-                  borderRadius: 10,
-                  padding: "28px 24px",
-                  border: "1px solid rgba(255,255,255,0.06)",
-                }}
-              >
-                <div style={{ display: "flex", gap: 2, marginBottom: 16 }}>
-                  {Array.from({ length: rating }).map((_, i) => (
-                    <span key={i} style={{ color: "#C9A96E", fontSize: 16 }}>
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <p
-                  style={{
-                    fontFamily: "var(--font-sans)",
-                    fontSize: 14,
-                    color: "rgba(255,255,255,0.75)",
-                    lineHeight: 1.7,
-                    marginBottom: 20,
-                  }}
-                >
-                  {text}
-                </p>
-                <div
-                  style={{
-                    borderTop: "1px solid rgba(255,255,255,0.07)",
-                    paddingTop: 16,
-                    display: "flex",
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <span
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 13,
-                      fontWeight: 600,
-                      color: "rgba(255,255,255,0.85)",
-                    }}
-                  >
-                    {name}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: "var(--font-sans)",
-                      fontSize: 12,
-                      color: "rgba(255,255,255,0.3)",
-                    }}
-                  >
-                    {date}
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ marginTop: 40, textAlign: "center" }}>
-            <Link
-              href="/otzyvy"
-              style={{
-                fontFamily: "var(--font-sans)",
-                fontSize: 14,
-                fontWeight: 600,
-                color: "rgba(255,255,255,0.65)",
-                borderBottom: "1px solid rgba(255,255,255,0.25)",
-                paddingBottom: 2,
-              }}
-            >
-              Все отзывы →
-            </Link>
-          </div>
-        </div>
-        </FadeIn>
-        <div style={{ padding: "0 24px" }}>
-          <AnimatedLine length="100%" delay={300} threshold={0.2} />
-        </div>
-        <div style={{ height: 64 }} />
-      </section> */}
 
       {/* ── CONTACT ───────────────────────────────────────────────────────── */}
       <section style={{ position: "relative" }}>

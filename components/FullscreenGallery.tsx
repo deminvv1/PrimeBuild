@@ -11,7 +11,7 @@ export default function FullscreenGallery({ images }: { images: GalleryImage[] }
   const next = () => setIndex((i) => (i + 1) % images.length)
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100vh', background: '#111', overflow: 'hidden' }}>
+    <div className="fs-gallery" style={{ position: 'relative', width: '100%', height: '100vh', background: '#111', overflow: 'hidden' }}>
       {images.map((img, i) => (
         <div
           key={i}
@@ -24,7 +24,7 @@ export default function FullscreenGallery({ images }: { images: GalleryImage[] }
           }}
         >
           {img.src ? (
-            <Image src={img.src} alt={img.label} fill sizes="100vw" style={{ objectFit: 'cover' }} priority={i === 0} />
+            <Image src={img.src} alt={img.label} fill sizes="100vw" quality={90} className="fs-gallery-img" style={{ objectFit: 'cover' }} priority={i === 0} />
           ) : (
             <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#242424' }}>
               <span style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: 'rgba(255,255,255,0.25)' }}>
@@ -38,15 +38,15 @@ export default function FullscreenGallery({ images }: { images: GalleryImage[] }
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 70%, rgba(0,0,0,0.35) 100%)' }} />
 
       {/* сшивка с фоном страницы сверху и снизу */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 140, background: 'linear-gradient(to bottom, #242424 0%, rgba(36,36,36,0) 100%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 140, background: 'linear-gradient(to bottom, rgba(36,36,36,0) 0%, #242424 100%)', pointerEvents: 'none' }} />
+      <div className="fs-gallery-stitch" style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 140, background: 'linear-gradient(to bottom, #242424 0%, rgba(36,36,36,0) 100%)', pointerEvents: 'none' }} />
+      <div className="fs-gallery-stitch" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 140, background: 'linear-gradient(to bottom, rgba(36,36,36,0) 0%, #242424 100%)', pointerEvents: 'none' }} />
 
-      <button onClick={prev} aria-label="Предыдущее изображение" style={{ ...arrowSt, left: 24 }}>
+      <button onClick={prev} aria-label="Предыдущее изображение" className="fs-gallery-arrow" style={{ ...arrowSt, left: 24 }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M15 18l-6-6 6-6" />
         </svg>
       </button>
-      <button onClick={next} aria-label="Следующее изображение" style={{ ...arrowSt, right: 24 }}>
+      <button onClick={next} aria-label="Следующее изображение" className="fs-gallery-arrow" style={{ ...arrowSt, right: 24 }}>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M9 18l6-6-6-6" />
         </svg>
@@ -70,6 +70,18 @@ export default function FullscreenGallery({ images }: { images: GalleryImage[] }
       <span style={{ position: 'absolute', bottom: 32, right: 32, fontFamily: 'var(--font-mono)', fontSize: 12, color: 'rgba(255,255,255,0.5)' }}>
         {index + 1} / {images.length}
       </span>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .fs-gallery {
+            height: auto !important;
+            aspect-ratio: 4 / 3 !important;
+          }
+          .fs-gallery-img { object-position: center 42% !important; }
+          .fs-gallery-stitch { height: 56px !important; }
+          .fs-gallery-arrow { width: 40px !important; height: 40px !important; }
+        }
+      `}</style>
     </div>
   )
 }

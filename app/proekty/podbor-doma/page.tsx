@@ -1,10 +1,49 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Breadcrumb from '@/components/Breadcrumb'
 import PodborDomaClient from '@/components/PodborDomaClient'
 import FullscreenGallery from '@/components/FullscreenGallery'
 import FadeIn from '@/components/FadeIn'
 import AnimatedLine from '@/components/AnimatedLine'
+import VerticalRevealLine from '@/components/VerticalRevealLine'
+import SectionLines from '@/components/SectionLines'
 import { INTERIOR_GALLERY, configFromSearchParams } from '@/data/houseConfigurator'
+
+const FINISH_OPTIONS = [
+  {
+    name: 'Отделка под ключ',
+    priceNote: 'Цена зависит от площади дома',
+    img: '/images/quiz/comfort.jpg',
+    isPremium: false,
+    includes: [
+      'Черновая и чистовая отделка',
+      'Ламинат 33-го класса',
+      'Натяжные потолки',
+      'Электрика с автоматикой',
+      'Сантехника базовая',
+      'Отопление котёл + радиаторы',
+    ],
+  },
+  {
+    name: 'Отделка с дизайн-проектом',
+    priceNote: 'Цена зависит от площади дома',
+    img: '/images/quiz/premium.jpg',
+    isPremium: true,
+    includes: [
+      'Премиальные материалы',
+      'Авторский дизайн-проект',
+      'Тёплый пол во всём доме',
+      'Умный дом базовый',
+      'Гарантия на строительство 6 месяцев',
+      'Черновая и чистовая отделка',
+      'Ламинат 33-го класса',
+      'Натяжные потолки',
+      'Электрика с автоматикой',
+      'Сантехника базовая',
+      'Отопление котёл + радиаторы',
+    ],
+  },
+] as const
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
 
@@ -93,7 +132,59 @@ export default async function PodborDomaPage({ searchParams }: Props) {
           </div>
           <FullscreenGallery images={INTERIOR_GALLERY} />
         </section>
+
+        {/* ── FINISH OPTIONS ── */}
+        <section style={{ position: 'relative' }}>
+          <SectionLines delay={200} threshold={0.1} />
+          <FadeIn>
+            <div className="page-hero-pad" style={{ padding: '64px 60px 40px' }}>
+              <h2 style={H2}>Варианты отделки</h2>
+            </div>
+          </FadeIn>
+          <div style={{ padding: '0 24px', position: 'relative' }}>
+            <AnimatedLine length="100%" delay={0} threshold={0.1} />
+            <VerticalRevealLine left="50%" delay={150} color="rgba(255,255,255,0.18)" threshold={0.1} className="pg-vline" />
+            <FadeIn delay={150} threshold={0.1}>
+            <div className="pg-grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', columnGap: 24, padding: 20 }}>
+              {FINISH_OPTIONS.map(({ name, priceNote, img, isPremium, includes }) => (
+                <div key={name}>
+                  <div style={{ position: 'relative', width: '100%', aspectRatio: '4/2', overflow: 'hidden', background: '#2c2c2c', borderRadius: 10 }}>
+                    <Image src={img} alt={name} fill sizes="(max-width:800px) 100vw, 50vw"
+                      style={{ objectFit: 'cover' }} />
+                  </div>
+                  <div style={{ padding: '28px 12px 40px' }}>
+                    <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 26, fontWeight: 800, color: 'rgba(255,255,255,0.92)', marginBottom: 4 }}>
+                      {name}
+                    </h3>
+                    <p style={{ fontFamily: 'var(--font-sans)', fontSize: 13, color: isPremium ? '#C9A96E' : 'rgba(255,255,255,0.35)', marginBottom: 24 }}>
+                      {priceNote}
+                    </p>
+                    <div style={isPremium ? { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 16px' } : {}}>
+                      {includes.map((item) => (
+                        <div key={item} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', marginBottom: 10 }}>
+                          <span style={{ color: isPremium ? '#C9A96E' : 'rgba(255,255,255,0.5)', fontWeight: 700, flexShrink: 0 }}>✓</span>
+                          <span style={{ fontFamily: 'var(--font-sans)', fontSize: 14, color: 'rgba(255,255,255,0.72)', lineHeight: 1.5 }}>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            </FadeIn>
+            <AnimatedLine length="100%" delay={200} threshold={0.1} />
+          </div>
+        </section>
       </PodborDomaClient>
+
+      <style>{`
+        @media(max-width:700px){
+          .pg-grid-2{grid-template-columns:1fr!important;row-gap:0!important;}
+          .pg-grid-2>*:nth-child(2){position:relative!important;margin-top:20px!important;padding-top:20px!important;}
+          .pg-grid-2>*:nth-child(2)::before{content:'';position:absolute;top:0;left:-20px;right:-20px;height:1px;background:rgba(255,255,255,0.14);}
+          .pg-vline{display:none!important;}
+        }
+      `}</style>
     </main>
   )
 }

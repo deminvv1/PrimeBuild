@@ -566,7 +566,7 @@ export default function HomePage() {
                   src="/images/projects/gamma-2.jpg"
                   alt="Почему выбирают BuildX"
                   fill
-                  sizes="30vw"
+                  sizes="(max-width: 768px) 100vw, 30vw"
                   style={{ objectFit: "cover" }}
                 />
               </div>
@@ -627,7 +627,7 @@ export default function HomePage() {
                   src="/images/quiz/premium.jpg"
                   alt="Отделка"
                   fill
-                  sizes="30vw"
+                  sizes="(max-width: 768px) 100vw, 30vw"
                   style={{ objectFit: "cover" }}
                 />
               </div>

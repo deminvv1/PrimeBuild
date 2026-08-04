@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import ProektyClient from '@/components/ProektyClient'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
 export const metadata: Metadata = {
   title: 'Проекты домов под ключ — BuildX',

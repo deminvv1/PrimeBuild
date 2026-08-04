@@ -11,7 +11,7 @@ import { ALL_SEO_PAGES, getSeoPage, SEO_IMAGE_META } from '@/data/seoPages'
 import { DETAILED_SECTIONS } from '@/data/houseDescription'
 import SpecsAccordion from '@/components/SpecsAccordion'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
 interface Props {
   params: Promise<{ slug: string }>

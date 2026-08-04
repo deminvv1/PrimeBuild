@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const project = getProject(slug)
   if (!project) return {}
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
   return {
     title: `${project.name} — ${project.area} м², ${project.floors} эт. | BuildX`,
     description: project.shortDesc,

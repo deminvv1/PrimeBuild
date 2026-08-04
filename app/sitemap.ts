@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { projects } from '@/data/projects'
 import { ALL_SEO_PAGES } from '@/data/seoPages'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()

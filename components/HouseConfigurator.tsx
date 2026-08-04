@@ -210,6 +210,18 @@ export default function HouseConfigurator({ config, onChange }: Props) {
             value={config.garage}
             onChange={(v) => set('garage', v)}
           />
+          <ToggleRow
+            title="Навес на 2 машины"
+            desc="Открытый навес для парковки двух автомобилей"
+            value={config.carport}
+            onChange={(v) => set('carport', v)}
+          />
+          <ToggleRow
+            title="Хозблок"
+            desc="Отдельно стоящее хозяйственное строение на участке"
+            value={config.utilityBlock}
+            onChange={(v) => set('utilityBlock', v)}
+          />
         </OptionGroup>
 
         <div>

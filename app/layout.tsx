@@ -31,7 +31,7 @@ const mono = JetBrains_Mono({
   display: 'swap',
 })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 const GA4_ID   = process.env.GA4_ID ?? ''
 const YM_ID    = process.env.YANDEX_METRIKA_ID ?? ''
 

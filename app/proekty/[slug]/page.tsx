@@ -96,7 +96,7 @@ export default async function ProjectPage({ params }: Props) {
             {project.name}
           </h1>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 26, fontWeight: 700, color: '#C9A96E', margin: 0 }}>
-            от {(project.priceFrom / 1_000_000).toFixed(1)} млн ₽
+            {(project.priceFrom / 1_000_000).toFixed(1)} млн ₽
           </p>
         </div>
       </section>
@@ -216,7 +216,7 @@ export default async function ProjectPage({ params }: Props) {
           <div style={{ position: 'sticky', top: 100, alignSelf: 'start' }}>
             <div style={{ background: '#1e1e1e', borderRadius: 12, padding: '36px 32px', border: '1px solid rgba(255,255,255,0.07)' }}>
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)', marginBottom: 6 }}>
-                Цена от
+                Цена
               </p>
               <p style={{ fontFamily: 'var(--font-sans)', fontSize: 38, fontWeight: 800, color: '#C9A96E', lineHeight: 1, marginBottom: 8 }}>
                 {(project.priceFrom / 1_000_000).toFixed(1)} млн ₽

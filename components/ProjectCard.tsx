@@ -42,7 +42,6 @@ export default function ProjectCard({ project, toConfigurator }: Props) {
   const priceRow = (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
       <div>
-        <span style={{ fontFamily: 'var(--font-sans)', fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>от </span>
         <span style={{ fontFamily: 'var(--font-sans)', fontSize: 20, fontWeight: 800, color: '#C9A96E' }}>
           {(project.priceFrom / 1_000_000).toFixed(1)} млн ₽
         </span>

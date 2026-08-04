@@ -2,6 +2,7 @@
  * Автоматически сгенерировано scripts/build-house-catalog.mjs из constructor/.
  * Не редактировать руками — запустите скрипт повторно после изменения исходников.
  * Площадь и цена — реальные данные из названий папок (площадь в м², цена в ₽).
+ * priceMin — цена без мебели, priceMax — цена с мебелью (не диапазон).
  */
 
 export interface HouseCatalogEntry {
@@ -11,7 +12,9 @@ export interface HouseCatalogEntry {
   garage: boolean
   spa: boolean
   area: number
+  /** Цена без мебели. */
   priceMin: number
+  /** Цена с мебелью. */
   priceMax: number
   plans: string[]
   photos: string[]

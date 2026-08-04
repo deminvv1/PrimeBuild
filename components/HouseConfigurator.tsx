@@ -210,18 +210,6 @@ export default function HouseConfigurator({ config, onChange }: Props) {
             value={config.garage}
             onChange={(v) => set('garage', v)}
           />
-          <ToggleRow
-            title="Навес на 2 машины"
-            desc="Открытый навес для парковки двух автомобилей"
-            value={config.carport}
-            onChange={(v) => set('carport', v)}
-          />
-          <ToggleRow
-            title="Хозблок"
-            desc="Отдельно стоящее хозяйственное строение на участке"
-            value={config.utilityBlock}
-            onChange={(v) => set('utilityBlock', v)}
-          />
         </OptionGroup>
 
         <div>
@@ -231,6 +219,8 @@ export default function HouseConfigurator({ config, onChange }: Props) {
               'Мастер-спальня с собственной ванной и гардеробной',
               'Гостевые спальни с гардеробной',
               'Навес над террасой',
+              'Навес на 2 машины',
+              'Хозяйственный блок',
             ].map((item) => (
               <li key={item} style={{ display: 'flex', gap: 10, fontFamily: 'var(--font-sans)', fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>
                 <span style={{ color: '#C9A96E', flexShrink: 0, marginTop: 1 }}>✓</span>

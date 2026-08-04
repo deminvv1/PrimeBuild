@@ -7,10 +7,6 @@ export interface HouseConfig {
   garage: boolean
   /** Комплектация мебелью — по умолчанию включена (см. calculatePrice: без мебели дешевле на 5 млн ₽). */
   furniture: boolean
-  /** Навес на 2 машины — доплата, не влияет на рендеры каталога (см. calculatePrice). */
-  carport: boolean
-  /** Хозблок — доплата, не влияет на рендеры каталога (см. calculatePrice). */
-  utilityBlock: boolean
 }
 
 export const DEFAULT_CONFIG: HouseConfig = {
@@ -19,8 +15,6 @@ export const DEFAULT_CONFIG: HouseConfig = {
   spa: false,
   garage: false,
   furniture: true,
-  carport: false,
-  utilityBlock: false,
 }
 
 /**
@@ -30,15 +24,13 @@ export const DEFAULT_CONFIG: HouseConfig = {
  * умолчанию, чтобы не засорять ссылку лишним "=0"/"=1"
  * (/podbor-doma?floors=1&bedrooms=3&garage=1).
  */
-export function configToQuery(config: Pick<HouseConfig, 'floors' | 'bedrooms' | 'spa' | 'garage'> & Partial<Pick<HouseConfig, 'furniture' | 'carport' | 'utilityBlock'>>): string {
+export function configToQuery(config: Pick<HouseConfig, 'floors' | 'bedrooms' | 'spa' | 'garage'> & Partial<Pick<HouseConfig, 'furniture'>>): string {
   const params = new URLSearchParams()
   params.set('floors', String(config.floors))
   params.set('bedrooms', String(config.bedrooms))
   if (config.spa) params.set('spa', '1')
   if (config.garage) params.set('garage', '1')
   if (config.furniture === false) params.set('furniture', '0')
-  if (config.carport) params.set('carport', '1')
-  if (config.utilityBlock) params.set('utilityBlock', '1')
   return params.toString()
 }
 
@@ -49,8 +41,6 @@ export function configFromSearchParams(sp: Record<string, string | string[] | un
   const spaRaw = Array.isArray(sp.spa) ? sp.spa[0] : sp.spa
   const garageRaw = Array.isArray(sp.garage) ? sp.garage[0] : sp.garage
   const furnitureRaw = Array.isArray(sp.furniture) ? sp.furniture[0] : sp.furniture
-  const carportRaw = Array.isArray(sp.carport) ? sp.carport[0] : sp.carport
-  const utilityBlockRaw = Array.isArray(sp.utilityBlock) ? sp.utilityBlock[0] : sp.utilityBlock
 
   const config: Partial<HouseConfig> = {}
   if (floorsRaw === '1' || floorsRaw === '2') config.floors = Number(floorsRaw) as 1 | 2
@@ -58,8 +48,6 @@ export function configFromSearchParams(sp: Record<string, string | string[] | un
   if (spaRaw === '1') config.spa = true
   if (garageRaw === '1') config.garage = true
   if (furnitureRaw === '0') config.furniture = false
-  if (carportRaw === '1') config.carport = true
-  if (utilityBlockRaw === '1') config.utilityBlock = true
   return config
 }
 
@@ -107,17 +95,10 @@ export function getCatalogEntry(config: HouseConfig): HouseCatalogEntry {
  * Базовая цена каталога (priceMin) уже включает мебель — без неё дешевле.
  */
 const PRICE_WITHOUT_FURNITURE_DISCOUNT = 5_000_000
-const PRICE_CARPORT = 400_000
-const PRICE_UTILITY_BLOCK = 250_000
 
 export function calculatePrice(config: HouseConfig): number {
   const entry = getCatalogEntry(config)
-  return (
-    entry.priceMin
-    - (config.furniture ? 0 : PRICE_WITHOUT_FURNITURE_DISCOUNT)
-    + (config.carport ? PRICE_CARPORT : 0)
-    + (config.utilityBlock ? PRICE_UTILITY_BLOCK : 0)
-  )
+  return entry.priceMin - (config.furniture ? 0 : PRICE_WITHOUT_FURNITURE_DISCOUNT)
 }
 
 export function formatPrice(value: number): string {
@@ -137,8 +118,6 @@ export function describeConfig(config: HouseConfig): string {
     `Спальни: ${config.bedrooms}`,
     `Гараж: ${config.garage ? 'да' : 'нет'}`,
     `СПА-зона: ${config.spa ? 'да' : 'нет'}`,
-    `Навес на 2 машины: ${config.carport ? 'да' : 'нет'}`,
-    `Хозблок: ${config.utilityBlock ? 'да' : 'нет'}`,
     `Комплектация мебелью: ${config.furniture ? 'с мебелью' : 'без мебели'}`,
     `Площадь: ${entry.area} м²`,
     `Ориентировочная цена: ${formatPrice(price)} ₽`,

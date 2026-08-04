@@ -7,7 +7,7 @@ import VerticalRevealLine from '@/components/VerticalRevealLine'
 import SectionLines from '@/components/SectionLines'
 import FadeIn from '@/components/FadeIn'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
 export const metadata: Metadata = {
   title: 'О компании — BuildX',

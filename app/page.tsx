@@ -11,7 +11,7 @@ import FadeIn from "@/components/FadeIn";
 import HeroVideo from "@/components/HeroVideo";
 import HowWeWorkSlider from "@/components/HowWeWorkSlider";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.ru";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://build-x.pro";
 
 export const metadata: Metadata = {
   title: "BuildX — Строительство домов в Московской области",

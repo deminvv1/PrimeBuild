@@ -34,7 +34,12 @@ const C: React.CSSProperties = { maxWidth: 1200, margin: '0 auto', padding: '0 2
 
 export default function Footer() {
   return (
-    <footer style={{ background: '#1a1a1a', padding: '56px 0 32px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+    <footer style={{ background: '#1a1a1a', padding: '56px 0 32px', position: 'relative' }}>
+      <div style={{
+        position: 'absolute', top: -120, left: 0, right: 0, height: 120,
+        background: 'linear-gradient(to bottom, transparent, #1a1a1a)',
+        pointerEvents: 'none',
+      }} />
       <div style={C}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 40, marginBottom: 48 }}>
           <div>

@@ -5,7 +5,7 @@ import SectionLines from '@/components/SectionLines'
 import FadeIn from '@/components/FadeIn'
 import ContactSplit from '@/components/ContactSplit'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
 const PHONE = '+7 (985) 933-01-21'
 const PHONE_HREF = 'tel:+79859330121'

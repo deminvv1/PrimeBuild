@@ -7,7 +7,7 @@ import FadeIn from '@/components/FadeIn'
 import ContactSplit from '@/components/ContactSplit'
 import ZoomableImage from '@/components/ZoomableImage'
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
 export const metadata: Metadata = {
   title: 'Построено — реализованный объект | BuildX',

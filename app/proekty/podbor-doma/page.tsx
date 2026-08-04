@@ -45,7 +45,7 @@ const FINISH_OPTIONS = [
   },
 ] as const
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://example.ru'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
 export const metadata: Metadata = {
   title: 'Подбор дома — BuildX',

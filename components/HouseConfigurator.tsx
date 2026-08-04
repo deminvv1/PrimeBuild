@@ -292,7 +292,7 @@ export default function HouseConfigurator({ config, onChange }: Props) {
           <div>
             <span style={{ ...LABEL, marginBottom: 8 }}>Стоимость · {entry.area} м²</span>
             <p style={{ fontFamily: 'var(--font-sans)', fontSize: 'clamp(28px, 3.5vw, 38px)', fontWeight: 800, color: '#fff', margin: 0 }}>
-              от {formatPrice(price)} ₽
+              {formatPrice(price)} ₽
             </p>
           </div>
         </div>

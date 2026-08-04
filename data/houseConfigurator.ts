@@ -89,16 +89,13 @@ export function getCatalogEntry(config: HouseConfig): HouseCatalogEntry {
 }
 
 /**
- * Наценки за опции, которых нет в реальном каталоге рендеров (не влияют на
- * картинку — только на итоговую цену). Гараж и СПА-зона в наценки не входят:
- * они меняют саму базовую цену через выбор нужной записи каталога.
- * Базовая цена каталога (priceMin) уже включает мебель — без неё дешевле.
+ * priceMin — цена без мебели, priceMax — цена с мебелью (реальные значения
+ * из каталога архитектора, не диапазон). Гараж и СПА-зона в эту вилку не
+ * входят: они меняют саму запись каталога через getCatalogEntry.
  */
-const PRICE_WITHOUT_FURNITURE_DISCOUNT = 5_000_000
-
 export function calculatePrice(config: HouseConfig): number {
   const entry = getCatalogEntry(config)
-  return entry.priceMin - (config.furniture ? 0 : PRICE_WITHOUT_FURNITURE_DISCOUNT)
+  return config.furniture ? entry.priceMax : entry.priceMin
 }
 
 export function formatPrice(value: number): string {

@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { projects, getProject } from '@/data/projects'
+import { FINISH_OPTIONS } from '@/data/finishOptions'
 import { bedroomsWord } from '@/lib/pluralize'
 import ContactForm from '@/components/ContactForm'
 import ProjectCard from '@/components/ProjectCard'
@@ -188,6 +189,30 @@ export default async function ProjectPage({ params }: Props) {
               </ul>
             </div>
 
+            {/* Варианты отделки */}
+            <div style={{ marginBottom: 56 }}>
+              <h2 style={{ fontFamily: 'var(--font-sans)', fontSize: 13, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)', marginBottom: 28 }}>
+                Варианты отделки
+              </h2>
+              <div className="proj-finish-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+                {FINISH_OPTIONS.map(({ key, name, includes }) => (
+                  <div key={key} style={{ background: '#2c2c2c', padding: 24, borderRadius: 10, border: '1px solid rgba(255,255,255,0.06)' }}>
+                    <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 17, fontWeight: 700, color: '#C9A96E', marginBottom: 16 }}>
+                      {name}
+                    </h3>
+                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {includes.map((item) => (
+                        <li key={item} style={{ display: 'flex', gap: 8, fontFamily: 'var(--font-sans)', fontSize: 13, color: 'rgba(255,255,255,0.65)' }}>
+                          <span style={{ color: '#C9A96E', flexShrink: 0 }}>✓</span>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* CTA в конструктор */}
             <div style={{ marginBottom: 56, background: '#2c2c2c', borderRadius: 10, padding: '28px 24px', border: '1px solid rgba(255,255,255,0.06)' }}>
               <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: 17, fontWeight: 700, color: 'rgba(255,255,255,0.92)', marginBottom: 8 }}>
@@ -257,6 +282,9 @@ export default async function ProjectPage({ params }: Props) {
         }
         @media (max-width: 420px) {
           .proj-gallery { grid-template-columns: 1fr !important; }
+        }
+        @media (max-width: 700px) {
+          .proj-finish-grid { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 600px) {
           /* На мобилке фото contain уже не перекрывается текстом (текст ниже фото на обычном

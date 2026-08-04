@@ -8,42 +8,8 @@ import AnimatedLine from '@/components/AnimatedLine'
 import VerticalRevealLine from '@/components/VerticalRevealLine'
 import SectionLines from '@/components/SectionLines'
 import { INTERIOR_GALLERY, configFromSearchParams } from '@/data/houseConfigurator'
-
-const FINISH_OPTIONS = [
-  {
-    name: 'Отделка под ключ',
-    priceNote: 'Цена зависит от площади дома',
-    img: '/images/quiz/comfort.jpg',
-    isPremium: false,
-    includes: [
-      'Черновая и чистовая отделка',
-      'Ламинат 33-го класса',
-      'Натяжные потолки',
-      'Электрика с автоматикой',
-      'Сантехника базовая',
-      'Отопление котёл + радиаторы',
-    ],
-  },
-  {
-    name: 'Отделка с дизайн-проектом',
-    priceNote: 'Цена зависит от площади дома',
-    img: '/images/quiz/premium.jpg',
-    isPremium: true,
-    includes: [
-      'Премиальные материалы',
-      'Авторский дизайн-проект',
-      'Тёплый пол во всём доме',
-      'Умный дом базовый',
-      'Гарантия на строительство 6 месяцев',
-      'Черновая и чистовая отделка',
-      'Ламинат 33-го класса',
-      'Натяжные потолки',
-      'Электрика с автоматикой',
-      'Сантехника базовая',
-      'Отопление котёл + радиаторы',
-    ],
-  },
-] as const
+import { FINISH_OPTIONS } from '@/data/finishOptions'
+import ComplectationSection from '@/components/ComplectationSection'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
@@ -133,11 +99,23 @@ export default async function PodborDomaPage({ searchParams }: Props) {
           <FullscreenGallery images={INTERIOR_GALLERY} />
         </section>
 
+        {/* ── КОМПЛЕКТАЦИЯ ── */}
+        <section style={{ position: 'relative' }}>
+          <SectionLines delay={200} threshold={0.1} />
+          <FadeIn>
+            <ComplectationSection />
+          </FadeIn>
+          <div style={{ padding: '0 24px' }}>
+            <AnimatedLine length="100%" delay={200} />
+          </div>
+          <div style={{ height: 64 }} />
+        </section>
+
         {/* ── FINISH OPTIONS ── */}
         <section style={{ position: 'relative' }}>
           <SectionLines delay={200} threshold={0.1} />
           <FadeIn>
-            <div className="page-hero-pad" style={{ padding: '64px 60px 40px' }}>
+            <div className="page-hero-pad" style={{ padding: '0 60px 40px' }}>
               <h2 style={H2}>Варианты отделки</h2>
             </div>
           </FadeIn>

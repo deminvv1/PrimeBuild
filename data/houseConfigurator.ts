@@ -5,7 +5,7 @@ export interface HouseConfig {
   bedrooms: number
   spa: boolean
   garage: boolean
-  /** Комплектация мебелью — по умолчанию включена (см. calculatePrice: без мебели дешевле на 5 млн ₽). */
+  /** Комплектация мебелью — по умолчанию выключена, показываем цену без мебели (см. calculatePrice). */
   furniture: boolean
 }
 
@@ -14,7 +14,7 @@ export const DEFAULT_CONFIG: HouseConfig = {
   bedrooms: 2,
   spa: false,
   garage: false,
-  furniture: true,
+  furniture: false,
 }
 
 /**

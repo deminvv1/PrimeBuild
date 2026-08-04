@@ -198,6 +198,123 @@ export default function OKompaniiPage() {
         </div>
       </section>
 
+      {/* ── ПОЧЕМУ ВЫБИРАЮТ НАС ── */}
+      <section style={{ background: '#242424', position: 'relative' }}>
+        <SectionLines delay={200} />
+        <FadeIn>
+          <div style={{ padding: '56px 60px 40px' }}>
+            <h2 style={{
+              fontFamily: 'var(--font-sans)', fontSize: 'clamp(28px, 4vw, 40px)',
+              fontWeight: 800, color: 'rgba(255,255,255,0.92)', lineHeight: 1.15,
+              margin: 0, textTransform: 'uppercase', maxWidth: 560,
+            }}>
+              Почему выбирают нас
+            </h2>
+          </div>
+        </FadeIn>
+        <div style={{ padding: '0 24px' }}>
+          <AnimatedLine length="100%" delay={0} />
+        </div>
+        <FadeIn delay={150}>
+        {/* Без вертикального padding — сетка касается верхнего и нижнего AnimatedLine */}
+        <div style={{ padding: '0 24px' }}>
+          <div className="mosaic-grid" style={{
+            display: 'grid',
+            gridTemplateColumns: '1.15fr 1fr 1.15fr',
+            gridTemplateRows: '300px 300px',
+            position: 'relative',
+          }}>
+            {/* Вертикальная линия col1|col2 — соединяется с внешними горизонтальными */}
+            <VerticalRevealLine left="34.85%" delay={100} color="rgba(255,255,255,0.18)" className="mosaic-line" />
+            {/* Вертикальная линия col2|col3 */}
+            <VerticalRevealLine left="65.15%" delay={150} color="rgba(255,255,255,0.18)" className="mosaic-line" />
+            {/* Горизонтальная линия между строками (col2+col3) */}
+            <div className="mosaic-line" style={{ position: 'absolute', top: 300, left: '34.85%', right: 0, zIndex: 1 }}>
+              <AnimatedLine length="100%" delay={200} color="rgba(255,255,255,0.18)" />
+            </div>
+
+            {/* ── Фото большое слева: padding только справа и сверху/снизу чтобы линии были видны ── */}
+            <div className="mosaic-photo" style={{ gridRow: '1 / 3', padding: '20px 20px 20px 20px' }}>
+              <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', borderRadius: 10 }}>
+                <Image
+                  src="/images/projects/gamma-2.jpg"
+                  alt="Почему выбирают BuildX"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 30vw"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+            </div>
+
+            {/* ── Текст 1 ── */}
+            <div className="mosaic-text" style={{ padding: '56px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h3 style={{
+                fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 800,
+                color: 'rgba(255,255,255,0.92)', lineHeight: 1.2, marginBottom: 16,
+              }}>
+                Гарантия 6 месяцев
+              </h3>
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontSize: 14,
+                color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, margin: 0,
+              }}>
+                Строим точно в срок и даём гарантию на все выполненные работы — без переносов и задержек.
+              </p>
+            </div>
+
+            {/* ── Текст 2 ── */}
+            <div className="mosaic-text" style={{ padding: '56px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h3 style={{
+                fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 800,
+                color: 'rgba(255,255,255,0.92)', lineHeight: 1.2, marginBottom: 16,
+              }}>
+                Технадзор на каждом этапе
+              </h3>
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontSize: 14,
+                color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, margin: 0,
+              }}>
+                Независимый технический надзор контролирует качество работ и соблюдение технологий на всех этапах стройки.
+              </p>
+            </div>
+
+            {/* ── Текст 3 ── */}
+            <div className="mosaic-text" style={{ padding: '56px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <h3 style={{
+                fontFamily: 'var(--font-sans)', fontSize: 22, fontWeight: 800,
+                color: 'rgba(255,255,255,0.92)', lineHeight: 1.2, marginBottom: 16,
+              }}>
+                Честная цена
+              </h3>
+              <p style={{
+                fontFamily: 'var(--font-sans)', fontSize: 14,
+                color: 'rgba(255,255,255,0.45)', lineHeight: 1.8, margin: 0,
+              }}>
+                Фиксируем реальную стоимость в договоре — без заниженных цен и доплат по ходу строительства.
+              </p>
+            </div>
+
+            {/* ── Фото правый нижний: padding слева и сверху/снизу ── */}
+            <div className="mosaic-photo" style={{ padding: '20px 20px 20px 20px' }}>
+              <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden', borderRadius: 10 }}>
+                <Image
+                  src="/images/quiz/premium.jpg"
+                  alt="Отделка"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 30vw"
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        </FadeIn>
+        <div style={{ padding: '0 24px' }}>
+          <AnimatedLine length="100%" delay={300} />
+        </div>
+        <div style={{ height: 20 }} />
+      </section>
+
       {/* ── ФОРМА ── */}
       <section style={{ position: 'relative' }}>
         <ContactSplit
@@ -218,6 +335,12 @@ export default function OKompaniiPage() {
         }
         @media (max-width: 480px) {
           .stat-cell { padding: 20px 12px !important; }
+        }
+        @media (max-width: 700px) {
+          .mosaic-grid { grid-template-columns: 1fr !important; grid-template-rows: auto !important; }
+          .mosaic-photo { grid-row: auto !important; height: 260px; padding: 0 !important; margin: 44px 20px !important; }
+          .mosaic-line { display: none !important; }
+          .mosaic-text { padding: 28px 24px !important; }
         }
       `}</style>
     </main>

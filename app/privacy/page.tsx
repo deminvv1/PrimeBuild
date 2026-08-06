@@ -7,10 +7,15 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 const SITE_DOMAIN = 'build-x.pro'
 const CONTACT_EMAIL = 'Mail@vvsamohin.ru'
 
+const TITLE = 'Политика обработки персональных данных — BuildX'
+const DESC = 'Политика обработки персональных данных пользователей сайта build-x.pro.'
+
 export const metadata: Metadata = {
-  title: 'Политика обработки персональных данных — BuildX',
-  description: 'Политика обработки персональных данных пользователей сайта build-x.pro.',
+  title: TITLE,
+  description: DESC,
   alternates: { canonical: `${SITE_URL}/privacy` },
+  openGraph: { title: TITLE, description: DESC, url: `${SITE_URL}/privacy` },
+  twitter: { title: TITLE, description: DESC },
 }
 
 const H2: React.CSSProperties = {

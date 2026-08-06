@@ -13,11 +13,16 @@ import HowWeWorkSlider from "@/components/HowWeWorkSlider";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://build-x.pro";
 
+const TITLE = "BuildX — Строительство домов в Московской области";
+const DESC =
+  "Строим дома под ключ в Московской области за 6 месяцев: реальная цена в договоре, независимый технадзор, чистовая отделка под ключ. Бесплатный подбор дома по параметрам.";
+
 export const metadata: Metadata = {
-  title: "BuildX — Строительство домов в Московской области",
-  description:
-    "Строим дома под ключ в Московской области за 6 месяцев: реальная цена в договоре, независимый технадзор, чистовая отделка под ключ. Бесплатный подбор дома по параметрам.",
+  title: TITLE,
+  description: DESC,
   alternates: { canonical: SITE_URL },
+  openGraph: { title: TITLE, description: DESC, url: SITE_URL },
+  twitter: { title: TITLE, description: DESC },
 };
 
 const GOLD_SHIMMER: React.CSSProperties = {
@@ -387,7 +392,7 @@ export default function HomePage() {
             }}
           >
             {PROJECTS.slice(0, 2).map((p) => (
-              <ProjectCard key={p.slug} project={p} toConfigurator />
+              <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
           </FadeIn>
@@ -403,7 +408,7 @@ export default function HomePage() {
             }}
           >
             {PROJECTS.slice(2, 4).map((p) => (
-              <ProjectCard key={p.slug} project={p} toConfigurator />
+              <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
           </FadeIn>

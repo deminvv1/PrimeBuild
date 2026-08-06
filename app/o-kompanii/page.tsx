@@ -9,10 +9,15 @@ import FadeIn from '@/components/FadeIn'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
+const TITLE = 'О компании — BuildX'
+const DESC = 'BuildX — строительная компания в Московской области. Строим современные дома под ключ с плоской кровлей и панорамным остеклением.'
+
 export const metadata: Metadata = {
-  title: 'О компании — BuildX',
-  description: 'BuildX — строительная компания в Московской области. Строим современные дома под ключ с плоской кровлей и панорамным остеклением.',
+  title: TITLE,
+  description: DESC,
   alternates: { canonical: `${SITE_URL}/o-kompanii` },
+  openGraph: { title: TITLE, description: DESC, url: `${SITE_URL}/o-kompanii` },
+  twitter: { title: TITLE, description: DESC },
 }
 
 const STATS = [

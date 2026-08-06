@@ -13,10 +13,15 @@ import ComplectationSection from '@/components/ComplectationSection'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
+const TITLE = 'Подбор дома — BuildX'
+const DESC = 'Соберите свою планировку дома: этажность, спальни, мастер-бедрум, СПА-зона, гараж — и узнайте ориентировочную стоимость.'
+
 export const metadata: Metadata = {
-  title: 'Подбор дома — BuildX',
-  description: 'Соберите свою планировку дома: этажность, спальни, мастер-бедрум, СПА-зона, гараж — и узнайте ориентировочную стоимость.',
+  title: TITLE,
+  description: DESC,
   alternates: { canonical: `${SITE_URL}/proekty/podbor-doma` },
+  openGraph: { title: TITLE, description: DESC, url: `${SITE_URL}/proekty/podbor-doma` },
+  twitter: { title: TITLE, description: DESC },
 }
 
 const LABEL: React.CSSProperties = {
@@ -111,7 +116,8 @@ export default async function PodborDomaPage({ searchParams }: Props) {
           <div style={{ height: 64 }} />
         </section>
 
-        {/* ── FINISH OPTIONS ── */}
+        {/* ── FINISH OPTIONS ──
+        Временно закомментировано — дублирует информацию с блоком «Комплектация» выше.
         <section style={{ position: 'relative' }}>
           <SectionLines delay={200} threshold={0.1} />
           <FadeIn>
@@ -153,6 +159,7 @@ export default async function PodborDomaPage({ searchParams }: Props) {
             <AnimatedLine length="100%" delay={200} threshold={0.1} />
           </div>
         </section>
+        */}
       </PodborDomaClient>
 
       <style>{`

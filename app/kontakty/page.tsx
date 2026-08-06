@@ -12,10 +12,15 @@ const PHONE_HREF = 'tel:+79859330121'
 const EMAIL = 'Mail@vvsamohin.ru'
 const WORKING_HOURS = 'Пн–Пт 9:00–19:00, Сб 10:00–16:00'
 
+const TITLE = 'Контакты — BuildX'
+const DESC = 'Контакты строительной компании BuildX. Телефон, email, режим работы. Московская область.'
+
 export const metadata: Metadata = {
-  title: 'Контакты — BuildX',
-  description: 'Контакты строительной компании BuildX. Телефон, email, режим работы. Московская область.',
+  title: TITLE,
+  description: DESC,
   alternates: { canonical: `${SITE_URL}/kontakty` },
+  openGraph: { title: TITLE, description: DESC, url: `${SITE_URL}/kontakty` },
+  twitter: { title: TITLE, description: DESC },
 }
 
 const CONTACTS = [

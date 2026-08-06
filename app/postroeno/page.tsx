@@ -9,10 +9,15 @@ import ZoomableImage from '@/components/ZoomableImage'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
+const TITLE = 'Построено — реализованный объект — BuildX'
+const DESC = 'Реальные фото сданного объекта BuildX: одноэтажный дом с плоской кровлей, панорамным остеклением, закрытым бассейном и премиальной отделкой.'
+
 export const metadata: Metadata = {
-  title: 'Построено — реализованный объект | BuildX',
-  description: 'Реальные фото сданного объекта BuildX: одноэтажный дом с плоской кровлей, панорамным остеклением, закрытым бассейном и премиальной отделкой.',
+  title: TITLE,
+  description: DESC,
   alternates: { canonical: `${SITE_URL}/postroeno` },
+  openGraph: { title: TITLE, description: DESC, url: `${SITE_URL}/postroeno` },
+  twitter: { title: TITLE, description: DESC },
 }
 
 interface GalleryPhoto {

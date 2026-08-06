@@ -10,15 +10,11 @@ const CATEGORY_LABEL: Record<string, string> = { mini: 'Mini', midi: 'Midi', max
 
 interface Props {
   project: Project
-  /** Вместо страницы проекта — сразу в конструктор с его параметрами (этажи/спальни/гараж/спа). */
-  toConfigurator?: boolean
 }
 
-export default function ProjectCard({ project, toConfigurator }: Props) {
+export default function ProjectCard({ project }: Props) {
   const [hovered, setHovered] = useState(false)
-  const href = toConfigurator
-    ? `/proekty/podbor-doma?${configToQuery(project)}`
-    : `/proekty/${project.slug}`
+  const href = `/proekty/podbor-doma?${configToQuery(project)}`
 
   const specs = (
     <div style={{ display: 'flex', gap: 20, marginBottom: 12 }}>

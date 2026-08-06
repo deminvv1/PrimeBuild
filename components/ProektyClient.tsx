@@ -131,7 +131,7 @@ export default function ProektyClient() {
                         columnGap: 16,
                         padding: '16px 20px',
                       }}>
-                        {row.map(p => <ProjectCard key={p.slug} project={p} toConfigurator />)}
+                        {row.map(p => <ProjectCard key={p.slug} project={p} />)}
                       </div>
                     </div>
                   )

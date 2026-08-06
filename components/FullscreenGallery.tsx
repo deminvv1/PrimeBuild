@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { GalleryImage } from '@/data/houseConfigurator'
+import { IMAGE_DIMENSIONS } from '@/data/imageDimensions'
 
 const SWIPE_THRESHOLD = 40
 
@@ -10,11 +11,8 @@ export default function FullscreenGallery({ images }: { images: GalleryImage[] }
   const [index, setIndex] = useState(0)
   const dragRef = useRef<{ x: number; y: number; locked: 'x' | 'y' | null } | null>(null)
 
-  const hasPrev = index > 0
-  const hasNext = index < images.length - 1
-
-  const prev = () => { if (hasPrev) setIndex((i) => i - 1) }
-  const next = () => { if (hasNext) setIndex((i) => i + 1) }
+  const prev = () => setIndex((i) => (i - 1 + images.length) % images.length)
+  const next = () => setIndex((i) => (i + 1) % images.length)
 
   const handleTouchStart = (e: React.TouchEvent) => {
     const t = e.touches[0]
@@ -75,7 +73,20 @@ export default function FullscreenGallery({ images }: { images: GalleryImage[] }
                 />
               </>
             ) : (
-              <Image src={img.src} alt={img.label} fill sizes="100vw" quality={90} className="fs-gallery-img" style={{ objectFit: 'cover' }} priority={i === 0} />
+              <>
+                {/* Размытый фон-подложка — заполняет края, если экран шире реального разрешения фото */}
+                <Image
+                  src={img.src} alt="" aria-hidden fill sizes="100vw" quality={60}
+                  style={{ objectFit: 'cover', filter: 'blur(30px) brightness(0.55)', transform: 'scale(1.15)' }}
+                  priority={i === 0}
+                />
+                <div style={{ position: 'absolute', inset: 0, maxWidth: IMAGE_DIMENSIONS[img.src]?.width, margin: '0 auto' }}>
+                  <Image
+                    src={img.src} alt={img.label} fill sizes="100vw" quality={90}
+                    className="fs-gallery-img" style={{ objectFit: 'cover' }} priority={i === 0}
+                  />
+                </div>
+              </>
             )
           ) : (
             <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#242424' }}>

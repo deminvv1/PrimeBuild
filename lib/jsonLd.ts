@@ -6,6 +6,7 @@ export const orgJsonLd = {
   '@id': SITE_URL,
   name: 'BuildX',
   url: SITE_URL,
+  image: `${SITE_URL}/images/logo.svg`,
   telephone: '+7-985-933-01-21',
   email: 'Mail@vvsamohin.ru',
   description: 'Строительная компания в Московской области. Строим дома под ключ за 6 месяцев с фиксированной ценой в договоре и независимым технадзором.',

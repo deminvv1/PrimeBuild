@@ -8,9 +8,8 @@ import { usePathname } from 'next/navigation'
 const PHONE = '+7 (985) 933-01-21'
 const PHONE_HREF = 'tel:+79859330121'
 
-// TODO: вставить реальные ссылки на Telegram и MAX
-const TELEGRAM_HREF = '#'
-const MAX_HREF = '#'
+const TELEGRAM_HREF = '/telegram'
+const MAX_HREF = '/max'
 
 const GOLD_SHIMMER: React.CSSProperties = {
   background: 'linear-gradient(105deg, #b8924a 0%, #C9A96E 28%, #f5e4aa 50%, #C9A96E 72%, #b8924a 100%)',
@@ -118,16 +117,16 @@ export default function Header() {
           {/* Phone + CTA */}
           <div className="hdr-right" style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-              <a href={TELEGRAM_HREF} target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="hdr-social-link hdr-social-link--tg" style={{
+              <Link href={TELEGRAM_HREF} aria-label="Telegram" className="hdr-social-link hdr-social-link--tg" style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <TelegramIcon className="hdr-social-icon" />
-              </a>
-              <a href={MAX_HREF} target="_blank" rel="noopener noreferrer" aria-label="MAX" className="hdr-social-link hdr-social-link--max" style={{
+              </Link>
+              <Link href={MAX_HREF} aria-label="MAX" className="hdr-social-link hdr-social-link--max" style={{
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 <MaxIcon className="hdr-social-icon" />
-              </a>
+              </Link>
             </div>
             <a href={PHONE_HREF} style={{
               fontFamily: 'var(--font-sans)', fontSize: 15, fontWeight: 500,
@@ -148,16 +147,16 @@ export default function Header() {
 
           {/* Mobile quick actions */}
           <div className="hdr-mobile-actions" style={{ display: 'none', alignItems: 'center', gap: 14 }}>
-            <a href={TELEGRAM_HREF} target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="hdr-social-link hdr-social-link--tg" style={{
+            <Link href={TELEGRAM_HREF} aria-label="Telegram" className="hdr-social-link hdr-social-link--tg" style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
               <TelegramIcon className="hdr-social-icon" />
-            </a>
-            <a href={MAX_HREF} target="_blank" rel="noopener noreferrer" aria-label="MAX" className="hdr-social-link hdr-social-link--max" style={{
+            </Link>
+            <Link href={MAX_HREF} aria-label="MAX" className="hdr-social-link hdr-social-link--max" style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>
               <MaxIcon className="hdr-social-icon" />
-            </a>
+            </Link>
             <a href={PHONE_HREF} aria-label="Позвонить" className="hdr-social-link hdr-social-link--phone" style={{
               display: 'flex', alignItems: 'center', justifyContent: 'center',
             }}>

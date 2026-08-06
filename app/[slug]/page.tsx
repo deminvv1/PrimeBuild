@@ -26,10 +26,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = getSeoPage(slug)
   if (!page) return {}
 
+  const url = `${SITE_URL}/${page.slug}`
   return {
     title: page.metaTitle,
     description: page.metaDescription,
-    alternates: { canonical: `${SITE_URL}/${page.slug}` },
+    alternates: { canonical: url },
+    openGraph: { title: page.metaTitle, description: page.metaDescription, url },
+    twitter: { title: page.metaTitle, description: page.metaDescription },
   }
 }
 

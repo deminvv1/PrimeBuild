@@ -1,9 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
+  agentRules: false,
   images: {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: process.env.NODE_ENV === 'development' ? 0 : 86400,
+    qualities: [60, 75, 90],
   },
   async redirects() {
     return [
@@ -14,11 +16,11 @@ const nextConfig = {
     const isDev = process.env.NODE_ENV === 'development'
     const csp = [
       "default-src 'self'",
-      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://mc.yandex.ru https://www.googletagmanager.com`,
+      `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://mc.yandex.ru https://www.googletagmanager.com https://vk.com`,
       "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: https://mc.yandex.ru https://www.google-analytics.com",
+      "img-src 'self' data: https://mc.yandex.ru https://www.google-analytics.com https://vk.com",
       "font-src 'self' data:",
-      `connect-src 'self' https://mc.yandex.ru https://*.google-analytics.com https://*.analytics.google.com${isDev ? ' ws: wss:' : ''}`,
+      `connect-src 'self' https://mc.yandex.ru https://*.google-analytics.com https://*.analytics.google.com https://vk.com${isDev ? ' ws: wss:' : ''}`,
       "frame-src https://mc.yandex.ru",
       "object-src 'none'",
       "base-uri 'self'",

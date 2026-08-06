@@ -2,6 +2,8 @@
 
 import { useState, useRef, useLayoutEffect } from 'react'
 import Link from 'next/link'
+import { formatRuPhone, isValidRuPhone } from '@/lib/phone'
+import { useDeferredLead } from '@/lib/useDeferredLead'
 
 interface Props {
   source?: string
@@ -24,6 +26,8 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
   const [hovered, setHovered] = useState(false)
   const wrapRef = useRef<HTMLDivElement>(null)
 
+  useDeferredLead(phone, source, { name, comment })
+
   useLayoutEffect(() => {
     const el = wrapRef.current
     if (!el) return
@@ -39,7 +43,7 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (phone.replace(/\D/g, '').length < 10) { setPhoneError(true); return }
+    if (!isValidRuPhone(phone)) { setPhoneError(true); return }
     setPhoneError(false)
     if (!agree) { setAgreeError(true); return }
     setAgreeError(false)
@@ -95,8 +99,9 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
 
       <div>
         <input
-          type="tel" value={phone} onChange={e => { setPhone(e.target.value); setPhoneError(false) }}
-          placeholder="+7 (___) ___-__-__" aria-label="Ваш телефон" autoComplete="tel"
+          type="tel" value={phone} onChange={e => { setPhone(formatRuPhone(e.target.value)); setPhoneError(false) }}
+          placeholder="+7 (999) 999-99-99" aria-label="Ваш телефон" autoComplete="tel"
+          maxLength={18} inputMode="tel"
           aria-invalid={phoneError} required
           style={{ ...inputStyle, background: inputBg, border: `1px solid ${phoneError ? '#e53e3e' : inputBorder}`, color: textColor }}
           onFocus={e => (e.target.style.borderColor = phoneError ? '#e53e3e' : inputBorderFocus)}
@@ -104,7 +109,7 @@ export default function ContactForm({ source = 'main', buttonLabel = 'Получ
         />
         {phoneError && (
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: '#e53e3e', marginTop: 4 }}>
-            Введите корректный номер телефона
+            Введите номер полностью, в формате +7 (999) 999-99-99
           </p>
         )}
       </div>

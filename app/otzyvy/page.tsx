@@ -5,10 +5,15 @@ import Breadcrumb from '@/components/Breadcrumb'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://build-x.pro'
 
+const TITLE = 'Отзывы клиентов — BuildX'
+const DESC = 'Отзывы о строительстве домов под ключ в Московской области.'
+
 export const metadata: Metadata = {
-  title: 'Отзывы клиентов — BuildX',
-  description: 'Отзывы о строительстве домов под ключ в Московской области.',
+  title: TITLE,
+  description: DESC,
   alternates: { canonical: `${SITE_URL}/otzyvy` },
+  openGraph: { title: TITLE, description: DESC, url: `${SITE_URL}/otzyvy` },
+  twitter: { title: TITLE, description: DESC },
 }
 
 const REVIEWS: { name: string; text: string; date: string; rating: number; photo?: string }[] = []

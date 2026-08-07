@@ -12,8 +12,7 @@ const GOLD_SHIMMER: React.CSSProperties = {
   animation: 'btn-gold-shimmer 3.5s linear infinite',
 }
 
-// TODO: вставить реальную ссылку на контакт компании в MAX
-const COMPANY_MAX_URL = '#'
+const COMPANY_MAX_URL = 'https://max.ru/u/f9LHodD0cOK40wm-W0V18bTlb2qrm87RrBvr0Q1DkK9s7kmLBzNWBZ2bb6I'
 const LEAD_COMMENT = 'Заявка со страницы /max — хочет перейти в MAX-чат с менеджером.'
 
 export default function MaxLeadForm() {

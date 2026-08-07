@@ -550,6 +550,10 @@ export const IMAGE_DIMENSIONS: Record<string, { width: number; height: number }>
     "height": 2387
   },
   "/images/konstruktor/2-5-1-1/photo-1.webp": {
+    "width": 1672,
+    "height": 941
+  },
+  "/images/konstruktor/2-5-1-1/photo-12.webp": {
     "width": 1376,
     "height": 768
   },
@@ -582,10 +586,18 @@ export const IMAGE_DIMENSIONS: Record<string, { width: number; height: number }>
     "height": 1086
   },
   "/images/konstruktor/interior-396/guest-bedroom-3.webp": {
+    "width": 2640,
+    "height": 1600
+  },
+  "/images/konstruktor/interior-396/guest-bedroom-31.webp": {
     "width": 1321,
     "height": 800
   },
   "/images/konstruktor/interior-396/guest-bedroom.webp": {
+    "width": 2888,
+    "height": 2168
+  },
+  "/images/konstruktor/interior-396/guest-bedroom1.webp": {
     "width": 1447,
     "height": 1087
   },
@@ -614,6 +626,10 @@ export const IMAGE_DIMENSIONS: Record<string, { width: number; height: number }>
     "height": 1086
   },
   "/images/konstruktor/interior-396/master-bedroom.webp": {
+    "width": 2784,
+    "height": 1536
+  },
+  "/images/konstruktor/interior-396/master-bedroom2.webp": {
     "width": 1394,
     "height": 768
   },

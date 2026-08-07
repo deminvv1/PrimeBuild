@@ -290,6 +290,14 @@ export const IMAGE_DIMENSIONS: Record<string, { width: number; height: number }>
     "height": 4136
   },
   "/images/konstruktor/1-5-1-0/photo-1.webp": {
+    "width": 1671,
+    "height": 941
+  },
+  "/images/konstruktor/1-5-1-0/photo-12.webp": {
+    "width": 1280,
+    "height": 720
+  },
+  "/images/konstruktor/1-5-1-0/photo-13.webp": {
     "width": 1280,
     "height": 720
   },
@@ -310,6 +318,10 @@ export const IMAGE_DIMENSIONS: Record<string, { width: number; height: number }>
     "height": 4136
   },
   "/images/konstruktor/1-5-1-1/photo-1.webp": {
+    "width": 1672,
+    "height": 941
+  },
+  "/images/konstruktor/1-5-1-1/photo-13.webp": {
     "width": 1280,
     "height": 720
   },
